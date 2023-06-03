@@ -1,4 +1,5 @@
 using SupplyChainManagement.Data;
+using SupplyChainManagement.Services.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<DbSettings>(
     builder.Configuration.GetSection("SupplyManagementDatabase"));
+
+builder.Services.AddSingleton<UsersService>();
 
 var app = builder.Build();
 
