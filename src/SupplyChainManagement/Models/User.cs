@@ -1,17 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 
 namespace SupplyChainManagement.Models
 {
     public class User
     {
-        public int UserId { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         [Required]
         [Display(Name = "Họ và tên")]
         public string UserName { get; set; }
 
         [Display(Name = "Loại")]
-        public int UserTypeId { get; set; }
+        public string UserTypeId { get; set; }
 
         public Address Address { get; set; }
 
@@ -21,5 +25,7 @@ namespace SupplyChainManagement.Models
         [Display(Name = "Địa chỉ email")]
         public string Email { get; set; }
 
+        [Display(Name = "Kích hoạt")]
+        public bool Activated { get; set; }
     }
 }

@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SupplyChainManagement.Models
 {
+    /// <summary>
+    /// Địa chỉ
+    /// </summary>
     public class Address
     {
         [Display(Name = "Số nhà")]
@@ -18,5 +22,7 @@ namespace SupplyChainManagement.Models
 
         [Display(Name = "Mã bưu chính")]
         public string ZipCode { get; set; }
+
+        public GeoCoordinate GeoCoordinate { get; set; }
     }
 }

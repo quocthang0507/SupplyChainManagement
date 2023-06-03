@@ -5,6 +5,7 @@ namespace SupplyChainManagement.Models
     public class Product
     {
         public int ProductId { get; set; }
+        public int ProductTypeId { get; set; }
         [Required]
         public string ProductName { get; set; }
         public string ProductCode { get; set; }

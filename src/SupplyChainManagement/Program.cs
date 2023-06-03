@@ -1,7 +1,11 @@
+using SupplyChainManagement.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<DbSettings>(
+    builder.Configuration.GetSection("SupplyManagementDatabase"));
 
 var app = builder.Build();
 
