@@ -4,13 +4,12 @@ namespace SupplyChainManagement.Services
 {
     public class EmailSender : IEmailSender
     {
-        // dependency injection
+        //dependency injection
         private SendGridOptions _sendGridOptions { get; }
         private IFunctional _functional { get; }
         private SmtpOptions _smtpOptions { get; }
 
-        public EmailSender(
-            IOptions<SendGridOptions> sendGridOptions,
+        public EmailSender(IOptions<SendGridOptions> sendGridOptions,
             IFunctional functional,
             IOptions<SmtpOptions> smtpOptions)
         {
@@ -19,9 +18,10 @@ namespace SupplyChainManagement.Services
             _smtpOptions = smtpOptions.Value;
         }
 
+
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            // sendgrid is become default
+            //sendgrid is become default
             if (_sendGridOptions.IsDefault)
             {
                 _functional.SendEmailBySendGridAsync(_sendGridOptions.SendGridKey,
@@ -33,7 +33,7 @@ namespace SupplyChainManagement.Services
                                                     .Wait();
             }
 
-            // smtp is become default
+            //smtp is become default
             if (_smtpOptions.IsDefault)
             {
                 _functional.SendEmailByGmailAsync(_smtpOptions.fromEmail,
@@ -49,6 +49,8 @@ namespace SupplyChainManagement.Services
                                             _smtpOptions.smtpSSL)
                                             .Wait();
             }
+
+
             return Task.CompletedTask;
         }
     }

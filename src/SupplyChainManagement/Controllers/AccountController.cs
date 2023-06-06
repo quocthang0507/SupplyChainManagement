@@ -37,7 +37,7 @@ namespace SupplyChainManagement.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            // Clear the existing external cookie to ensure a clean login process
+            //Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -52,8 +52,8 @@ namespace SupplyChainManagement.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                //This doesn't count login failures towards account lockout
+                //To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -72,7 +72,7 @@ namespace SupplyChainManagement.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            //If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -116,7 +116,7 @@ namespace SupplyChainManagement.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
+            //If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -163,12 +163,12 @@ namespace SupplyChainManagement.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
+                    //Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
                 }
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https:// go.microsoft.com/fwlink/?LinkID=532713
+                //For more information on how to enable account confirmation and password reset please
+                //visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
@@ -176,7 +176,7 @@ namespace SupplyChainManagement.Controllers
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
-            // If we got this far, something failed, redisplay form
+            //If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -211,7 +211,7 @@ namespace SupplyChainManagement.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
+                //Don't reveal that the user does not exist
                 return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);

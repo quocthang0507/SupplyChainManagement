@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SupplyChainManagement.Models
 {
-    // / <summary>
-    // / Địa chỉ
-    // / </summary>
+    ///<summary>
+    ///Địa chỉ
+    ///</summary>
     public class Address
     {
         [Display(Name = "Số nhà")]

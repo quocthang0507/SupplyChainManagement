@@ -1,6 +1,6 @@
 ﻿namespace SupplyChainManagement.Models
 {
-    public class Farmer : UserProfile
+    public class Farmer : User
     {
     }
 }
