@@ -13,7 +13,7 @@ namespace SupplyChainManagement.Services.Database
         {
             var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
             var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
-            _usersCollection = mongoDb.GetCollection<UserProfile>(dbSettings.Value.UsersCollectionName);
+            _usersCollection = mongoDb.GetCollection<UserProfile>(dbSettings.Value.UserProfilesCollectionName);
         }
 
         public async Task<List<UserProfile>> GetAsync() =>

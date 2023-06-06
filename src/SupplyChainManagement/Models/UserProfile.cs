@@ -13,7 +13,7 @@ namespace SupplyChainManagement.Models
         [Display(Name = "Loại")]
         public string UserTypeId { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public Guid ApplicationUserId { get; set; }
 
         [Required]
         [Display(Name = "Họ")]

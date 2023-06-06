@@ -4,7 +4,7 @@ namespace SupplyChainManagement.Services
 {
     public class EmailSender : IEmailSender
     {
-        //dependency injection
+        // dependency injection
         private SendGridOptions _sendGridOptions { get; }
         private IFunctional _functional { get; }
         private SmtpOptions _smtpOptions { get; }
@@ -21,7 +21,7 @@ namespace SupplyChainManagement.Services
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            //sendgrid is become default
+            // sendgrid is become default
             if (_sendGridOptions.IsDefault)
             {
                 _functional.SendEmailBySendGridAsync(_sendGridOptions.SendGridKey,
@@ -33,7 +33,7 @@ namespace SupplyChainManagement.Services
                                                     .Wait();
             }
 
-            //smtp is become default
+            // smtp is become default
             if (_smtpOptions.IsDefault)
             {
                 _functional.SendEmailByGmailAsync(_smtpOptions.fromEmail,

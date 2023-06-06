@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using SupplyChainManagement.Data;
+using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;
 
 namespace SupplyChainManagement.Extensions
@@ -9,6 +11,7 @@ namespace SupplyChainManagement.Extensions
         public static IServiceCollection AddConfig(
             this IServiceCollection services, IConfiguration configuration)
         {
+            var dbSettings = configuration.GetSection("SupplyManagementDatabase").Get<DbSettings>();
             services.Configure<DbSettings>(configuration.GetSection("SupplyManagementDatabase"));
 
             // Get Identity Default Options
@@ -16,7 +19,7 @@ namespace SupplyChainManagement.Extensions
             services.Configure<IdentityDefaultOptions>(identityDefaultOptionsConfigurationSection);
 
             var identityDefaultOptions = identityDefaultOptionsConfigurationSection.Get<IdentityDefaultOptions>();
-            services.Configure<IdentityOptions>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 // Password settings
                 options.Password.RequireDigit = identityDefaultOptions.PasswordRequireDigit;
@@ -36,14 +39,17 @@ namespace SupplyChainManagement.Extensions
 
                 // Email confirmation require
                 options.SignIn.RequireConfirmedEmail = identityDefaultOptions.SignInRequireConfirmedEmail;
-            });
+            })
+                .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(
+                    dbSettings.ConnectionString, dbSettings.DatabaseName
+                );
 
             // cookie settings
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = identityDefaultOptions.CookieHttpOnly;
-                options.Cookie.Expiration = TimeSpan.FromDays(identityDefaultOptions.CookieExpiration);
+                options.ExpireTimeSpan = TimeSpan.FromDays(identityDefaultOptions.CookieExpiration);
                 options.LoginPath = identityDefaultOptions.LoginPath; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
                 options.LogoutPath = identityDefaultOptions.LogoutPath; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
                 options.AccessDeniedPath = identityDefaultOptions.AccessDeniedPath; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
@@ -67,7 +73,7 @@ namespace SupplyChainManagement.Extensions
             // Add email services
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddTransient<IRoles, Roles>();
+            //services.AddTransient<IRoles, Roles>();
 
             services.AddTransient<IFunctional, Functional>();
 

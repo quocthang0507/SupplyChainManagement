@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -14,24 +13,21 @@ namespace SupplyChainManagement.Services
     {
         private readonly UsersService _usersService;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IRoles _roles;
         private readonly SuperAdminDefaultOptions _superAdminDefaultOptions;
 
         public Functional(
             UsersService usersService,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<ApplicationRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
-            IRoles roles,
             IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions)
         {
             _usersService = usersService;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
-            _roles = roles;
             _superAdminDefaultOptions = superAdminDefaultOptions.Value;
         }
 
@@ -39,8 +35,6 @@ namespace SupplyChainManagement.Services
         {
             try
             {
-                await _roles.GenerateRolesFromPagesAsync();
-
                 ApplicationUser superAdmin = new ApplicationUser();
                 superAdmin.Email = _superAdminDefaultOptions.Email;
                 superAdmin.UserName = superAdmin.Email;
@@ -57,7 +51,7 @@ namespace SupplyChainManagement.Services
                     profile.Email = superAdmin.Email;
                     profile.ApplicationUserId = superAdmin.Id;
                     await _usersService.CreateAsync(profile);
-                    await _roles.AddToRoles(superAdmin.Id);
+                    await _roleManager.CreateAsync(new ApplicationRole() { Id = superAdmin.Id });
                 }
             }
             catch (Exception)
