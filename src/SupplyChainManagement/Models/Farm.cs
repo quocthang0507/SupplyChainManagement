@@ -3,9 +3,9 @@ using MongoDB.Bson;
 
 namespace SupplyChainManagement.Models
 {
-    /// <summary>
-    /// Nông trại
-    /// </summary>
+    // / <summary>
+    // / Nông trại
+    // / </summary>
     public class Farm
     {
         [BsonId]
@@ -15,9 +15,9 @@ namespace SupplyChainManagement.Models
         public string FarmName { get; set; }
         public string Description { get; set; }
         public Address FarmAddress { get; set; }
-        /// <summary>
-        /// Danh sách các thửa đất trong nông trại
-        /// </summary>
+        // / <summary>
+        // / Danh sách các thửa đất trong nông trại
+        // / </summary>
         public List<LandParcel> LandParcels { get; set; }
     }
 }

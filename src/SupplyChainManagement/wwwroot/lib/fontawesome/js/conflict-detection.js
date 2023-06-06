@@ -1,6 +1,6 @@
 /*!
- * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Font Awesome Free 6.4.0 by @fontawesome - https:// fontawesome.com
+ * License - https:// fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
 (function (global, factory) {
@@ -763,7 +763,7 @@
         });
       };
 
-      var parentOrigin = WINDOW.location.origin === 'file://' ? '*' : WINDOW.location.origin;
+      var parentOrigin = WINDOW.location.origin === 'file:// ' ? '*' : WINDOW.location.origin;
       diagScript.innerText = "(".concat(diagScriptFun.toString(), ")('").concat(nodeUnderTestId, "', '").concat(testIconId || 'foo', "', '").concat(md5, "', '").concat(parentOrigin, "');");
 
       diagFrame.onload = function () {
@@ -830,7 +830,7 @@
       scriptUnderTest.async = true;
       var diagScript = DOCUMENT.createElement('script');
       diagScript.setAttribute('id', diagScriptId);
-      var parentOrigin = WINDOW.location.origin === 'file://' ? '*' : WINDOW.location.origin;
+      var parentOrigin = WINDOW.location.origin === 'file:// ' ? '*' : WINDOW.location.origin;
 
       var diagScriptFun = function diagScriptFun(nodeUnderTestId, md5, parentOrigin) {
         parent.FontAwesomeDetection.__pollUntil({
@@ -901,7 +901,7 @@
     };
 
     WINDOW.onmessage = function (e) {
-      if (WINDOW.location.origin === 'file://' || e.origin === WINDOW.location.origin) {
+      if (WINDOW.location.origin === 'file:// ' || e.origin === WINDOW.location.origin) {
         if (e && e.data) {
           if (e.data.type === 'fontawesome-conflict') {
             nodesTested.conflict[e.data.md5] = e.data;

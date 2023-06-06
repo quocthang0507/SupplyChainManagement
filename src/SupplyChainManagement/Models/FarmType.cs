@@ -2,9 +2,9 @@
 
 namespace SupplyChainManagement.Models
 {
-    /// <summary>
-    /// Loại nông trại
-    /// </summary>
+    // / <summary>
+    // / Loại nông trại
+    // / </summary>
     public class FarmType
     {
         public int FarmTypeId { get; set; }
