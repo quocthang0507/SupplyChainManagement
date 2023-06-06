@@ -64,7 +64,7 @@ namespace SupplyChainManagement.Extensions
 
         public static IServiceCollection AddMyDependencyGroup(this IServiceCollection services)
         {
-            // Add email services.
+            // Add email services
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddTransient<IRoles, Roles>();

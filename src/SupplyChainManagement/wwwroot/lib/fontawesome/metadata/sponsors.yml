@@ -27,7 +27,7 @@ algolia:
   icons:
     - algolia
   label: Algolia
-  url: 'http:// www.algolia.com'
+  url: 'http://www.algolia.com'
 amazon-web-services:
   icons:
     - aws
@@ -37,7 +37,7 @@ amilia:
   icons:
     - amilia
   label: Amilia
-  url: 'http:// www.amilia.com'
+  url: 'http://www.amilia.com'
 angry-creative:
   icons:
     - angrycreative
@@ -52,12 +52,12 @@ apper-systems-ab:
   icons:
     - apper
   label: Apper Systems AB
-  url: 'http:// www.apper.com'
+  url: 'http://www.apper.com'
 'asymmetrik,ltd':
   icons:
     - asymmetrik
   label: 'Asymmetrik, Ltd.'
-  url: 'http:// asymmetrik.com'
+  url: 'http://asymmetrik.com'
 ausmed-education:
   icons:
     - user-nurse
@@ -72,12 +72,12 @@ bi-mobject:
   icons:
     - bimobject
   label: BIMobject
-  url: 'http:// bimobject.com'
+  url: 'http://bimobject.com'
 bity:
   icons:
     - bity
   label: Bity
-  url: 'http:// bity.com'
+  url: 'http://bity.com'
 blackpulp-designs:
   icons:
     - person-praying
@@ -113,7 +113,7 @@ c-panel:
   icons:
     - cpanel
   label: cPanel
-  url: 'http:// cpanel.com'
+  url: 'http://cpanel.com'
 cab-md:
   icons:
     - trillium
@@ -128,12 +128,12 @@ cibltd:
   icons:
     - drum-steelpan
   label: Comprehensive Insurance Brokers Limited
-  url: 'http:// www.cibltd.com'
+  url: 'http://www.cibltd.com'
 clear-blue-technologies:
   icons:
     - solar-panel
   label: Clear Blue Technologies
-  url: 'http:// www.clearbluetechnologies.com'
+  url: 'http://www.clearbluetechnologies.com'
 clicdata:
   icons:
     - chart-bullet
@@ -187,12 +187,12 @@ cmplid:
   icons:
     - cmplid
   label: Cmplid
-  url: 'http:// cmplid.com'
+  url: 'http://cmplid.com'
 cuttlefish:
   icons:
     - cuttlefish
   label: Cuttlefish
-  url: 'http:// wearecuttlefish.com'
+  url: 'http://wearecuttlefish.com'
 cymedica:
   icons:
     - wave-square
@@ -212,12 +212,12 @@ deploy-dog:
   icons:
     - deploydog
   label: deploy.dog
-  url: 'http:// deploy.dog'
+  url: 'http://deploy.dog'
 deskpro:
   icons:
     - deskpro
   label: Deskpro
-  url: 'http:// www.deskpro.com'
+  url: 'http://www.deskpro.com'
 discourse:
   icons:
     - discourse
@@ -232,7 +232,7 @@ draft2-digital:
   icons:
     - draft2digital
   label: Draft2Digital
-  url: 'http:// draft2digital.com'
+  url: 'http://draft2digital.com'
 dragnsurvey:
   icons:
     - user-magnifying-glass
@@ -242,7 +242,7 @@ dyalog-apl:
   icons:
     - dyalog
   label: Dyalog APL
-  url: 'http:// www.dyalog.com'
+  url: 'http://www.dyalog.com'
 econopublish:
   icons:
     - hat-cowboy-side
@@ -252,7 +252,7 @@ firstdraft:
   icons:
     - firstdraft
   label: firstdraft
-  url: 'http:// www.firstdraft.com'
+  url: 'http://www.firstdraft.com'
 fleetplan:
   icons:
     - helicopter
@@ -280,7 +280,7 @@ gofore:
   icons:
     - gofore
   label: Gofore
-  url: 'http:// gofore.com'
+  url: 'http://gofore.com'
 graflr:
   icons:
     - binary-circle-check
@@ -295,7 +295,7 @@ gripfire-inc:
   icons:
     - gripfire
   label: 'Gripfire, Inc.'
-  url: 'http:// gripfire.io'
+  url: 'http://gripfire.io'
 guilded:
   icons:
     - guilded
@@ -403,7 +403,7 @@ hub-spot:
   icons:
     - hubspot
   label: HubSpot
-  url: 'http:// www.HubSpot.com'
+  url: 'http://www.HubSpot.com'
 icis:
   icons:
     - arrow-progress
@@ -458,7 +458,7 @@ joget:
   icons:
     - joget
   label: Joget
-  url: 'http:// www.joget.org'
+  url: 'http://www.joget.org'
 john-campion:
   icons:
     - buoy
@@ -510,7 +510,7 @@ med-apps:
   icons:
     - medapps
   label: MedApps
-  url: 'http:// medapps.com.au'
+  url: 'http://medapps.com.au'
 medapps:
   icons:
     - book-medical
@@ -545,12 +545,12 @@ mix:
   icons:
     - mix
   label: Mix
-  url: 'http:// mix.com'
+  url: 'http://mix.com'
 mizuni:
   icons:
     - mizuni
   label: Mizuni
-  url: 'http:// www.mizuni.com'
+  url: 'http://www.mizuni.com'
 mrt:
   icons:
     - medrt
@@ -565,7 +565,7 @@ napster:
   icons:
     - napster
   label: Napster
-  url: 'http:// www.napster.com'
+  url: 'http://www.napster.com'
 nfc-forum:
   icons:
     - nfc-directional
@@ -610,7 +610,7 @@ nutritionix:
   icons:
     - nutritionix
   label: Nutritionix
-  url: 'http:// www.nutritionix.com'
+  url: 'http://www.nutritionix.com'
 octopus-deploy:
   icons:
     - octopus-deploy
@@ -687,7 +687,7 @@ phabricator:
   icons:
     - phabricator
   label: Phabricator
-  url: 'http:// phacility.com'
+  url: 'http://phacility.com'
 pindigo:
   icons:
     - person-pinball
@@ -708,7 +708,7 @@ polpharma:
   icons:
     - puzzle
   label: Polpharma
-  url: 'http:// www.polpharma.com'
+  url: 'http://www.polpharma.com'
 preflight-technologies-inc:
   icons:
     - person-seat
@@ -722,7 +722,7 @@ preflight-technologies-inc:
     - user-pilot
     - user-pilot-tie
   label: Preflight Technologies Incorporated
-  url: 'http:// www.preflighttech.com'
+  url: 'http://www.preflighttech.com'
 promo-wizard:
   icons:
     - hat-wizard
@@ -757,7 +757,7 @@ readme-io:
   icons:
     - readme
   label: Readme.io
-  url: 'http:// readme.io'
+  url: 'http://readme.io'
 red-river:
   icons:
     - red-river
@@ -793,7 +793,7 @@ rock-rms:
   icons:
     - rockrms
   label: Rock RMS
-  url: 'http:// rockrms.com'
+  url: 'http://rockrms.com'
 rocket-chat:
   icons:
     - comment
@@ -846,7 +846,7 @@ schlix:
   icons:
     - schlix
   label: SCHLIX
-  url: 'http:// schlix.com'
+  url: 'http://schlix.com'
 screenpal:
   icons:
     - screenpal
@@ -856,7 +856,7 @@ search-eng-in:
   icons:
     - searchengin
   label: SearchEng.in
-  url: 'http:// searcheng.in'
+  url: 'http://searcheng.in'
 service-stack:
   icons:
     - servicestack
@@ -877,7 +877,7 @@ shp:
   icons:
     - school
   label: SHP
-  url: 'http:// shp.com'
+  url: 'http://shp.com'
 silicon-barn-inc:
   icons:
     - diagram-project
@@ -995,7 +995,7 @@ the-red-yeti:
   icons:
     - the-red-yeti
   label: The Red Yeti
-  url: 'http:// theredyeti.com'
+  url: 'http://theredyeti.com'
 the-us-sunnah-foundation:
   icons:
     - book-heart
@@ -1325,7 +1325,7 @@ vaadin:
   icons:
     - vaadin
   label: Vaadin
-  url: 'http:// vaadin.com'
+  url: 'http://vaadin.com'
 van-raam:
   icons:
     - tricycle-adult

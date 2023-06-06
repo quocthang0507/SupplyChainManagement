@@ -1529,7 +1529,7 @@
         'data-icon': iconName,
         'class': attrClass,
         'role': extra.attributes.role || 'img',
-        'xmlns': 'http:// www.w3.org/2000/svg',
+        'xmlns': 'http://www.w3.org/2000/svg',
         'viewBox': "0 0 ".concat(width, " ").concat(height)
       })
     };
@@ -1823,7 +1823,7 @@
   }
 
   function createElementNS(tag) {
-    return DOCUMENT.createElementNS('http:// www.w3.org/2000/svg', tag);
+    return DOCUMENT.createElementNS('http://www.w3.org/2000/svg', tag);
   }
 
   function createElement(tag) {

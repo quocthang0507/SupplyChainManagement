@@ -2,6 +2,10 @@ using SupplyChainManagement.Services.Database;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using SupplyChainManagement.Extensions;
+using Microsoft.AspNetCore.Identity;
+using SupplyChainManagement.Models;
+using SupplyChainManagement.Services;
+using SupplyChainManagement.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,25 +24,30 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
+builder.Services.AddRazorPages();
+
 // =======================================================================
 
 var app = builder.Build();
 
-// using (var scope = app.Services.CreateScope())
-// {
-//    var services = scope.ServiceProvider;
-//    try
-//    {
-//        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-//        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-//        var functional = services.GetRequiredService<IFunctional>();
-//    }
-//    catch (Exception ex)
-//    {
-//        var logger = services.GetRequiredService<ILogger<Program>>();
-//        logger.LogError(ex, "An error occurred while seeding the database.");
-//    }
-// }
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var usersService = services.GetRequiredService<UsersService>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var functional = services.GetRequiredService<IFunctional>();
+
+        DbInitializer.Initialize(usersService, functional);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -59,7 +68,5 @@ app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-builder.Services.AddRazorPages();
 
 app.Run();
