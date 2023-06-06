@@ -7,35 +7,35 @@ namespace SupplyChainManagement.Services.Database
 {
     public class UsersService
     {
-        private readonly IMongoCollection<User> _usersCollection;
+        private readonly IMongoCollection<UserProfile> _usersCollection;
 
         public UsersService(IOptions<DbSettings> dbSettings)
         {
             var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
             var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
-            _usersCollection = mongoDb.GetCollection<User>(dbSettings.Value.UsersCollectionName);
+            _usersCollection = mongoDb.GetCollection<UserProfile>(dbSettings.Value.UsersCollectionName);
         }
 
-        public async Task<List<User>> GetAsync() =>
+        public async Task<List<UserProfile>> GetAsync() =>
             await _usersCollection.Find(_ => true).ToListAsync();
 
-        public async Task<User?> GetAsync(string id) =>
-            await _usersCollection.Find(x => x.UserId == id).FirstOrDefaultAsync();
+        public async Task<UserProfile?> GetAsync(string id) =>
+            await _usersCollection.Find(x => x.UserProfileId == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(User user) =>
+        public async Task CreateAsync(UserProfile user) =>
             await _usersCollection.InsertOneAsync(user);
 
-        public async Task UpdateAsync(string id, User user) =>
-            await _usersCollection.ReplaceOneAsync(x => x.UserId == id, user);
+        public async Task UpdateAsync(string id, UserProfile user) =>
+            await _usersCollection.ReplaceOneAsync(x => x.UserProfileId == id, user);
 
         public async Task SetInactivatedAsync(string id) =>
             await _usersCollection.FindOneAndUpdateAsync(
-                x => x.UserId == id,
-                Builders<User>.Update.Set(x => x.Activated, false));
+                x => x.UserProfileId == id,
+                Builders<UserProfile>.Update.Set(x => x.Activated, false));
 
         public async Task SetActivatedAsync(string id) =>
             await _usersCollection.FindOneAndUpdateAsync(
-                x => x.UserId == id,
-                Builders<User>.Update.Set(x => x.Activated, true));
+                x => x.UserProfileId == id,
+                Builders<UserProfile>.Update.Set(x => x.Activated, true));
     }
 }
