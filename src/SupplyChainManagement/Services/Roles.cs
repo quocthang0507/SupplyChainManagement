@@ -8,10 +8,10 @@ namespace SupplyChainManagement.Services
 {
     public class Roles : IRoles
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public Roles(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public Roles(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -28,7 +28,7 @@ namespace SupplyChainManagement.Services
                     {
                         string roleName = (string)itm.GetValue(item);
                         if (!await _roleManager.RoleExistsAsync(roleName))
-                            await _roleManager.CreateAsync(new IdentityRole(roleName));
+                            await _roleManager.CreateAsync(new ApplicationRole() { Name = roleName });
                     }
                 }
             }

@@ -11,34 +11,36 @@ namespace SupplyChainManagement.Services
 {
     public class Functional : IFunctional
     {
-        private readonly UsersService _usersService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly SuperAdminDefaultOptions _superAdminDefaultOptions;
+        private readonly UserProfilesService _userProfilesService;
 
         public Functional(
-            UsersService usersService,
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions)
+            IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions,
+            UserProfilesService userProfilesService)
         {
-            _usersService = usersService;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _superAdminDefaultOptions = superAdminDefaultOptions.Value;
+            _userProfilesService = userProfilesService;
         }
 
         public async Task CreateDefaultSuperAdmin()
         {
             try
             {
-                ApplicationUser superAdmin = new ApplicationUser();
-                superAdmin.Email = _superAdminDefaultOptions.Email;
-                superAdmin.UserName = superAdmin.Email;
-                superAdmin.EmailConfirmed = true;
+                ApplicationUser superAdmin = new ApplicationUser()
+                {
+                    Email = _superAdminDefaultOptions.Email,
+                    UserName = _superAdminDefaultOptions.Email,
+                    EmailConfirmed = true
+                };
 
                 var result = await _userManager.CreateAsync(superAdmin, _superAdminDefaultOptions.Password);
 
@@ -46,15 +48,15 @@ namespace SupplyChainManagement.Services
                 {
                     // add to user profile
                     UserProfile profile = new UserProfile();
-                    profile.FirstName = "Super";
-                    profile.LastName = "Admin";
+                    profile.FirstName = _superAdminDefaultOptions.FirstName;
+                    profile.LastName = _superAdminDefaultOptions.LastName;
                     profile.Email = superAdmin.Email;
-                    profile.ApplicationUserId = superAdmin.Id;
-                    await _usersService.CreateAsync(profile);
-                    await _roleManager.CreateAsync(new ApplicationRole() { Id = superAdmin.Id });
+                    profile.ApplicationUserId = superAdmin.Id.ToString();
+                    await _userProfilesService.CreateAsync(profile);
+                    await _roleManager.CreateAsync(new ApplicationRole() { Id = superAdmin.Id, Name = "Admin" });
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
@@ -64,9 +66,25 @@ namespace SupplyChainManagement.Services
         {
             try
             {
+                ApplicationUser user = new ApplicationUser()
+                {
+                    Email = "user@example.com",
+                    UserName = "user@example.com",
+                    EmailConfirmed = true
+                };
+                UserProfile userProfile = new UserProfile()
+                {
+                    FirstName = "User",
+                    LastName = "",
+                    Email = user.Email,
+                    ApplicationUserId = user.Id.ToString()
+                };
 
+                await _userManager.CreateAsync(user, _superAdminDefaultOptions.Password);
+                await _userProfilesService.CreateAsync(userProfile);
+                await _roleManager.CreateAsync(new ApplicationRole() { Id = user.Id, Name = "User" });
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }

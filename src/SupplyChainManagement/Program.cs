@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddConfig(builder.Configuration)
     .AddMyDependencyGroup();
 
-builder.Services.AddSingleton<UsersService>();
+builder.Services.AddSingleton<UserProfilesService>();
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
@@ -35,12 +35,12 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        var usersService = services.GetRequiredService<UsersService>();
+        var usersService = services.GetRequiredService<UserProfilesService>();
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
         var functional = services.GetRequiredService<IFunctional>();
 
-        DbInitializer.Initialize(usersService, functional);
+        await DbInitializer.Initialize(usersService, functional);
     }
     catch (Exception ex)
     {
@@ -62,8 +62,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

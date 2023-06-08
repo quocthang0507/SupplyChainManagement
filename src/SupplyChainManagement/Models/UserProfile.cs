@@ -8,12 +8,10 @@ namespace SupplyChainManagement.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string UserProfileId { get; set; }
+        public string? UserProfileId { get; set; }
 
-        [Display(Name = "Loại")]
-        public string UserTypeId { get; set; }
-
-        public Guid ApplicationUserId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? ApplicationUserId { get; set; }
 
         [Required]
         [Display(Name = "Họ")]

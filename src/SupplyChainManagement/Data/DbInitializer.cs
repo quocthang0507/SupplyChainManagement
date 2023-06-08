@@ -5,7 +5,7 @@ namespace SupplyChainManagement.Data
 {
     public static class DbInitializer
     {
-        public static async Task Initialize(UsersService usersService, IFunctional functional)
+        public static async Task Initialize(UserProfilesService usersService, IFunctional functional)
         {
             // check for users
             if ((await usersService.GetAsync()).Any())

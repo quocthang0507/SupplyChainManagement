@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using AspNetCore.Identity.MongoDbCore.Extensions;
+using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using SupplyChainManagement.Data;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;
@@ -19,30 +22,35 @@ namespace SupplyChainManagement.Extensions
             services.Configure<IdentityDefaultOptions>(identityDefaultOptionsConfigurationSection);
 
             var identityDefaultOptions = identityDefaultOptionsConfigurationSection.Get<IdentityDefaultOptions>();
-            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationRole>();
+            services.ConfigureMongoDbIdentity<ApplicationUser, ApplicationRole, ObjectId>(new MongoDbIdentityConfiguration()
             {
-                // Password settings
-                options.Password.RequireDigit = identityDefaultOptions.PasswordRequireDigit;
-                options.Password.RequiredLength = identityDefaultOptions.PasswordRequiredLength;
-                options.Password.RequireNonAlphanumeric = identityDefaultOptions.PasswordRequireNonAlphanumeric;
-                options.Password.RequireUppercase = identityDefaultOptions.PasswordRequireUppercase;
-                options.Password.RequireLowercase = identityDefaultOptions.PasswordRequireLowercase;
-                options.Password.RequiredUniqueChars = identityDefaultOptions.PasswordRequiredUniqueChars;
+                MongoDbSettings = new MongoDbSettings
+                {
+                    DatabaseName = dbSettings.DatabaseName,
+                    ConnectionString = dbSettings.ConnectionString
+                },
+                IdentityOptionsAction = options =>
+                {              // Password settings
+                    options.Password.RequireDigit = identityDefaultOptions.PasswordRequireDigit;
+                    options.Password.RequiredLength = identityDefaultOptions.PasswordRequiredLength;
+                    options.Password.RequireNonAlphanumeric = identityDefaultOptions.PasswordRequireNonAlphanumeric;
+                    options.Password.RequireUppercase = identityDefaultOptions.PasswordRequireUppercase;
+                    options.Password.RequireLowercase = identityDefaultOptions.PasswordRequireLowercase;
+                    options.Password.RequiredUniqueChars = identityDefaultOptions.PasswordRequiredUniqueChars;
 
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(identityDefaultOptions.LockoutDefaultLockoutTimeSpanInMinutes);
-                options.Lockout.MaxFailedAccessAttempts = identityDefaultOptions.LockoutMaxFailedAccessAttempts;
-                options.Lockout.AllowedForNewUsers = identityDefaultOptions.LockoutAllowedForNewUsers;
+                    // Lockout settings
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(identityDefaultOptions.LockoutDefaultLockoutTimeSpanInMinutes);
+                    options.Lockout.MaxFailedAccessAttempts = identityDefaultOptions.LockoutMaxFailedAccessAttempts;
+                    options.Lockout.AllowedForNewUsers = identityDefaultOptions.LockoutAllowedForNewUsers;
 
-                // User settings
-                options.User.RequireUniqueEmail = identityDefaultOptions.UserRequireUniqueEmail;
+                    // User settings
+                    options.User.RequireUniqueEmail = identityDefaultOptions.UserRequireUniqueEmail;
 
-                // Email confirmation require
-                options.SignIn.RequireConfirmedEmail = identityDefaultOptions.SignInRequireConfirmedEmail;
-            })
-                .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(
-                    dbSettings.ConnectionString, dbSettings.DatabaseName
-                );
+                    // Email confirmation require
+                    options.SignIn.RequireConfirmedEmail = identityDefaultOptions.SignInRequireConfirmedEmail;
+                }
+            }).AddDefaultTokenProviders();
 
             // cookie settings
             services.ConfigureApplicationCookie(options =>
@@ -73,7 +81,7 @@ namespace SupplyChainManagement.Extensions
             // Add email services
             services.AddTransient<IEmailSender, EmailSender>();
 
-            //services.AddTransient<IRoles, Roles>();
+            services.AddTransient<IRoles, Roles>();
 
             services.AddTransient<IFunctional, Functional>();
 

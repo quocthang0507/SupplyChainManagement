@@ -1,5 +1,110 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity;
+@using SupplyChainManagement.Models.AccountViewModels;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
 @{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "_PartialLayout";
 }
+
+<div class="d-flex justify-content-center h-100">
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://picsum.photos/800/500" class="img-fluid" alt="Lorem picsum">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1">
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="needs-validation" novalidate>
+
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0">Đăng nhập</p>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" asp-for="Email">Địa chỉ email</label>
+                            <input type="email" asp-for="Email" class="form-control form-control-lg" required
+                                   placeholder="Nhập địa chỉ email hợp lệ" value="admin@example.com" />
+                            <div class="invalid-feedback">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="Password">Mật khẩu</label>
+                            <input type="password" asp-for="Password" class="form-control form-control-lg" required
+                                   placeholder="Nhập mật khẩu" value="P@55w0rd@dm1n" />
+                            <div class="invalid-feedback">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Checkbox -->
+                            <div class="form-check mb-0">
+                                <input class="form-check-input me-2" type="checkbox" asp-for="RememberMe" />
+                                <label class="form-check-label" asp-for="RememberMe">
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                            <a asp-action="ForgotPassword" class="text-body">Quên mật khẩu?</a>
+                        </div>
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Đăng nhập
+                            </button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">
+                                Chưa có tài khoản? <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"
+                                                      class="link-danger">Đăng ký ngay!</a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/lib/core.min.css" asp-append-version="true" />
+    @if (env.IsProduction())
+    {
+        <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    }
+    }
+
+@section Scripts
+    {
+    <script>
+        (() => {
+            'use strict';
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+                        }

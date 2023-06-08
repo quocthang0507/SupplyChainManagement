@@ -5,11 +5,11 @@ using SupplyChainManagement.Models;
 
 namespace SupplyChainManagement.Services.Database
 {
-    public class UsersService
+    public class UserProfilesService
     {
         private readonly IMongoCollection<UserProfile> _usersCollection;
 
-        public UsersService(IOptions<DbSettings> dbSettings)
+        public UserProfilesService(IOptions<DbSettings> dbSettings)
         {
             var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
             var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
@@ -21,6 +21,9 @@ namespace SupplyChainManagement.Services.Database
 
         public async Task<UserProfile?> GetAsync(string id) =>
             await _usersCollection.Find(x => x.UserProfileId == id).FirstOrDefaultAsync();
+
+        public async Task<UserProfile?> GetByApplicationUserIdAsync(string id) =>
+            await _usersCollection.Find(x => x.ApplicationUserId == id).FirstOrDefaultAsync();
 
         public async Task CreateAsync(UserProfile user) =>
             await _usersCollection.InsertOneAsync(user);
