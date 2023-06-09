@@ -17,30 +17,33 @@
                     <img src="https://picsum.photos/800/500" class="img-fluid" alt="Lorem picsum">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1">
-                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="needs-validation" novalidate>
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
 
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0">Đăng nhập</p>
                         </div>
+                        @if (ViewContext.ViewData.ModelState.ContainsKey("LoginFailed"))
+                        {
+                            <div class="alert alert-warning text-center alert-dismissible" role="alert">
+                                @Html.ValidationMessage("LoginFailed", new {@class = "text-danger"})
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" asp-for="Email">Địa chỉ email</label>
-                            <input type="email" asp-for="Email" class="form-control form-control-lg" required
+                            <label class="form-label" asp-for="Email"></label>
+                            <input type="email" asp-for="Email" class="form-control form-control-lg"
                                    placeholder="Nhập địa chỉ email hợp lệ" value="admin@example.com" />
-                            <div class="invalid-feedback">
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-3">
-                            <label class="form-label" for="Password">Mật khẩu</label>
-                            <input type="password" asp-for="Password" class="form-control form-control-lg" required
+                            <label class="form-label" asp-for="Password"></label>
+                            <input type="password" asp-for="Password" class="form-control form-control-lg"
                                    placeholder="Nhập mật khẩu" value="P@55w0rd@dm1n" />
-                            <div class="invalid-feedback">
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -75,7 +78,7 @@
 
 @section Styles
     {
-    <link rel="stylesheet" href="~/lib/core.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/core.min.css" />
     @if (env.IsProduction())
     {
         <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
@@ -89,22 +92,6 @@
 @section Scripts
     {
     <script>
-        (() => {
-            'use strict';
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation');
-
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms).forEach((form) => {
-                form.addEventListener('submit', (event) => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
+        @await Html.PartialAsync("_ValidationScriptsPartial")
     </script>
-                        }
+    }

@@ -1,7 +1,9 @@
-﻿@model SupplyChainManagement.Models.ApplicationUser
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager
 @inject SupplyChainManagement.Services.Database.UserProfilesService userProfilesService
 @{
-    UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(Model.Id.ToString());
+    ApplicationUser appUser = await UserManager.GetUserAsync(User);
+    UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
 }
 
 <div id="layoutSidenav_nav">
