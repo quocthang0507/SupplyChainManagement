@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SendGrid.Helpers.Mail;
+using SupplyChainManagement.Helper;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;
 using SupplyChainManagement.Services.Database;
@@ -26,30 +27,42 @@ namespace SupplyChainManagement.Controllers.Endpoints
             _userProfilesService = userProfilesService;
         }
 
+        /// <summary>
+        /// Tải hình ảnh lên máy chủ
+        /// </summary>
+        /// <param name="uploadDefault"></param>
+        /// <returns></returns>
         [HttpPost]
         [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> PostUploadProfilePicture(List<IFormFile> UploadDefault)
+        [ProducesResponseType(StatusCodes.Status415UnsupportedMediaType)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> PostUploadProfilePicture(List<IFormFile> uploadDefault)
         {
             try
             {
-                var folderUpload = "upload";
-                var fileName = await _functionalService.UploadFile(UploadDefault, _env, folderUpload);
-
-                var appUser = await _userManager.GetUserAsync(User);
-                if (appUser != null)
+                if (ImageHelper.IsValidImage(uploadDefault))
                 {
-                    var profile = await _userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
-                    if (profile != null)
+                    var folderUpload = "upload";
+                    var fileName = await _functionalService.UploadFile(uploadDefault, _env, folderUpload);
+
+                    var appUser = await _userManager.GetUserAsync(User);
+                    if (appUser != null)
                     {
-                        profile.ProfilePicture = "/" + folderUpload + "/" + fileName;
-                        await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
+                        var profile = await _userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
+                        if (profile != null)
+                        {
+                            profile.ProfilePicture = "/" + folderUpload + "/" + fileName;
+                            await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
+                        }
                     }
+                    return Ok(fileName);
                 }
-                return Ok(fileName);
+                return new UnsupportedMediaTypeResult();
             }
             catch (Exception e)
             {
-                return StatusCode(500, new { message = e.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = e.Message });
             }
         }
     }

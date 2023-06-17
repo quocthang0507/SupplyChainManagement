@@ -49,7 +49,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
             await _roles.GenerateRolesFromPagesAsync();
             ApplicationUser? user = await _userManager.FindByIdAsync(id);
             var roles = _roleManager.Roles.ToList();
-            List<UserRoleViewModel> Items = new List<UserRoleViewModel>();
+            List<UserRoleViewModel> Items = new();
             int count = 1;
             foreach (var item in roles)
             {
@@ -68,6 +68,8 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUserRole([FromBody] CrudViewModel<UserRoleViewModel> payload)
         {
             UserRoleViewModel userRole = payload.value;
@@ -85,8 +87,9 @@ namespace SupplyChainManagement.Controllers.Endpoints
                         await _userManager.RemoveFromRoleAsync(user, userRole.RoleName);
                     }
                 }
+                return Ok(userRole);
             }
-            return Ok(userRole);
+            return BadRequest();
         }
     }
 }

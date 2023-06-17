@@ -63,11 +63,11 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Remove([FromBody] CrudViewModel<UnitOfMeasure> payload)
         {
             await _unitOfMeasureService.DeleteAsync(payload.key.ToString());
             return NoContent();
-
         }
     }
 }

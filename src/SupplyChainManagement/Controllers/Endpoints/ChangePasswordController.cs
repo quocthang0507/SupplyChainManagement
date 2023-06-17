@@ -41,6 +41,8 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update([FromBody] CrudViewModel<ChangePasswordViewModel> payload)
         {
             ChangePasswordViewModel changePasswordViewModel = payload.value;
@@ -50,10 +52,9 @@ namespace SupplyChainManagement.Controllers.Endpoints
                 changePasswordViewModel.NewPassword.Equals(changePasswordViewModel.ConfirmPassword))
             {
                 await _userManager.ChangePasswordAsync(user, changePasswordViewModel.OldPassword, changePasswordViewModel.NewPassword);
+                return Ok();
             }
-
-            return Ok();
+            return BadRequest();
         }
-
     }
 }

@@ -135,17 +135,13 @@ namespace SupplyChainManagement.Services
 
             var webRoot = env.WebRootPath;
             var uploads = Path.Combine(webRoot, uploadFolder);
-            var extension = "";
-            var filePath = "";
-            var fileName = "";
-
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
                 {
-                    extension = Path.GetExtension(formFile.FileName);
-                    fileName = Guid.NewGuid().ToString() + extension;
-                    filePath = System.IO.Path.Combine(uploads, fileName);
+                    string? extension = Path.GetExtension(formFile.FileName);
+                    string? fileName = Guid.NewGuid().ToString() + extension;
+                    string? filePath = Path.Combine(uploads, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
