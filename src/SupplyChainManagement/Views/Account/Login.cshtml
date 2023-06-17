@@ -33,7 +33,7 @@
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" asp-for="Email"></label>
-                            <input type="email" asp-for="Email" class="form-control form-control-lg"
+                            <input type="email" asp-for="Email" class="form-control"
                                    placeholder="Nhập địa chỉ email hợp lệ" value="admin@example.com" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
@@ -41,7 +41,7 @@
                         <!-- Password input -->
                         <div class="form-outline mb-3">
                             <label class="form-label" asp-for="Password"></label>
-                            <input type="password" asp-for="Password" class="form-control form-control-lg"
+                            <input type="password" asp-for="Password" class="form-control"
                                    placeholder="Nhập mật khẩu" value="P@55w0rd@dm1n" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
@@ -57,8 +57,8 @@
                             <a asp-action="ForgotPassword" class="text-body">Quên mật khẩu?</a>
                         </div>
 
-                        <div class="text-center text-lg-start mt-4 pt-2">
-                            <button type="submit" class="btn btn-primary btn-lg"
+                        <div class="text-center mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary"
                                     style="padding-left: 2.5rem; padding-right: 2.5rem;">
                                 Đăng nhập
                             </button>
@@ -77,7 +77,6 @@
 
 @section Styles
     {
-    <link rel="stylesheet" href="~/lib/core.min.css" />
     @if (env.IsProduction())
     {
         <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />

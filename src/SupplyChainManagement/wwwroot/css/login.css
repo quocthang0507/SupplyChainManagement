@@ -27,3 +27,7 @@ img {
 input {
     border: 1px solid #bdbdbd !important;
 }
+
+.vw-50 {
+    width: 50vh;
+}
