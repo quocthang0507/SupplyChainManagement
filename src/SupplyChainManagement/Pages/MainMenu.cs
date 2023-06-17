@@ -19,7 +19,7 @@
 
         public static class Product
         {
-            
+
         }
     }
 }

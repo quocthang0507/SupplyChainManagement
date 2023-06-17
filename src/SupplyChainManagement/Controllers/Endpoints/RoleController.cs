@@ -34,7 +34,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
             await _roles.GenerateRolesFromPagesAsync();
 
             List<ApplicationRole> Items = _roleManager.Roles.ToList();
-            int Count = Items.Count();
+            int Count = Items.Count;
             return Ok(new { Items, Count });
         }
 
@@ -58,7 +58,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
                 count++;
             }
 
-            int Count = Items.Count();
+            int Count = Items.Count;
             return Ok(new { Items, Count });
         }
 

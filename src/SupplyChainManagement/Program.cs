@@ -1,13 +1,13 @@
-using SupplyChainManagement.Services.Database;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using SupplyChainManagement.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
+using SupplyChainManagement.Data;
+using SupplyChainManagement.Extensions;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;
-using SupplyChainManagement.Data;
-using Microsoft.OpenApi.Models;
+using SupplyChainManagement.Services.Database;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

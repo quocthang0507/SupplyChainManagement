@@ -1,7 +1,4 @@
-﻿using MongoDB.Driver;
-using SupplyChainManagement.Models;
-
-namespace SupplyChainManagement.Services.Database
+﻿namespace SupplyChainManagement.Services.Database
 {
     public interface IService<T>
     {

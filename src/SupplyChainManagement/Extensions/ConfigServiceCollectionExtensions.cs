@@ -1,7 +1,6 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using SupplyChainManagement.Data;
 using SupplyChainManagement.Models;
@@ -93,7 +92,9 @@ namespace SupplyChainManagement.Extensions
         {
             services.AddSingleton<UserProfilesService>();
 
-            services.AddSingleton<UnitOfMeasureService>();
+            services.AddSingleton<UnitOfMeasuresService>();
+
+            services.AddSingleton<ApplicationUsersService>();
 
             return services;
         }

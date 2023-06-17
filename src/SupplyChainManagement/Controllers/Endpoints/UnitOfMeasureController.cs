@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SendGrid.Helpers.Mail;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.CRUD;
 using SupplyChainManagement.Services.Database;
@@ -12,9 +11,9 @@ namespace SupplyChainManagement.Controllers.Endpoints
     [Route("api/UnitOfMeasure")]
     public class UnitOfMeasureController : Controller
     {
-        private readonly UnitOfMeasureService _unitOfMeasureService;
+        private readonly UnitOfMeasuresService _unitOfMeasureService;
 
-        public UnitOfMeasureController(UnitOfMeasureService unitOfMeasureService)
+        public UnitOfMeasureController(UnitOfMeasuresService unitOfMeasureService)
         {
             _unitOfMeasureService = unitOfMeasureService;
         }
@@ -27,7 +26,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         public async Task<IActionResult> GetUnitOfMeasures()
         {
             List<UnitOfMeasure> Items = await _unitOfMeasureService.GetAsync();
-            int Count = Items.Count();
+            int Count = Items.Count;
             return Ok(new { Items, Count });
         }
 

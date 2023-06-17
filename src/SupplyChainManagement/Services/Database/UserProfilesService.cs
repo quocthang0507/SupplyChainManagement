@@ -41,7 +41,7 @@ namespace SupplyChainManagement.Services.Database
                 x => x.UserProfileId == id,
                 Builders<UserProfile>.Update.Set(x => x.Activated, true));
 
-        public async Task DeleteAsync(string id) => 
+        public async Task DeleteAsync(string id) =>
             await _usersCollection.DeleteOneAsync(x => x.UserProfileId == id);
     }
 }

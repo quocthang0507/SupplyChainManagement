@@ -1,6 +1,4 @@
-﻿using AspNetCore.Identity.MongoDbCore.Models;
-using Microsoft.AspNetCore.Identity;
-using MongoDbGenericRepository.Attributes;
+﻿using Microsoft.AspNetCore.Identity;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Pages;
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SendGrid.Helpers.Mail;
 using SupplyChainManagement.Helper;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;

@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDbGenericRepository.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SupplyChainManagement.Models
 {
@@ -10,10 +10,10 @@ namespace SupplyChainManagement.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? UserProfileId { get; set; }
+        public string UserProfileId { get; set; } = null!;
 
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; } = null!;
 
         [Required]
         [Display(Name = "Họ")]

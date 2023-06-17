@@ -1,6 +1,4 @@
-﻿using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-
-namespace SupplyChainManagement.Services
+﻿namespace SupplyChainManagement.Services
 {
     public interface IFunctional
     {

@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SendGrid.Helpers.Mail;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.CRUD;
 using SupplyChainManagement.Models.ManageViewModels;
-using SupplyChainManagement.Services.Database;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
@@ -31,7 +29,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         public IActionResult GetChangePassword()
         {
             var Items = _userManager.Users.ToList();
-            int Count = Items.Count();
+            int Count = Items.Count;
             return Ok(new { Items, Count });
         }
 

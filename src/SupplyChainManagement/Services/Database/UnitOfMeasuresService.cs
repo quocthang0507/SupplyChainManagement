@@ -5,11 +5,11 @@ using SupplyChainManagement.Models;
 
 namespace SupplyChainManagement.Services.Database
 {
-    public class UnitOfMeasureService : IService<UnitOfMeasure>
+    public class UnitOfMeasuresService : IService<UnitOfMeasure>
     {
         private readonly IMongoCollection<UnitOfMeasure> _unitOfMeasureCollection;
 
-        public UnitOfMeasureService(IOptions<DbSettings> dbSettings)
+        public UnitOfMeasuresService(IOptions<DbSettings> dbSettings)
         {
             var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
             var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
@@ -19,7 +19,7 @@ namespace SupplyChainManagement.Services.Database
         public async Task CreateAsync(UnitOfMeasure unitOfMeasure) =>
             await _unitOfMeasureCollection.InsertOneAsync(unitOfMeasure);
 
-        public async Task DeleteAsync(string id) => 
+        public async Task DeleteAsync(string id) =>
             await _unitOfMeasureCollection.DeleteOneAsync(x => x.UnitOfMeasureId == id);
 
         public async Task<List<UnitOfMeasure>> GetAsync() =>
