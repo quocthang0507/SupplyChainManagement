@@ -9,9 +9,6 @@ using SupplyChainManagement.Services;
 
 namespace SupplyChainManagement.Controllers
 {
-    /// <summary>
-    /// Các API thuộc AccountController
-    /// </summary>
     [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller

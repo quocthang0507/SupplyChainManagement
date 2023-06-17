@@ -23,7 +23,10 @@ namespace SupplyChainManagement.Controllers.Endpoints
             _roleManager = roleManager;
         }
 
-        // GET: api/ChangePassword
+        /// <summary>
+        /// Lấy danh sách tài khoản người dùng
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetChangePassword()
         {
@@ -32,6 +35,11 @@ namespace SupplyChainManagement.Controllers.Endpoints
             return Ok(new { Items, Count });
         }
 
+        /// <summary>
+        /// Cập nhật mật khẩu
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> Update([FromBody] CrudViewModel<ChangePasswordViewModel> payload)
         {

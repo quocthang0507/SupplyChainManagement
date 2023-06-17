@@ -24,9 +24,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
             _roles = roles;
         }
 
-        // GET: api/Role
+        /// <summary>
+        /// Lấy danh sách các vai trò
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetRole()
+        public async Task<IActionResult> GetRoles()
         {
             await _roles.GenerateRolesFromPagesAsync();
 
@@ -35,7 +38,11 @@ namespace SupplyChainManagement.Controllers.Endpoints
             return Ok(new { Items, Count });
         }
 
-        // GET: api/Role
+        /// <summary>
+        /// Lấy vai trò theo người dùng
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetRoleByApplicationUserId([FromRoute] string id)
         {
@@ -55,6 +62,11 @@ namespace SupplyChainManagement.Controllers.Endpoints
             return Ok(new { Items, Count });
         }
 
+        /// <summary>
+        /// Cập nhật vai trò của người dùng
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> UpdateUserRole([FromBody] CrudViewModel<UserRoleViewModel> payload)
         {
