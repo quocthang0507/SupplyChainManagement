@@ -43,5 +43,31 @@ namespace SupplyChainManagement.Controllers.Endpoints
             await _unitOfMeasureService.CreateAsync(unitOfMeasure);
             return Ok(unitOfMeasure);
         }
+
+        /// <summary>
+        /// Cập nhật đơn vị đo lường
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Update([FromBody] CrudViewModel<UnitOfMeasure> payload)
+        {
+            UnitOfMeasure unitOfMeasure = payload.value;
+            await _unitOfMeasureService.UpdateAsync(unitOfMeasure.UnitOfMeasureId, unitOfMeasure);
+            return Ok(unitOfMeasure);
+        }
+
+        /// <summary>
+        /// Xóa đơn vị đo lường
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Remove([FromBody] CrudViewModel<UnitOfMeasure> payload)
+        {
+            await _unitOfMeasureService.DeleteAsync(payload.key.ToString());
+            return NoContent();
+
+        }
     }
 }

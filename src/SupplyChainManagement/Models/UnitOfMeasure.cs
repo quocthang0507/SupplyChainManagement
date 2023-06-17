@@ -12,7 +12,7 @@ namespace SupplyChainManagement.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? UnitOfMeasureId { get; set; }
         [Required]
-        public string UnitOfMeasureName { get; set; }
-        public string Description { get; set; }
+        public string UnitOfMeasureName { get; set; } = null!;
+        public string? Description { get; set; }
     }
 }

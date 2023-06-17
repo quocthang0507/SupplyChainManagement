@@ -40,5 +40,8 @@ namespace SupplyChainManagement.Services.Database
             await _usersCollection.FindOneAndUpdateAsync(
                 x => x.UserProfileId == id,
                 Builders<UserProfile>.Update.Set(x => x.Activated, true));
+
+        public async Task DeleteAsync(string id) => 
+            await _usersCollection.DeleteOneAsync(x => x.UserProfileId == id);
     }
 }

@@ -19,6 +19,8 @@ namespace SupplyChainManagement.Services.Database
         public async Task CreateAsync(UnitOfMeasure unitOfMeasure) =>
             await _unitOfMeasureCollection.InsertOneAsync(unitOfMeasure);
 
+        public async Task DeleteAsync(string id) => 
+            await _unitOfMeasureCollection.DeleteOneAsync(x => x.UnitOfMeasureId == id);
 
         public async Task<List<UnitOfMeasure>> GetAsync() =>
             await _unitOfMeasureCollection.Find(_ => true).ToListAsync();

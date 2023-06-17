@@ -44,7 +44,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         public async Task<IActionResult> Update([FromBody] CrudViewModel<ChangePasswordViewModel> payload)
         {
             ChangePasswordViewModel changePasswordViewModel = payload.value;
-            var user = await GetCurrentUserAsync();
+            var user = await _userManager.GetUserAsync(User);
 
             if (user != null &&
                 changePasswordViewModel.NewPassword.Equals(changePasswordViewModel.ConfirmPassword))
@@ -55,12 +55,5 @@ namespace SupplyChainManagement.Controllers.Endpoints
             return Ok();
         }
 
-        #region Helpers
-        private async Task<ApplicationUser> GetCurrentUserAsync()
-        {
-            return await _userManager.GetUserAsync(HttpContext.User);
-        }
-
-        #endregion
     }
 }

@@ -56,7 +56,7 @@ namespace SupplyChainManagement.Services
                     await _roleManager.CreateAsync(new ApplicationRole() { Id = superAdmin.Id, Name = "Admin" });
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -84,7 +84,7 @@ namespace SupplyChainManagement.Services
                 await _userProfilesService.CreateAsync(userProfile);
                 await _roleManager.CreateAsync(new ApplicationRole() { Id = user.Id, Name = "User" });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }

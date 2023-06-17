@@ -47,7 +47,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         public async Task<IActionResult> GetRoleByApplicationUserId([FromRoute] string id)
         {
             await _roles.GenerateRolesFromPagesAsync();
-            var user = await _userManager.FindByIdAsync(id);
+            ApplicationUser? user = await _userManager.FindByIdAsync(id);
             var roles = _roleManager.Roles.ToList();
             List<UserRoleViewModel> Items = new List<UserRoleViewModel>();
             int count = 1;
