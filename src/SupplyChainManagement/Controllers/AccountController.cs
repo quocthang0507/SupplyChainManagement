@@ -9,6 +9,9 @@ using SupplyChainManagement.Services;
 
 namespace SupplyChainManagement.Controllers
 {
+    /// <summary>
+    /// Các API thuộc AccountController
+    /// </summary>
     [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
@@ -33,6 +36,11 @@ namespace SupplyChainManagement.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
+        /// <summary>
+        /// Vào trang đăng nhập
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -44,6 +52,12 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Đăng nhập
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -76,6 +90,10 @@ namespace SupplyChainManagement.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Vào trang khóa tài khoản
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
@@ -83,6 +101,11 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Vào trang đăng ký
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -91,6 +114,12 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Đăng ký
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -120,6 +149,10 @@ namespace SupplyChainManagement.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Đăng xuất
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -129,6 +162,13 @@ namespace SupplyChainManagement.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        /// <summary>
+        /// Vào trang xác nhận địa chỉ email
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        /// <exception cref="ApplicationException"></exception>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -142,6 +182,10 @@ namespace SupplyChainManagement.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
+        /// <summary>
+        /// Vào trang quên mật khẩu
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
@@ -149,6 +193,11 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Quên mật khẩu
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -176,6 +225,10 @@ namespace SupplyChainManagement.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Vào trang xác nhận quên mật khẩu
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPasswordConfirmation()
@@ -183,6 +236,12 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Khôi phục mật khẩu
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        /// <exception cref="ApplicationException"></exception>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
@@ -195,6 +254,11 @@ namespace SupplyChainManagement.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Khôi phục mật khẩu
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -219,6 +283,10 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Vào trang khôi phục mật khẩu
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()
@@ -226,6 +294,10 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Vào trang truy cập từ chối
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult AccessDenied()
         {

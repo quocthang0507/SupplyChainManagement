@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
+using MongoDbGenericRepository.Attributes;
 
 namespace SupplyChainManagement.Models
 {
+    [CollectionName("UnitOfMeasures")]
     public class UnitOfMeasure
     {
-        public int UnitOfMeasureId { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? UnitOfMeasureId { get; set; }
         [Required]
         public string UnitOfMeasureName { get; set; }
         public string Description { get; set; }

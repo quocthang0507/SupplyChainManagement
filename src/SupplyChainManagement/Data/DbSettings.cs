@@ -14,6 +14,7 @@
 
         public string ApplicationUsersCollectionName { get; set; } = null!;
 
+        public string UnitOfMeasuresCollectionName { get; set; } = null!;
         #endregion
     }
 }

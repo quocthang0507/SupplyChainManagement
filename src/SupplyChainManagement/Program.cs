@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;
 using SupplyChainManagement.Data;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 // =======================================================================
 
 builder.Services.AddConfig(builder.Configuration)
-    .AddMyDependencyGroup();
-
-builder.Services.AddSingleton<UserProfilesService>();
+    .AddDependencyGroup()
+    .AddSingletons();
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
@@ -25,6 +26,24 @@ builder.Services.AddControllersWithViews()
     });
 
 builder.Services.AddRazorPages();
+
+// Add and configure Swagger middleware
+// =======================================================================
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "SupplyChainManagement APIs",
+        Description = "Controller-based web APIs that use a MongoDB",
+    });
+
+    // using System.Reflection;
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 // =======================================================================
 
@@ -55,6 +74,11 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https:// aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

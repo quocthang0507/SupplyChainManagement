@@ -6,6 +6,7 @@ using MongoDB.Bson;
 using SupplyChainManagement.Data;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Services;
+using SupplyChainManagement.Services.Database;
 
 namespace SupplyChainManagement.Extensions
 {
@@ -76,7 +77,7 @@ namespace SupplyChainManagement.Extensions
             return services;
         }
 
-        public static IServiceCollection AddMyDependencyGroup(this IServiceCollection services)
+        public static IServiceCollection AddDependencyGroup(this IServiceCollection services)
         {
             // Add email services
             services.AddTransient<IEmailSender, EmailSender>();
@@ -84,6 +85,15 @@ namespace SupplyChainManagement.Extensions
             services.AddTransient<IRoles, Roles>();
 
             services.AddTransient<IFunctional, Functional>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddSingletons(this IServiceCollection services)
+        {
+            services.AddSingleton<UserProfilesService>();
+
+            services.AddSingleton<UnitOfMeasureService>();
 
             return services;
         }

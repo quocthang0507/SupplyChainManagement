@@ -5,7 +5,7 @@ using SupplyChainManagement.Models;
 
 namespace SupplyChainManagement.Services.Database
 {
-    public class UserProfilesService
+    public class UserProfilesService : IService<UserProfile>
     {
         private readonly IMongoCollection<UserProfile> _usersCollection;
 

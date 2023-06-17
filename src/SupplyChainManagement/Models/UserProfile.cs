@@ -1,9 +1,11 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
+using MongoDbGenericRepository.Attributes;
 
 namespace SupplyChainManagement.Models
 {
+    [CollectionName("UserProfiles")]
     public class UserProfile
     {
         [BsonId]
@@ -35,8 +37,10 @@ namespace SupplyChainManagement.Models
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
+        [Display(Name = "Nhập lại mật khẩu")]
         public string ConfirmPassword { get; set; }
 
+        [Display(Name = "Mật khẩu cũ")]
         public string OldPassword { get; set; }
 
         [Display(Name = "Ảnh đại diện")]
