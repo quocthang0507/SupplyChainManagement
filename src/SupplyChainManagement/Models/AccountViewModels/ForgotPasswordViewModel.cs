@@ -6,7 +6,7 @@ namespace SupplyChainManagement.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
-        [Display(Name ="Nhập địa chỉ email")]
+        [Display(Name ="Địa chỉ email")]
         public string Email { get; set; }
     }
 }

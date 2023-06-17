@@ -1,5 +1,4 @@
 ﻿@using SupplyChainManagement.Models.AccountViewModels;
-@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
 @model RegisterViewModel
 
 @{
@@ -33,7 +32,7 @@
                                    placeholder="Nhập mật khẩu" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
-                        
+
                         <div class="form-outline mb-3">
                             <label class="form-label" asp-for="ConfirmPassword"></label>
                             <input type="password" asp-for="ConfirmPassword" class="form-control"
@@ -60,17 +59,10 @@
 
 @section Styles
     {
-    @if (env.IsProduction())
-    {
-        <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
-    }
-    else
-    {
-        <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-    }
+    <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
     }
 
 @section Scripts
     {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_ValidationScriptsPartial")
     }
