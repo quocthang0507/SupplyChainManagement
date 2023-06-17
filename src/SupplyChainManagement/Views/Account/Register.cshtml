@@ -1,7 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SupplyChainManagement.Models.AccountViewModels;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+@model RegisterViewModel
+
 @{
     ViewData["Title"] = "Đăng ký";
     Layout = "_PartialLayout";
 }
+
+<div class="d-flex justify-content-center h-100">
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+
+                        <div class="divider d-flex align-items-center">
+                            <p class="text-center fw-bold mx-3 mb-0 text-uppercase">Đăng ký</p>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" asp-for="Email"></label>
+                            <input type="email" asp-for="Email" class="form-control form-control-lg"
+                                   placeholder="Nhập địa chỉ email hợp lệ" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" asp-for="Password"></label>
+                            <input type="password" asp-for="Password" class="form-control form-control-lg"
+                                   placeholder="Nhập mật khẩu" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-outline mb-3">
+                            <label class="form-label" asp-for="ConfirmPassword"></label>
+                            <input type="password" asp-for="ConfirmPassword" class="form-control form-control-lg"
+                                   placeholder="Nhập lại mật khẩu" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Đăng ký
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1">
+                    <img src="https://picsum.photos/800/500" class="img-fluid my-4" alt="Lorem picsum">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Styles
+    {
+    <link rel="stylesheet" href="~/lib/core.min.css" />
+    @if (env.IsProduction())
+    {
+        <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    }
+    }
+
+@section Scripts
+    {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

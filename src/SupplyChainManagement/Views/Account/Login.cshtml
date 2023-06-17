@@ -20,7 +20,7 @@
                     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
 
                         <div class="divider d-flex align-items-center my-4">
-                            <p class="text-center fw-bold mx-3 mb-0">Đăng nhập</p>
+                            <p class="text-center fw-bold mx-3 mb-0 text-uppercase">Đăng nhập</p>
                         </div>
                         @if (ViewContext.ViewData.ModelState.ContainsKey("LoginFailed"))
                         {
@@ -75,7 +75,6 @@
     </section>
 </div>
 
-
 @section Styles
     {
     <link rel="stylesheet" href="~/lib/core.min.css" />
@@ -91,7 +90,5 @@
 
 @section Scripts
     {
-    <script>
         @await Html.PartialAsync("_ValidationScriptsPartial")
-    </script>
     }
