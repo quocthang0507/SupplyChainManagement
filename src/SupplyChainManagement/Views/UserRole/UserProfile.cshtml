@@ -1,0 +1,9 @@
+﻿@using SupplyChainManagement.Services.Database;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager
+@inject UserProfilesService userProfilesService
+@{
+    ViewData["Title"] = "Hồ sơ người dùng";
+    ApplicationUser appUser = await UserManager.GetUserAsync(User);
+    UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
+}

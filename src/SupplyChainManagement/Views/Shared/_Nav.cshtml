@@ -17,11 +17,11 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Hồ sơ</a></li>
+                <li><a class="dropdown-item" asp-controller="UserRole" asp-action="UserProfile"><i class="fa-regular fa-id-card"></i>&nbsp;Hồ sơ</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
                     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-                        <button type="submit" class="dropdown-item" href="#!">Đăng xuất</button>
+                        <button type="submit" class="dropdown-item" href="#!"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Đăng xuất</button>
                     </form>
                 </li>
             </ul>

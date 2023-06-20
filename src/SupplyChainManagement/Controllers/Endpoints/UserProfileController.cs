@@ -138,12 +138,15 @@ namespace SupplyChainManagement.Controllers.Endpoints
             if (userProfile != null)
             {
                 var user = await _applicationUsersService.GetAsync(userProfile.ApplicationUserId);
-                var result = await _userManager.DeleteAsync(user);
-                if (result.Succeeded)
+                if (user != null)
                 {
-                    await _userProfilesService.DeleteAsync(userProfile.UserProfileId);
+                    var result = await _userManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        await _userProfilesService.DeleteAsync(userProfile.UserProfileId);
+                    }
+                    return Ok();
                 }
-                return Ok();
             }
             return NotFound();
         }
