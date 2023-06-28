@@ -13,23 +13,17 @@ namespace SupplyChainManagement.Services
     public class Functional : IFunctional
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly SuperAdminDefaultOptions _superAdminDefaultOptions;
         private readonly UserProfilesService _userProfilesService;
         private readonly IRoles _roles;
 
         public Functional(
             UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager,
-            SignInManager<ApplicationUser> signInManager,
             IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions,
             UserProfilesService userProfilesService,
             IRoles roles)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
-            _signInManager = signInManager;
             _superAdminDefaultOptions = superAdminDefaultOptions.Value;
             _userProfilesService = userProfilesService;
             _roles = roles;
@@ -39,6 +33,8 @@ namespace SupplyChainManagement.Services
         {
             try
             {
+                await _roles.GenerateRolesFromPagesAsync();
+
                 ApplicationUser superAdmin = new()
                 {
                     Email = _superAdminDefaultOptions.Email,
@@ -75,31 +71,6 @@ namespace SupplyChainManagement.Services
         {
             try
             {
-                ApplicationUser user = new()
-                {
-                    Email = "user@example.com",
-                    UserName = "user@example.com",
-                    EmailConfirmed = true
-                };
-                UserProfile userProfile = new()
-                {
-                    FirstName = "User",
-                    LastName = "",
-                    Email = user.Email,
-                    ApplicationUserId = user.Id.ToString(),
-                    Address = new()
-                    {
-                        Commune = "Phường 8",
-                        District = "Tp. Đà Lạt",
-                        Province = "Lâm Đồng",
-                        GeoCoordinate = new(11.963824, 108.442202)
-                    }
-                };
-
-                await _userManager.CreateAsync(user, _superAdminDefaultOptions.Password);
-                await _userProfilesService.CreateAsync(userProfile);
-                //await _roleManager.CreateAsync(new ApplicationRole() { Id = user.Id, Name = "User" });
-                await _roles.AddToRoles(user.Id.ToString());
             }
             catch (Exception)
             {
@@ -146,7 +117,7 @@ namespace SupplyChainManagement.Services
             await client.SendEmailAsync(msg);
         }
 
-        public async Task<string> UploadFile(List<IFormFile> files, IWebHostEnvironment env, string uploadFolder)
+        public async Task<string> UploadFile(IList<IFormFile> files, IWebHostEnvironment env, string uploadFolder)
         {
             var result = "";
 

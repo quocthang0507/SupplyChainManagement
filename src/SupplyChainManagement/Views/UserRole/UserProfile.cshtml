@@ -2,12 +2,17 @@
 @using SupplyChainManagement.Helper;
 @using SupplyChainManagement.Services.Database;
 @using Microsoft.AspNetCore.Identity;
+@using Syncfusion.EJ2.Inputs;
 @inject UserManager<ApplicationUser> UserManager
 @inject UserProfilesService userProfilesService
 @{
     ViewData["Title"] = "Hồ sơ người dùng";
     ApplicationUser appUser = await UserManager.GetUserAsync(User);
     UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
+    var asyncSettings = new UploaderAsyncSettings
+            {
+                SaveUrl = "/api/UploadProfilePicture"
+            };
 }
 
 <section>
@@ -28,7 +33,13 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="@profile.ProfilePicture" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <div id='droparea'>
+                            <img id="profilePicture" src="@profile.ProfilePicture" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <ejs-uploader id="uploadFiles" dropArea="#droparea" autoUpload="false" dropArea="#droparea"
+                                          allowedExtensions=".jpg,.png" locale="vi-VN" multiple="false"
+                                          asyncSettings="@asyncSettings" success="onUploadSuccess" failure="onUploadFailure" maxFileSize="5242880">
+                            </ejs-uploader>
+                        </div>
                         <h5 class="my-3">@profile.FullName</h5>
                         <p class="text-muted mb-1">Full Stack Developer</p>
                         <p class="text-muted mb-4">@profile.Address.ToString()</p>
@@ -179,3 +190,61 @@
         </div>
     </div>
 </section>
+
+@section Styles
+    {
+    <style>
+        .e-upload {
+            border: none;
+        }
+
+        .e-file-select,
+        .e-file-drop {
+            display: none;
+        }
+
+        body .e-upload-drag-hover {
+            outline: 2px dashed blue;
+        }
+    </style>
+    }
+
+@section Scripts
+    {
+    <script>
+        var L10n = ej.base.L10n;
+        L10n.load({
+            "vi-VN": {
+                "uploader": {
+                    "invalidMinFileSize": "Kích thước tệp quá nhỏ! Vui lòng tải lên các tệp có kích thước tối thiểu là 10KB",
+                    "invalidMaxFileSize": "Kích thước tệp vượt quá 5MB",
+                    "invalidFileType": "Loại tệp không được phép",
+                    "Browse": "Chọn ảnh",
+                    "Clear": "Xóa",
+                    "Upload": "Tải lên",
+                    "dropFilesHint": "hoặc thả tệp vào đây",
+                    "uploadFailedMessage": "Không thể tải lên tệp",
+                    "uploadSuccessMessage": "Tệp đã tải lên thành công",
+                    "removedSuccessMessage": "Tệp đã xóa thành công",
+                    "removedFailedMessage": "Không thể xóa tệp",
+                    "inProgress": "Đang diễn ra",
+                    "readyToUploadMessage": "Sẵn sàng tải lên",
+                    "remove": "Thu hồi",
+                    "cancel": "Hủy",
+                    "delete": "Xóa tập tin"
+                }
+            }
+        });
+        function onUploadSuccess(args) {
+            if (args.operation === 'upload') {
+                alert('Cập nhật ảnh đại diện thành công!');
+                var resText = JSON.parse(args.responseText);
+                $('.profilePicture').attr('src', '../upload/' + resText);
+                $('#profilePicture').attr('src', '../upload/' + resText);
+            }
+        }
+        function onUploadFailure(args) {
+            alert('Cập nhật ảnh đại diện thất bại!');
+        }
+    </script>
+    }

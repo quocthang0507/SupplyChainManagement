@@ -38,7 +38,7 @@ namespace SupplyChainManagement.Services
             if (user != null)
             {
                 var roles = _roleManager.Roles;
-                List<string> listRoles = new List<string>();
+                List<string> listRoles = new();
                 foreach (var item in roles)
                 {
                     listRoles.Add(item.Name);

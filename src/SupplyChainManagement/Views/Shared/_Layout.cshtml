@@ -6,6 +6,7 @@
     <link href="~/lib/simple-datatables-style.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body class="sb-nav-fixed">
     <Partial name="_Nav" />
@@ -29,8 +30,8 @@
     <script src="~/js/scripts.js"></script>
     <script src="~/lib/simple-datatables.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Syncfusion Script Manager -->
-    @Html.EJS().ScriptManager()
+    <!-- Syncfusion ASP.NET Core Script Manager -->
     @await RenderSectionAsync("Scripts", required: false)
+    <ejs-scripts></ejs-scripts>
 </body>
 </html>

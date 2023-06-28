@@ -22,14 +22,18 @@
             return true; // Valid image
         }
 
-        public static bool IsValidImage(List<IFormFile> files)
+        public static bool IsValidImage(IList<IFormFile> files)
         {
-            foreach (var file in files)
+            if (files.Count > 0)
             {
-                if (!(file.Length > 0 && IsValidImage(file)))
-                    return false;
+                foreach (var file in files)
+                {
+                    if (file.Length == 0 || !IsValidImage(file))
+                        return false;
+                }
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }

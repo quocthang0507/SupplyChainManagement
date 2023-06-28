@@ -29,21 +29,21 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <summary>
         /// Tải hình ảnh lên máy chủ
         /// </summary>
-        /// <param name="uploadDefault"></param>
+        /// <param name="uploadFiles"></param>
         /// <returns></returns>
         [HttpPost]
         [RequestSizeLimit(5242880)]
         [ProducesResponseType(StatusCodes.Status415UnsupportedMediaType)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> PostUploadProfilePicture(List<IFormFile> uploadDefault)
+        public async Task<IActionResult> PostUploadProfilePicture(IList<IFormFile> chunkFiles, IList<IFormFile> uploadFiles)
         {
             try
             {
-                if (ImageHelper.IsValidImage(uploadDefault))
+                if (ImageHelper.IsValidImage(uploadFiles))
                 {
                     var folderUpload = "upload";
-                    var fileName = await _functionalService.UploadFile(uploadDefault, _env, folderUpload);
+                    var fileName = await _functionalService.UploadFile(uploadFiles, _env, folderUpload);
 
                     var appUser = await _userManager.GetUserAsync(User);
                     if (appUser != null)
