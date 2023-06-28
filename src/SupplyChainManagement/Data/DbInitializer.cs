@@ -14,10 +14,10 @@ namespace SupplyChainManagement.Data
             }
 
             // init app with super admin user
-            await functional.CreateDefaultSuperAdmin();
+            await functional.InitDefaultSuperAdmin();
 
             // init app data
-            await functional.InitAppData();
+            await functional.InitAppUserData();
 
         }
     }

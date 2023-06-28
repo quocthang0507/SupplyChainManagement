@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using SupplyChainManagement.Models;
+using SupplyChainManagement.Models.Sections;
 using SupplyChainManagement.Services.Database;
 using System.Net;
 using System.Net.Mail;
@@ -31,11 +32,11 @@ namespace SupplyChainManagement.Services
             _userProfilesService = userProfilesService;
         }
 
-        public async Task CreateDefaultSuperAdmin()
+        public async Task InitDefaultSuperAdmin()
         {
             try
             {
-                ApplicationUser superAdmin = new ApplicationUser()
+                ApplicationUser superAdmin = new()
                 {
                     Email = _superAdminDefaultOptions.Email,
                     UserName = _superAdminDefaultOptions.Email,
@@ -47,13 +48,15 @@ namespace SupplyChainManagement.Services
                 if (result.Succeeded)
                 {
                     // add to user profile
-                    UserProfile profile = new UserProfile();
+                    UserProfile profile = new();
                     profile.FirstName = _superAdminDefaultOptions.FirstName;
                     profile.LastName = _superAdminDefaultOptions.LastName;
                     profile.Email = superAdmin.Email;
                     profile.ApplicationUserId = superAdmin.Id.ToString();
+                    profile.Phone = _superAdminDefaultOptions.Phone;
+                    profile.Address = _superAdminDefaultOptions.Address;
                     await _userProfilesService.CreateAsync(profile);
-                    await _roleManager.CreateAsync(new ApplicationRole() { Id = superAdmin.Id, Name = "Admin" });
+                    await _roleManager.CreateAsync(new ApplicationRole() { Name = "Administrator" });
                 }
             }
             catch (Exception)
@@ -62,22 +65,29 @@ namespace SupplyChainManagement.Services
             }
         }
 
-        public async Task InitAppData()
+        public async Task InitAppUserData()
         {
             try
             {
-                ApplicationUser user = new ApplicationUser()
+                ApplicationUser user = new()
                 {
                     Email = "user@example.com",
                     UserName = "user@example.com",
                     EmailConfirmed = true
                 };
-                UserProfile userProfile = new UserProfile()
+                UserProfile userProfile = new()
                 {
                     FirstName = "User",
                     LastName = "",
                     Email = user.Email,
-                    ApplicationUserId = user.Id.ToString()
+                    ApplicationUserId = user.Id.ToString(),
+                    Address = new()
+                    {
+                        Commune = "Phường 8",
+                        District = "Tp. Đà Lạt",
+                        Province = "Lâm Đồng",
+                        GeoCoordinate = new(11.963824, 108.442202)
+                    }
                 };
 
                 await _userManager.CreateAsync(user, _superAdminDefaultOptions.Password);

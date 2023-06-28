@@ -35,8 +35,7 @@ namespace SupplyChainManagement.Controllers
 
         public async Task<IActionResult> UserProfile()
         {
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-            return View(user);
+            return View();
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     public interface IFunctional
     {
-        Task InitAppData();
+        Task InitAppUserData();
 
-        Task CreateDefaultSuperAdmin();
+        Task InitDefaultSuperAdmin();
 
         Task SendEmailBySendGridAsync(string apiKey,
             string fromEmail,

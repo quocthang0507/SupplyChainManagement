@@ -16,14 +16,14 @@ namespace SupplyChainManagement.Models
         public string ApplicationUserId { get; set; } = null!;
 
         [Required]
-        [Display(Name = "Họ")]
+        [Display(Name = "Họ và tên đệm")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Tên")]
         public string LastName { get; set; }
 
-        public Address Address { get; set; }
+        public Address Address { get; set; } = new();
 
         [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
@@ -32,7 +32,7 @@ namespace SupplyChainManagement.Models
         public string Email { get; set; }
 
         [Display(Name = "Kích hoạt")]
-        public bool Activated { get; set; }
+        public bool Activated { get; set; } = true;
 
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
@@ -45,5 +45,11 @@ namespace SupplyChainManagement.Models
 
         [Display(Name = "Ảnh đại diện")]
         public string ProfilePicture { get; set; } = "/upload/blank-person.png";
+
+        [Display(Name = "Họ và tên")]
+        public string FullName
+        {
+            get => $"{FirstName} {LastName}";
+        }
     }
 }

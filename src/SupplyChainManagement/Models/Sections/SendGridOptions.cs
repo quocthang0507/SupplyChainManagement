@@ -1,4 +1,4 @@
-﻿namespace SupplyChainManagement.Services
+﻿namespace SupplyChainManagement.Models.Sections
 {
     public class SendGridOptions
     {

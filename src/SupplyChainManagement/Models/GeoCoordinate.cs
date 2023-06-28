@@ -13,5 +13,17 @@
         ///Kinh độ
         ///</summary>
         public double Longitude { get; set; }
+
+        public GeoCoordinate()
+        {
+            Latitude = 0;
+            Longitude = 0;
+        }
+
+        public GeoCoordinate(double latitude, double longitude)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+        }
     }
 }

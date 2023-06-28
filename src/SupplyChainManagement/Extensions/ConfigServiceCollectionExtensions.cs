@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MongoDB.Bson;
 using SupplyChainManagement.Data;
 using SupplyChainManagement.Models;
+using SupplyChainManagement.Models.Sections;
 using SupplyChainManagement.Services;
 using SupplyChainManagement.Services.Database;
 

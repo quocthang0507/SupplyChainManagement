@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace SupplyChainManagement.Models
 {
@@ -22,6 +23,11 @@ namespace SupplyChainManagement.Models
         [Display(Name = "Mã bưu chính")]
         public string ZipCode { get; set; }
 
-        public GeoCoordinate GeoCoordinate { get; set; }
+        public GeoCoordinate GeoCoordinate { get; set; } = new();
+
+        public override string ToString()
+        {
+            return $"{AddressNumber}, {Commune}, {District}, {Province}";
+        }
     }
 }
