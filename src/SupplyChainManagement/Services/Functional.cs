@@ -17,19 +17,22 @@ namespace SupplyChainManagement.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly SuperAdminDefaultOptions _superAdminDefaultOptions;
         private readonly UserProfilesService _userProfilesService;
+        private readonly IRoles _roles;
 
         public Functional(
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions,
-            UserProfilesService userProfilesService)
+            UserProfilesService userProfilesService,
+            IRoles roles)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _superAdminDefaultOptions = superAdminDefaultOptions.Value;
             _userProfilesService = userProfilesService;
+            _roles = roles;
         }
 
         public async Task InitDefaultSuperAdmin()
@@ -48,15 +51,18 @@ namespace SupplyChainManagement.Services
                 if (result.Succeeded)
                 {
                     // add to user profile
-                    UserProfile profile = new();
-                    profile.FirstName = _superAdminDefaultOptions.FirstName;
-                    profile.LastName = _superAdminDefaultOptions.LastName;
-                    profile.Email = superAdmin.Email;
-                    profile.ApplicationUserId = superAdmin.Id.ToString();
-                    profile.Phone = _superAdminDefaultOptions.Phone;
-                    profile.Address = _superAdminDefaultOptions.Address;
+                    UserProfile profile = new()
+                    {
+                        FirstName = _superAdminDefaultOptions.FirstName,
+                        LastName = _superAdminDefaultOptions.LastName,
+                        Email = superAdmin.Email,
+                        ApplicationUserId = superAdmin.Id.ToString(),
+                        Phone = _superAdminDefaultOptions.Phone,
+                        Address = _superAdminDefaultOptions.Address
+                    };
                     await _userProfilesService.CreateAsync(profile);
-                    await _roleManager.CreateAsync(new ApplicationRole() { Name = "Administrator" });
+                    //await _roleManager.CreateAsync(new ApplicationRole() { Name = "Administrator" });
+                    await _roles.AddToRoles(superAdmin.Id.ToString());
                 }
             }
             catch (Exception)
@@ -92,7 +98,8 @@ namespace SupplyChainManagement.Services
 
                 await _userManager.CreateAsync(user, _superAdminDefaultOptions.Password);
                 await _userProfilesService.CreateAsync(userProfile);
-                await _roleManager.CreateAsync(new ApplicationRole() { Id = user.Id, Name = "User" });
+                //await _roleManager.CreateAsync(new ApplicationRole() { Id = user.Id, Name = "User" });
+                await _roles.AddToRoles(user.Id.ToString());
             }
             catch (Exception)
             {
