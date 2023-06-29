@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.AccountViewModels;
 using SupplyChainManagement.Models.CRUD;
+using SupplyChainManagement.Models.Response;
 using SupplyChainManagement.Services;
+using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
@@ -29,13 +31,14 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRoles()
         {
             await _roles.GenerateRolesFromPagesAsync();
 
-            List<ApplicationRole> Items = _roleManager.Roles.ToList();
-            int Count = Items.Count;
-            return Ok(new { Items, Count });
+            List<ApplicationRole> roles = _roleManager.Roles.ToList();
+            return Ok(ApiResponse.Success(new RetrievalResponse<ApplicationRole>(roles)));
         }
 
         /// <summary>
@@ -44,22 +47,26 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("[action]/{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRoleByApplicationUserId([FromRoute] string id)
         {
             await _roles.GenerateRolesFromPagesAsync();
             ApplicationUser? user = await _userManager.FindByIdAsync(id);
-            var roles = _roleManager.Roles.ToList();
-            List<UserRoleViewModel> Items = new();
-            int count = 1;
-            foreach (var item in roles)
+            if (user != null)
             {
-                bool isInRole = await _userManager.IsInRoleAsync(user, item.Name);
-                Items.Add(new UserRoleViewModel { CounterId = count, ApplicationUserId = id, RoleName = item.Name, IsHaveAccess = isInRole });
-                count++;
+                var roles = _roleManager.Roles.ToList();
+                List<UserRoleViewModel> items = new();
+                int count = 1;
+                foreach (var item in roles)
+                {
+                    bool isInRole = await _userManager.IsInRoleAsync(user, item.Name);
+                    items.Add(new UserRoleViewModel { CounterId = count, ApplicationUserId = id, RoleName = item.Name, IsHaveAccess = isInRole });
+                    count++;
+                }
+                return Ok(ApiResponse.Success(new RetrievalResponse<UserRoleViewModel>(items)));
             }
-
-            int Count = Items.Count;
-            return Ok(new { Items, Count });
+            return Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy người dùng có id={id}"));
         }
 
         /// <summary>
@@ -68,7 +75,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUserRole([FromBody] CrudViewModel<UserRoleViewModel> payload)
         {
@@ -87,9 +94,9 @@ namespace SupplyChainManagement.Controllers.Endpoints
                         await _userManager.RemoveFromRoleAsync(user, userRole.RoleName);
                     }
                 }
-                return Ok(userRole);
+                return Ok(ApiResponse.Success(userRole));
             }
-            return BadRequest();
+            return Ok(ApiResponse.Fail(HttpStatusCode.BadRequest));
         }
     }
 }

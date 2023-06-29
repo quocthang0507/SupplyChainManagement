@@ -15,11 +15,9 @@ namespace SupplyChainManagement.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string ApplicationUserId { get; set; } = null!;
 
-        [Required]
         [Display(Name = "Họ và tên đệm")]
         public string FirstName { get; set; }
 
-        [Required]
         [Display(Name = "Tên")]
         public string LastName { get; set; }
 

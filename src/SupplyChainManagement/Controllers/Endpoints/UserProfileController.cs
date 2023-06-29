@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SendGrid.Helpers.Mail;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.CRUD;
+using SupplyChainManagement.Models.Response;
 using SupplyChainManagement.Services.Database;
+using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
@@ -14,11 +15,11 @@ namespace SupplyChainManagement.Controllers.Endpoints
     public class UserProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly UserProfilesService _userProfilesService;
         private readonly ApplicationUsersService _applicationUsersService;
 
-        public UserProfileController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, UserProfilesService userProfilesService, ApplicationUsersService applicationUsersService)
+        public UserProfileController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, UserProfilesService userProfilesService, ApplicationUsersService applicationUsersService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -31,11 +32,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUsers()
         {
-            List<UserProfile> Items = await _userProfilesService.GetAsync();
-            int Count = Items.Count;
-            return Ok(new { Items, Count });
+            List<UserProfile> profiles = await _userProfilesService.GetAsync();
+            return Ok(ApiResponse.Success(new RetrievalResponse<UserProfile>(profiles)));
         }
 
         /// <summary>
@@ -44,16 +46,17 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("[action]/{id}")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByApplicationUserId([FromRoute] string id)
         {
             UserProfile? userProfile = await _userProfilesService.GetByApplicationUserIdAsync(id);
-            List<UserProfile> Items = new();
+            List<UserProfile> profiles = new();
             if (userProfile != null)
             {
-                Items.Add(userProfile);
+                profiles.Add(userProfile);
             }
-            int Count = Items.Count;
-            return Ok(new { Items, Count });
+            return Ok(ApiResponse.Success(new RetrievalResponse<UserProfile>(profiles)));
         }
 
         /// <summary>
@@ -62,6 +65,8 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Insert([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile register = payload.value;
@@ -77,7 +82,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
                     await _userProfilesService.CreateAsync(register);
                 }
             }
-            return Ok(register);
+            return Ok(ApiResponse.Success(register));
         }
 
         /// <summary>
@@ -86,11 +91,13 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
             await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
-            return Ok(profile);
+            return Ok(ApiResponse.Success(profile));
         }
 
         /// <summary>
@@ -99,6 +106,8 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ChangePassword([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
@@ -106,10 +115,15 @@ namespace SupplyChainManagement.Controllers.Endpoints
             {
                 var user = await _userManager.FindByIdAsync(profile.ApplicationUserId);
                 if (user != null)
-                    await _userManager.ChangePasswordAsync(user, profile.OldPassword, profile.Password);
+                {
+                    var result = await _userManager.ChangePasswordAsync(user, profile.OldPassword, profile.Password);
+                    if (result.Succeeded)
+                        return Ok(ApiResponse.Success("Cập nhật mật khẩu thành công"));
+                    return Ok(ApiResponse.Fail(HttpStatusCode.Forbidden, result.Errors.ToArray()));
+                }
+                return Ok(ApiResponse.Fail(HttpStatusCode.NotFound));
             }
-            profile = await _userProfilesService.GetByApplicationUserIdAsync(profile.ApplicationUserId);
-            return Ok(profile);
+            return Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Mật khẩu và mật khẩu xác nhận không khớp"));
         }
 
         /// <summary>
@@ -118,10 +132,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult ChangeRole([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
-            return Ok(profile);
+            return Ok(ApiResponse.Success(profile));
         }
 
         /// <summary>
@@ -130,7 +146,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Remove([FromBody] CrudViewModel<UserProfile> payload)
         {
@@ -148,7 +164,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
                     return Ok();
                 }
             }
-            return NotFound();
+            return Ok(ApiResponse.Fail(HttpStatusCode.NotFound));
         }
     }
 }

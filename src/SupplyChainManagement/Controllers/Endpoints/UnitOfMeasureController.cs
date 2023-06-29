@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.CRUD;
+using SupplyChainManagement.Models.Response;
 using SupplyChainManagement.Services.Database;
 
 namespace SupplyChainManagement.Controllers.Endpoints
@@ -23,11 +24,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUnitOfMeasures()
         {
-            List<UnitOfMeasure> Items = await _unitOfMeasureService.GetAsync();
-            int Count = Items.Count;
-            return Ok(new { Items, Count });
+            List<UnitOfMeasure> items = await _unitOfMeasureService.GetAsync();
+            return Ok(ApiResponse.Success(new RetrievalResponse<UnitOfMeasure>(items)));
         }
 
         /// <summary>
@@ -36,11 +38,13 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Insert([FromBody] CrudViewModel<UnitOfMeasure> payload)
         {
             UnitOfMeasure unitOfMeasure = payload.value;
             await _unitOfMeasureService.CreateAsync(unitOfMeasure);
-            return Ok(unitOfMeasure);
+            return Ok(ApiResponse.Success(unitOfMeasure));
         }
 
         /// <summary>
@@ -49,11 +53,13 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update([FromBody] CrudViewModel<UnitOfMeasure> payload)
         {
             UnitOfMeasure unitOfMeasure = payload.value;
             await _unitOfMeasureService.UpdateAsync(unitOfMeasure.UnitOfMeasureId, unitOfMeasure);
-            return Ok(unitOfMeasure);
+            return Ok(ApiResponse.Success(unitOfMeasure));
         }
 
         /// <summary>
@@ -62,11 +68,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Remove([FromBody] CrudViewModel<UnitOfMeasure> payload)
         {
             await _unitOfMeasureService.DeleteAsync(payload.key.ToString());
-            return NoContent();
+            return Ok();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using SupplyChainManagement.Models;
-
-namespace SupplyChainManagement.Models.Sections
+﻿namespace SupplyChainManagement.Models.Sections
 {
     public class SuperAdminDefaultOptions
     {

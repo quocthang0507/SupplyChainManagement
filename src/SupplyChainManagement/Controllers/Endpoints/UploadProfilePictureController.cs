@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SupplyChainManagement.Helper;
 using SupplyChainManagement.Models;
+using SupplyChainManagement.Models.Response;
 using SupplyChainManagement.Services;
 using SupplyChainManagement.Services.Database;
+using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
@@ -29,13 +31,13 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <summary>
         /// Tải hình ảnh lên máy chủ
         /// </summary>
+        /// <param name="chunkFiles"></param>
         /// <param name="uploadFiles"></param>
         /// <returns></returns>
         [HttpPost]
         [RequestSizeLimit(5242880)]
-        [ProducesResponseType(StatusCodes.Status415UnsupportedMediaType)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> PostUploadProfilePicture(IList<IFormFile> chunkFiles, IList<IFormFile> uploadFiles)
         {
             try
@@ -55,13 +57,13 @@ namespace SupplyChainManagement.Controllers.Endpoints
                             await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
                         }
                     }
-                    return Ok(fileName);
+                    return Ok(ApiResponse.Success(fileName));
                 }
-                return new UnsupportedMediaTypeResult();
+                return Ok(ApiResponse.Fail(HttpStatusCode.UnsupportedMediaType, "Không hỗ trợ định dạng này!"));
             }
             catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = e.Message });
+                return Ok(ApiResponse.Fail(HttpStatusCode.InternalServerError, $"Lỗi hệ thống, tên lỗi {e.Message}!"));
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SupplyChainManagement.Models
 {
@@ -27,7 +26,8 @@ namespace SupplyChainManagement.Models
 
         public override string ToString()
         {
-            return $"{AddressNumber}, {Commune}, {District}, {Province}";
+            string[] arr = { AddressNumber, Commune, District, Province };
+            return string.Join(", ", arr.Where(x => !string.IsNullOrEmpty(x)));
         }
     }
 }

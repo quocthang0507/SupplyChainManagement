@@ -86,6 +86,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseRequestLocalization("vi-VN");
+
 app.UseAuthentication();
 app.UseAuthorization();
 

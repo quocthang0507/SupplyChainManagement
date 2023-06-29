@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.CRUD;
 using SupplyChainManagement.Models.ManageViewModels;
+using SupplyChainManagement.Models.Response;
+using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
@@ -26,11 +28,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetChangePassword()
         {
-            var Items = _userManager.Users.ToList();
-            int Count = Items.Count;
-            return Ok(new { Items, Count });
+            var users = _userManager.Users.ToList();
+            return Ok(ApiResponse.Success(new RetrievalResponse<ApplicationUser>(users)));
         }
 
         /// <summary>
@@ -39,7 +42,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <param name="payload"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update([FromBody] CrudViewModel<ChangePasswordViewModel> payload)
         {
@@ -49,10 +52,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
             if (user != null &&
                 changePasswordViewModel.NewPassword.Equals(changePasswordViewModel.ConfirmPassword))
             {
-                await _userManager.ChangePasswordAsync(user, changePasswordViewModel.OldPassword, changePasswordViewModel.NewPassword);
-                return Ok();
+                var result = await _userManager.ChangePasswordAsync(user, changePasswordViewModel.OldPassword, changePasswordViewModel.NewPassword);
+                if (result.Succeeded)
+                    return Ok(ApiResponse.Success("Cập nhật mật khẩu thành công"));
+                return Ok(ApiResponse.Fail(HttpStatusCode.Forbidden, result.Errors.ToArray()));
             }
-            return BadRequest();
+            return Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Mật khẩu và mật khẩu xác nhận không khớp"));
         }
     }
 }
