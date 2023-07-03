@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using ApplicationCore.Interfaces;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SupplyChainManagement.Extensions;
-using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.AccountViewModels;
-using SupplyChainManagement.Services;
 
 namespace SupplyChainManagement.Controllers
 {

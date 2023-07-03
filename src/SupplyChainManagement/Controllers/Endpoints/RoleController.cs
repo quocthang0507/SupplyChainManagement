@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApplicationCore.Interfaces;
+using ApplicationCore.Models;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.AccountViewModels;
 using SupplyChainManagement.Models.CRUD;
-using SupplyChainManagement.Models.Response;
-using SupplyChainManagement.Services;
 using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints

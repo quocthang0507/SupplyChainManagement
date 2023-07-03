@@ -1,7 +1,9 @@
-﻿@model SupplyChainManagement.Models.UserProfile
-@using SupplyChainManagement.Helper;
-@using SupplyChainManagement.Services.Database;
+﻿@model ApplicationCore.Entities.UserProfile
+@using ApplicationCore.Entities;
+@using Infrastructure.Data;
+@using Infrastructure.Identity;
 @using Microsoft.AspNetCore.Identity;
+@using SupplyChainManagement.Helper;
 @using Syncfusion.EJ2.Inputs;
 @inject UserManager<ApplicationUser> UserManager
 @inject UserProfilesService userProfilesService

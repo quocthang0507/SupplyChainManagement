@@ -1,10 +1,10 @@
+using ApplicationCore.Interfaces;
+using Infrastructure;
+using Infrastructure.Data;
+using Infrastructure.Extensions;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
-using SupplyChainManagement.Data;
-using SupplyChainManagement.Extensions;
-using SupplyChainManagement.Models;
-using SupplyChainManagement.Services;
-using SupplyChainManagement.Services.Database;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
