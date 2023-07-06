@@ -1,6 +1,6 @@
-﻿using ApplicationCore.Interfaces;
-using ApplicationCore.Models;
-using Infrastructure.Identity;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using ApplicationCore.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

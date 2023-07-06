@@ -1,9 +1,9 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 
-namespace Infrastructure.Data.Sample
+namespace Infrastructure.Data.Seeders
 {
-    public class FarmSamples : ISample
+    public class FarmSamples : ISeeder
     {
         private readonly FarmTypeService farmTypeService;
         private readonly FarmService farmService;

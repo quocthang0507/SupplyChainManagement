@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Models;
+using ApplicationCore.Extensions;
+using ApplicationCore.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -18,6 +19,9 @@ namespace Infrastructure.Data
 
         public async Task<List<UserProfile>> GetAsync() =>
             await _usersCollection.Find(_ => true).ToListAsync();
+
+        public async Task<IPagedList<UserProfile>> GetPagedAsync(IPagingParams pagingParams) =>
+            await _usersCollection.Find(_ => true).ToPagedListAsync(pagingParams);
 
         public async Task<UserProfile?> GetAsync(string id) =>
             await _usersCollection.Find(x => x.UserProfileId == id).FirstOrDefaultAsync();

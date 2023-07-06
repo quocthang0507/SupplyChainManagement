@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Net;
 
-namespace ApplicationCore.Models
+namespace ApplicationCore.ResponseModels
 {
     public class ApiResponse
     {

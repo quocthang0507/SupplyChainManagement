@@ -1,6 +1,6 @@
 ﻿namespace ApplicationCore.Interfaces
 {
-    public interface ISample
+    public interface ISeeder
     {
         public Task InitData();
     }

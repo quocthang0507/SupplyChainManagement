@@ -1,5 +1,5 @@
-﻿using ApplicationCore.Interfaces;
-using Infrastructure.Identity;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

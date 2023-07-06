@@ -1,7 +1,6 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Models;
+using ApplicationCore.ResponseModels;
 using Infrastructure.Data;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

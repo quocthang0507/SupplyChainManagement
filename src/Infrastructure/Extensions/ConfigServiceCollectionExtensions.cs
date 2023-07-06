@@ -1,9 +1,8 @@
-﻿using ApplicationCore.Interfaces;
-using ApplicationCore.Models;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Infrastructure.Data;
-using Infrastructure.Identity;
 using Infrastructure.Options;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;

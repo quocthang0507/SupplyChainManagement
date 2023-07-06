@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

@@ -1,4 +1,4 @@
-﻿namespace ApplicationCore.Models
+﻿namespace Infrastructure.Data
 {
     public class DbSettings
     {

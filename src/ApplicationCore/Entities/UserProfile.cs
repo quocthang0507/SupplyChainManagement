@@ -18,15 +18,13 @@ namespace ApplicationCore.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string ApplicationUserId { get; set; } = null!;
 
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string UserTypeId { get; set; } = null!;
-
         [Display(Name = "Họ và tên đệm")]
         public string FirstName { get; set; }
 
         [Display(Name = "Tên")]
         public string LastName { get; set; }
 
+        [Display(Name = "Địa chỉ")]
         public Address Address { get; set; } = new();
 
         [Display(Name = "Số điện thoại")]

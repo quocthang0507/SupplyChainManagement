@@ -1,8 +1,8 @@
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Extensions;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using System.Reflection;

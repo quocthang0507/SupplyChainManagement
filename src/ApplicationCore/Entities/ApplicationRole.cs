@@ -2,10 +2,11 @@
 using MongoDB.Bson;
 using MongoDbGenericRepository.Attributes;
 
-namespace Infrastructure.Identity
+namespace ApplicationCore.Entities
 {
-    [CollectionName("Users")]
-    public class ApplicationUser : MongoIdentityUser<ObjectId>
+    [CollectionName("Roles")]
+    public class ApplicationRole : MongoIdentityRole<ObjectId>
     {
+
     }
 }

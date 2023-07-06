@@ -1,8 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Data.Sample;
-using Infrastructure.Identity;
+using Infrastructure.Data.Seeders;
 using Infrastructure.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -59,10 +58,9 @@ namespace Infrastructure.Services
                         Email = superAdmin.Email,
                         ApplicationUserId = superAdmin.Id.ToString(),
                         Phone = _superAdminDefaultOptions.Phone,
-                        Address = _superAdminDefaultOptions.Address
+                        Address = _superAdminDefaultOptions.Address,
                     };
                     await _userProfilesService.CreateAsync(profile);
-                    //await _roleManager.CreateAsync(new ApplicationRole() { Name = "Administrator" });
                     await _roles.AddToRoles(superAdmin.Id.ToString());
                 }
             }

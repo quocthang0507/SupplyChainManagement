@@ -1,4 +1,4 @@
-﻿namespace ApplicationCore.Models
+﻿namespace ApplicationCore.ResponseModels
 {
     public class RetrievalResponse<T>
     {

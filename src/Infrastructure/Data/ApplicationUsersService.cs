@@ -1,8 +1,8 @@
-﻿using ApplicationCore.Models;
+﻿using ApplicationCore.Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Infrastructure.Identity
+namespace Infrastructure.Data
 {
     public class ApplicationUsersService
     {

@@ -1,6 +1,6 @@
 ﻿using ApplicationCore.Constants;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Services

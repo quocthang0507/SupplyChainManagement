@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Data.Sample
+﻿namespace Infrastructure.Data.Seeders
 {
     public static class UserProfileSamples
     {

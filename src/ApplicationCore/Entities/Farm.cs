@@ -11,15 +11,15 @@ namespace ApplicationCore.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? FarmId { get; set; }
+        public string? Id { get; set; }
 
-        public string FarmTypeId { get; set; }
+        public string TypeId { get; set; }
 
         [Display(Name = "Mô tả")]
         public string Description { get; set; }
 
         [Display(Name = "Địa chỉ")]
-        public Address FarmAddress { get; set; }
+        public Address Address { get; set; }
 
         ///<summary>
         /// Danh sách các thửa đất trong nông trại
