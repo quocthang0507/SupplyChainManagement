@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
 {
+    /// <summary>
+    /// Hồ sơ người dùng
+    /// </summary>
     [CollectionName("UserProfiles")]
     public class UserProfile
     {
@@ -14,6 +17,9 @@ namespace ApplicationCore.Entities
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string ApplicationUserId { get; set; } = null!;
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserTypeId { get; set; } = null!;
 
         [Display(Name = "Họ và tên đệm")]
         public string FirstName { get; set; }

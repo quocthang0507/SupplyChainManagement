@@ -1,7 +1,7 @@
 ﻿namespace ApplicationCore.Entities
 {
     ///<summary>
-    ///Hệ tọa độ địa lý (Geographic coordinate system)
+    /// Hệ tọa độ địa lý (Geographic coordinate system)
     ///</summary>
     public class GeoCoordinate
     {

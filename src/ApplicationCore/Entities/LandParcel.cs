@@ -1,6 +1,9 @@
 ﻿namespace ApplicationCore.Entities
 {
-    public class LandParcel
+    /// <summary>
+    /// Thửa đất
+    /// </summary>
+    public class LandParcel : Farm
     {
     }
 }

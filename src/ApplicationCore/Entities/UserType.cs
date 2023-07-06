@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
 {
+    /// <summary>
+    /// Loại người dùng
+    /// </summary>
     public class UserType
     {
         [Required]

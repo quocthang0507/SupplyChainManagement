@@ -100,6 +100,10 @@ namespace Infrastructure.Extensions
 
             services.AddSingleton<ApplicationUsersService>();
 
+            services.AddSingleton<FarmTypeService>();
+
+            services.AddSingleton<FarmService>();
+
             return services;
         }
     }

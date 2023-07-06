@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
 {
+    /// <summary>
+    /// Đơn vị đo lường
+    /// </summary>
     [CollectionName("UnitOfMeasures")]
     public class UnitOfMeasure
     {

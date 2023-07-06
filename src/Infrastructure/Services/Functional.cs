@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Sample;
 using Infrastructure.Identity;
 using Infrastructure.Options;
 using Microsoft.AspNetCore.Hosting;
@@ -73,13 +74,7 @@ namespace Infrastructure.Services
 
         public async Task InitAppUserData()
         {
-            try
-            {
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            await UserProfileSamples.InitAppUserData();
         }
 
         public async Task SendEmailByGmailAsync(string fromEmail, string fromFullName, string subject, string messageBody, string toEmail, string toFullName, string smtpUser, string smtpPassword, string smtpHost, int smtpPort, bool smtpSSL)

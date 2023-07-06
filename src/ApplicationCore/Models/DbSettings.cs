@@ -15,6 +15,10 @@
         public string ApplicationUsersCollectionName { get; set; } = null!;
 
         public string UnitOfMeasuresCollectionName { get; set; } = null!;
+
+        public string FarmTypeCollectionName { get; set; } = null!;
+
+        public string FarmCollectionName { get; set; } = null!;
         #endregion
     }
 }

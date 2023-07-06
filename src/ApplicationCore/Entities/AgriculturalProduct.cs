@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
 {
+    /// <summary>
+    /// Nông sản
+    /// </summary>
     public class AgriculturalProduct
     {
         [BsonId]
