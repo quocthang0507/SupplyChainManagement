@@ -1,8 +1,10 @@
-﻿namespace Infrastructure.Data.Seeders
+﻿using ApplicationCore.Interfaces;
+
+namespace Infrastructure.Data.Seeders
 {
-    public static class UserProfileSamples
+    public class UserProfileSeeder : ISeeder
     {
-        public static async Task InitAppUserData()
+        public async Task InitData()
         {
             try
             {

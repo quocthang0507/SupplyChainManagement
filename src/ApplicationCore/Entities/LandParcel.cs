@@ -1,4 +1,6 @@
-﻿using MongoDbGenericRepository.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDbGenericRepository.Attributes;
 
 namespace ApplicationCore.Entities
 {
@@ -8,6 +10,12 @@ namespace ApplicationCore.Entities
     [CollectionName("LandParcels")]
     public class LandParcel : Farm
     {
-        public Taxonomy Taxonomy { get; set; } = new();
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string FarmTypeId { get; set; }
+
+        public PlantingMetadata PlantingMetadata { get; set; } = new();
+
+        public List<HarvestMetadata> HarvestHistory { get; set; } = new();
     }
 }

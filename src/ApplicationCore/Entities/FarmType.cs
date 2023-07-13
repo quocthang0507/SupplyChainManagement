@@ -12,7 +12,7 @@ namespace ApplicationCore.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string FarmTypeId { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [DisplayName("Loại nông trại")]
@@ -22,7 +22,7 @@ namespace ApplicationCore.Entities
         public string EnglishTypeName { get; set; }
 
         [DisplayName("Mô tả")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
     }
 }

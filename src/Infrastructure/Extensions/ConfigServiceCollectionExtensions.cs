@@ -99,9 +99,11 @@ namespace Infrastructure.Extensions
 
             services.AddSingleton<ApplicationUsersService>();
 
-            services.AddSingleton<FarmTypeService>();
+            services.AddSingleton<FarmTypesService>();
 
-            services.AddSingleton<FarmService>();
+            services.AddSingleton<FarmsService>();
+
+            services.AddSingleton<PhotoperiodismService>();
 
             return services;
         }

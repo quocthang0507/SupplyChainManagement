@@ -33,6 +33,9 @@ namespace ApplicationCore.Entities
         [Display(Name = "Địa chỉ email")]
         public string Email { get; set; }
 
+        [Display(Name = "Ngày sinh")]
+        public DateTime Birthday { get; set; }
+
         [Display(Name = "Kích hoạt")]
         public bool Activated { get; set; } = true;
 

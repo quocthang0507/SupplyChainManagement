@@ -4,15 +4,15 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Data
 {
-    public class FarmService
+    public class FarmsService : IService<Farm>
     {
         private readonly IMongoCollection<Farm> _farmCollection;
 
-        public FarmService(IOptions<DbSettings> dbSettings)
+        public FarmsService(IOptions<DbSettings> dbSettings)
         {
             var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
             var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
-            _farmCollection = mongoDb.GetCollection<Farm>(dbSettings.Value.FarmCollectionName);
+            _farmCollection = mongoDb.GetCollection<Farm>(dbSettings.Value.FarmsCollectionName);
         }
 
         public async Task CreateAsync(Farm farm) =>

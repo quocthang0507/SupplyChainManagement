@@ -6,7 +6,6 @@ using Infrastructure.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Net;
@@ -19,18 +18,18 @@ namespace Infrastructure.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SuperAdminDefaultOptions _superAdminDefaultOptions;
         private readonly UserProfilesService _userProfilesService;
+        private readonly FarmTypesService _farmTypesService;
         private readonly IRoles _roles;
+        private readonly PhotoperiodismService _photoperiodismService;
 
-        public Functional(
-            UserManager<ApplicationUser> userManager,
-            IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions,
-            UserProfilesService userProfilesService,
-            IRoles roles)
+        public Functional(UserManager<ApplicationUser> userManager, SuperAdminDefaultOptions superAdminDefaultOptions, UserProfilesService userProfilesService, FarmTypesService farmTypesService, IRoles roles, PhotoperiodismService photoperiodismService)
         {
             _userManager = userManager;
-            _superAdminDefaultOptions = superAdminDefaultOptions.Value;
+            _superAdminDefaultOptions = superAdminDefaultOptions;
             _userProfilesService = userProfilesService;
+            _farmTypesService = farmTypesService;
             _roles = roles;
+            _photoperiodismService = photoperiodismService;
         }
 
         public async Task InitDefaultSuperAdmin()
@@ -72,7 +71,9 @@ namespace Infrastructure.Services
 
         public async Task InitAppUserData()
         {
-            await UserProfileSamples.InitAppUserData();
+            await new UserProfileSeeder().InitData();
+            await new FarmSeeder(_farmTypesService).InitData();
+            await new PhotoperiodismSeeder(_photoperiodismService).InitData();
         }
 
         public async Task SendEmailByGmailAsync(string fromEmail, string fromFullName, string subject, string messageBody, string toEmail, string toFullName, string smtpUser, string smtpPassword, string smtpHost, int smtpPort, bool smtpSSL)

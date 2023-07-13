@@ -2,7 +2,7 @@
 
 namespace SupplyChainManagement.Models
 {
-    public class PagingModel : IPagingParams
+    public class PagingViewModel : IPagingParams
     {
         public int PageSize { get; set; } = 10;
 

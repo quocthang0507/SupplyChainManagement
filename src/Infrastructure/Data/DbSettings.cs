@@ -16,9 +16,11 @@
 
         public string UnitOfMeasuresCollectionName { get; set; } = null!;
 
-        public string FarmTypeCollectionName { get; set; } = null!;
+        public string FarmTypesCollectionName { get; set; } = null!;
 
-        public string FarmCollectionName { get; set; } = null!;
+        public string FarmsCollectionName { get; set; } = null!;
+
+        public string PhotoperiodismCollectionName { get; set; } = null!;
         #endregion
     }
 }

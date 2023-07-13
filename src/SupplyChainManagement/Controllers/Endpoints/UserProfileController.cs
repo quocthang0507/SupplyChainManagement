@@ -48,7 +48,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpGet("GetPagedUsers")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetUsers([AsParameters] PagingModel pagingModel)
+        public async Task<IActionResult> GetUsers([AsParameters] PagingViewModel pagingModel)
         {
             var profiles = await _userProfilesService.GetPagedAsync(pagingModel);
             return Ok(ApiResponse.Success(profiles));

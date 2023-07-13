@@ -3,15 +3,13 @@ using ApplicationCore.Interfaces;
 
 namespace Infrastructure.Data.Seeders
 {
-    public class FarmSamples : ISeeder
+    public class FarmSeeder : ISeeder
     {
-        private readonly FarmTypeService farmTypeService;
-        private readonly FarmService farmService;
+        private readonly FarmTypesService farmTypeService;
 
-        public FarmSamples(FarmTypeService farmTypeService, FarmService farmService)
+        public FarmSeeder(FarmTypesService farmTypeService)
         {
             this.farmTypeService = farmTypeService;
-            this.farmService = farmService;
         }
 
         public async Task InitData()

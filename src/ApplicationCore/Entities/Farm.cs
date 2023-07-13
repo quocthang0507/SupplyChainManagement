@@ -26,12 +26,13 @@ namespace ApplicationCore.Entities
         /// <summary>
         /// Chủ sở hữu
         /// </summary>
-        public UserProfile? OwnerProfile { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string OwnerProfileId { get; set; }
 
         ///<summary>
         /// Danh sách các thửa đất trong nông trại
         ///</summary>
-        public IList<LandParcel> LandParcels { get; }
+        public List<string> LandParcelIds { get; set; } = new();
 
         [Display(Name = "Diện tích")]
         public decimal Area { get; set; }
@@ -40,9 +41,9 @@ namespace ApplicationCore.Entities
         public string AreaUnit { get; set; }
 
         [Display(Name = "Metadata")]
-        public Metadata? Metadata { get; set; }
+        public Metadata? Metadata { get; set; } = new();
 
-        public CrudMetadata? CrudMetadata { get; set; }
+        public CrudMetadata? CrudMetadata { get; set; } = new();
 
         [Display(Name = "Kích hoạt")]
         public bool IsActivated { get; set; } = true;

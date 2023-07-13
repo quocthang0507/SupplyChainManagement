@@ -10,6 +10,9 @@ namespace ApplicationCore.Entities
         [Display(Name = "Số nhà")]
         public string AddressNumber { get; set; }
 
+        [Display(Name = "Đường")]
+        public string Street { get; set; }
+
         [Display(Name = "Xã/phường")]
         public string Commune { get; set; }
 
@@ -26,7 +29,7 @@ namespace ApplicationCore.Entities
 
         public override string ToString()
         {
-            string[] arr = { AddressNumber, Commune, District, Province };
+            string[] arr = { AddressNumber, Street, Commune, District, Province };
             return string.Join(", ", arr.Where(x => !string.IsNullOrEmpty(x)));
         }
     }
