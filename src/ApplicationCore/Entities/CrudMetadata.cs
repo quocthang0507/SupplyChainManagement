@@ -7,13 +7,13 @@ namespace ApplicationCore.Entities
     public class CrudMetadata
     {
         [Display(Name = "Ngày tạo")]
-        public DateTime CreatedTime { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
 
         [Display(Name = "Ngày cập nhật")]
-        public DateTime UpdatedTime { get; set; }
+        public DateTimeOffset UpdatedTime { get; set; }
 
         [Display(Name = "Ngày xóa")]
-        public DateTime DeletedTime { get; set; }
+        public DateTimeOffset DeletedTime { get; set; }
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

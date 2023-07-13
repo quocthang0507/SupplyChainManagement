@@ -22,7 +22,7 @@ namespace ApplicationCore.Entities
         [Display(Name = "Mã bưu chính")]
         public string ZipCode { get; set; }
 
-        public GeoCoordinate GeoCoordinate { get; set; } = new();
+        public GeoCoordinate? GeoCoordinate { get; set; }
 
         public override string ToString()
         {

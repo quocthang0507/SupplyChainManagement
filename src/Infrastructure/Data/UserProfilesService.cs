@@ -38,12 +38,12 @@ namespace Infrastructure.Data
         public async Task SetInactivatedAsync(string id) =>
             await _usersCollection.FindOneAndUpdateAsync(
                 x => x.UserProfileId == id,
-                Builders<UserProfile>.Update.Set(x => x.Activated, false));
+                Builders<UserProfile>.Update.Set(x => x.IsActivated, false));
 
         public async Task SetActivatedAsync(string id) =>
             await _usersCollection.FindOneAndUpdateAsync(
                 x => x.UserProfileId == id,
-                Builders<UserProfile>.Update.Set(x => x.Activated, true));
+                Builders<UserProfile>.Update.Set(x => x.IsActivated, true));
 
         public async Task DeleteAsync(string id) =>
             await _usersCollection.DeleteOneAsync(x => x.UserProfileId == id);
