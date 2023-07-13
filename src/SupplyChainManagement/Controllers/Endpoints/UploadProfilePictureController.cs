@@ -54,7 +54,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
                         if (profile != null)
                         {
                             profile.ProfilePicture = "/" + folderUpload + "/" + fileName;
-                            await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
+                            await _userProfilesService.UpdateAsync(profile.Id, profile);
                         }
                     }
                     return Ok(ApiResponse.Success(fileName));
