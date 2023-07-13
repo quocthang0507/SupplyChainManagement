@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.CRUD;
 using System.Net;
 
@@ -38,6 +39,19 @@ namespace SupplyChainManagement.Controllers.Endpoints
         {
             List<UserProfile> profiles = await _userProfilesService.GetAsync();
             return Ok(ApiResponse.Success(new RetrievalResponse<UserProfile>(profiles)));
+        }
+
+        /// <summary>
+        /// Lấy danh sách người dùng
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPagedUsers")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUsers([AsParameters] PagingModel pagingModel)
+        {
+            var profiles = await _userProfilesService.GetPagedAsync(pagingModel);
+            return Ok(ApiResponse.Success(profiles));
         }
 
         /// <summary>
@@ -96,7 +110,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         public async Task<IActionResult> Update([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
-            await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
+            await _userProfilesService.UpdateAsync(profile.Id, profile);
             return Ok(ApiResponse.Success(profile));
         }
 
@@ -159,7 +173,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
                     var result = await _userManager.DeleteAsync(user);
                     if (result.Succeeded)
                     {
-                        await _userProfilesService.DeleteAsync(userProfile.UserProfileId);
+                        await _userProfilesService.DeleteAsync(userProfile.Id);
                     }
                     return Ok();
                 }

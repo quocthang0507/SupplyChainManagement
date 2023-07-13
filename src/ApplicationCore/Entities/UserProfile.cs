@@ -13,7 +13,7 @@ namespace ApplicationCore.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string UserProfileId { get; set; } = null!;
+        public string Id { get; set; } = null!;
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string ApplicationUserId { get; set; } = null!;

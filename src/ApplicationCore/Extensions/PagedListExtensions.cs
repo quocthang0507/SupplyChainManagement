@@ -6,11 +6,17 @@ namespace ApplicationCore.Extensions
 {
     public static class PagedListExtensions
     {
-        public static SortDefinition<T> GetOrder<T>(this IPagingParams pagingParams, string defaultProperty)
+        public static string GetOrder(this IPagingParams pagingParams, string defaultProperty = "Id")
         {
-            if (pagingParams.SortOrder.Equals("ASC", StringComparison.OrdinalIgnoreCase))
-                return Builders<T>.Sort.Ascending(obj => obj.GetType().GetProperty(defaultProperty).GetValue(obj));
-            return Builders<T>.Sort.Descending(obj => obj.GetType().GetProperty(defaultProperty).GetValue(obj));
+            var property = string.IsNullOrWhiteSpace(pagingParams.SortingProperty)
+                ? defaultProperty
+                : pagingParams.SortingProperty;
+
+            var order = "ASC".Equals(
+                pagingParams.SortOrder, StringComparison.OrdinalIgnoreCase)
+                ? 1 : -1;
+
+            return $"{{{property}: {order}}}";
         }
 
         public static async Task<IPagedList<T>> ToPagedListAsync<T>(
@@ -19,7 +25,7 @@ namespace ApplicationCore.Extensions
         {
             var totalCount = await source.CountDocumentsAsync();
             var items = await source
-                .Sort(pagingParams.GetOrder<T>(pagingParams.SortingProperty))
+                .Sort(pagingParams.GetOrder())
                 .Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize)
                 .Limit(pagingParams.PageSize)
                 .ToListAsync();
