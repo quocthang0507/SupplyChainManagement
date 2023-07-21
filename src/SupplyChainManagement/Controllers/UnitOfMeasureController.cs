@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SupplyChainManagement.Controllers
 {
-    [Authorize(Roles = MainMenu.UnitOfMeasure.RoleName)]
+    [Authorize(Roles = RoleNames.Admin)]
     public class UnitOfMeasureController : Controller
     {
         public IActionResult Index()

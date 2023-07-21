@@ -37,7 +37,7 @@ namespace Infrastructure.Services
         {
             try
             {
-                await _roles.GenerateRolesFromPagesAsync();
+                await _roles.GenerateAllExistingRolesAsync();
 
                 ApplicationUser superAdmin = new()
                 {
@@ -61,7 +61,7 @@ namespace Infrastructure.Services
                         Address = _superAdminDefaultOptions.Address,
                     };
                     await _userProfilesService.CreateAsync(profile);
-                    await _roles.AddToRoles(superAdmin.Id.ToString());
+                    await _roles.AssignAllRolesToUserAsync(superAdmin.Id.ToString());
                 }
             }
             catch (Exception)

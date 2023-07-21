@@ -28,4 +28,12 @@
 	  <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Views\UserRole\UserProfileEdit.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Views\UserRole\UserProfileEdit.cshtml" />
+	</ItemGroup>
+
 </Project>

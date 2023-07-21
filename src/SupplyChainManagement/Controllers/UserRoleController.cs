@@ -1,9 +1,12 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Constants;
+using ApplicationCore.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SupplyChainManagement.Controllers
 {
+    [Authorize(Roles = RoleNames.Admin)]
     public class UserRoleController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -18,11 +21,6 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
-
         public IActionResult Role()
         {
             return View();
@@ -33,7 +31,22 @@ namespace SupplyChainManagement.Controllers
             return View();
         }
 
-        public async Task<IActionResult> UserProfile()
+        [Authorize]
+        public IActionResult UserProfile()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [Route("/UserRole/UserProfile/Edit")]
+        public IActionResult UserProfileEdit()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [Route("/UserRole/UserProfile/ChangePassword")]
+        public IActionResult ChangePassword()
         {
             return View();
         }

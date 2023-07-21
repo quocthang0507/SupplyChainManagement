@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Constants;
+using ApplicationCore.Entities;
 using ApplicationCore.ResponseModels;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +8,7 @@ using SupplyChainManagement.Models.CRUD;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
-    [Authorize]
+    [Authorize(Roles = RoleNames.Admin)]
     [Produces("application/json")]
     [Route("api/UnitOfMeasure")]
     public class UnitOfMeasureController : Controller

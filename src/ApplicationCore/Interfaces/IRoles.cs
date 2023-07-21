@@ -2,8 +2,8 @@
 {
     public interface IRoles
     {
-        Task GenerateRolesFromPagesAsync();
+        Task GenerateAllExistingRolesAsync();
 
-        Task AddToRoles(string applicationUserId);
+        Task AssignAllRolesToUserAsync(string applicationUserId);
     }
 }

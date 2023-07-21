@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Constants;
+using ApplicationCore.Entities;
 using ApplicationCore.ResponseModels;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
-    [Authorize]
+    [Authorize(Roles = RoleNames.Admin)]
     [Produces("application/json")]
     [Route("api/UserProfile")]
     public class UserProfileController : Controller
@@ -115,6 +116,32 @@ namespace SupplyChainManagement.Controllers.Endpoints
         }
 
         /// <summary>
+        /// Thay đổi mật khẩu người dùng bởi quản trị viên
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> ChangePasswordByAdmin([FromBody] CrudViewModel<UserProfile> payload)
+        {
+            UserProfile profile = payload.value;
+            if (profile.Password.Equals(profile.ConfirmPassword))
+            {
+                var user = await _userManager.FindByIdAsync(profile.ApplicationUserId);
+                if (user != null)
+                {
+                    var result = await _userManager.ChangePasswordAsync(user, profile.OldPassword, profile.Password);
+                    if (result.Succeeded)
+                        return Ok(ApiResponse.Success("Cập nhật mật khẩu thành công"));
+                    return Ok(ApiResponse.Fail(HttpStatusCode.Forbidden, result.Errors.ToArray()));
+                }
+                return Ok(ApiResponse.Fail(HttpStatusCode.NotFound));
+            }
+            return Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Mật khẩu và mật khẩu xác nhận không khớp"));
+        }
+
+        /// <summary>
         /// Thay đổi mật khẩu người dùng
         /// </summary>
         /// <param name="payload"></param>
@@ -122,12 +149,13 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ChangePassword([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
             if (profile.Password.Equals(profile.ConfirmPassword))
             {
-                var user = await _userManager.FindByIdAsync(profile.ApplicationUserId);
+                var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
                     var result = await _userManager.ChangePasswordAsync(user, profile.OldPassword, profile.Password);

@@ -16,24 +16,18 @@ namespace Infrastructure.Services
             _userManager = userManager;
         }
 
-        public async Task GenerateRolesFromPagesAsync()
+        public async Task GenerateAllExistingRolesAsync()
         {
-            Type t = typeof(MainMenu);
-            foreach (Type item in t.GetNestedTypes())
+            Type roleType = typeof(RoleNames);
+            foreach (var itm in roleType.GetFields())
             {
-                foreach (var itm in item.GetFields())
-                {
-                    if (itm.Name.Contains("RoleName"))
-                    {
-                        string roleName = (string)itm.GetValue(item);
-                        if (!await _roleManager.RoleExistsAsync(roleName))
-                            await _roleManager.CreateAsync(new ApplicationRole() { Name = roleName });
-                    }
-                }
+                    string roleName = itm.GetValue(roleType).ToString();
+                    if (!await _roleManager.RoleExistsAsync(roleName))
+                        await _roleManager.CreateAsync(new ApplicationRole() { Name = roleName });
             }
         }
 
-        public async Task AddToRoles(string applicationUserId)
+        public async Task AssignAllRolesToUserAsync(string applicationUserId)
         {
             var user = await _userManager.FindByIdAsync(applicationUserId);
             if (user != null)

@@ -4,10 +4,10 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject UserProfilesService userProfilesService
 @{
-    ViewData["Title"] = "Đổi mật khẩu";
+    ViewData["Title"] = "Cập nhật hồ sơ";
     ApplicationUser appUser = await UserManager.GetUserAsync(User);
     UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
-    List<UserProfile> data = new(){profile};
+    List<UserProfile> data = new() { profile };
 }
 
 <section>
@@ -18,19 +18,19 @@
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
                         <li class="breadcrumb-item"><a asp-controller="UserRole" class="text-decoration-none">Quản lý Người dùng</a></li>
-                        <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfile" class="text-decoration-none">Hồ sơ người dùng</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Đổi mật khẩu</li>
+                        <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfileEdit" class="text-decoration-none">Hồ sơ người dùng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cập nhật hồ sơ</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="row">
-            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật mật khẩu"></ejs-message>
+            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
         </div>
         <div class="row mt-2">
             <ejs-grid id="Grid" actionComplete="completeGrid"
                       toolbar="@(new List<string>() { "Cancel", "Update" })" locale="vi-VN">
-                <e-data-manager json="@data.ToArray()" updateUrl="/api/UserProfile/ChangePassword"
+                <e-data-manager json="@data.ToArray()" updateUrl="/api/UserProfile/Update"
                                 adaptor="RemoteSaveAdaptor"></e-data-manager>
                 <e-grid-editSettings allowEditing="true"></e-grid-editSettings>
                 <e-grid-columns>

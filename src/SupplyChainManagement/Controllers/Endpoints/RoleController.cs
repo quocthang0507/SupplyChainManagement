@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Constants;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
-    [Authorize]
+    [Authorize(Roles = RoleNames.Admin)]
     [Produces("application/json")]
     [Route("api/Role")]
     public class RoleController : Controller
@@ -35,7 +36,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRoles()
         {
-            await _roles.GenerateRolesFromPagesAsync();
+            await _roles.GenerateAllExistingRolesAsync();
 
             List<ApplicationRole> roles = _roleManager.Roles.ToList();
             return Ok(ApiResponse.Success(new RetrievalResponse<ApplicationRole>(roles)));
@@ -51,7 +52,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetRoleByApplicationUserId([FromRoute] string id)
         {
-            await _roles.GenerateRolesFromPagesAsync();
+            await _roles.GenerateAllExistingRolesAsync();
             ApplicationUser? user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {

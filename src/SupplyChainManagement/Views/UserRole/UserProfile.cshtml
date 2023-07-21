@@ -44,8 +44,7 @@
                         <h5 class="my-3">@profile.FullName</h5>
                         <p class="text-muted mb-4">@profile.Address.ToString()</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-primary">Follow</button>
-                            <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                            <a class="btn btn-sm btn-outline-primary ms-1" asp-controller="UserRole" asp-action="UserProfileEdit">Cập nhật thông tin</a>
                         </div>
                     </div>
                 </div>
@@ -186,34 +185,12 @@
 @section Scripts
     {
     <script>
-        var L10n = ej.base.L10n;
-        L10n.load({
-            "vi-VN": {
-                "uploader": {
-                    "invalidMinFileSize": "Kích thước tệp quá nhỏ! Vui lòng tải lên các tệp có kích thước tối thiểu là 10KB",
-                    "invalidMaxFileSize": "Kích thước tệp vượt quá 5MB",
-                    "invalidFileType": "Loại tệp không được phép",
-                    "Browse": "Chọn ảnh",
-                    "Clear": "Xóa",
-                    "Upload": "Tải lên",
-                    "dropFilesHint": "hoặc thả tệp vào đây",
-                    "uploadFailedMessage": "Không thể tải lên tệp",
-                    "uploadSuccessMessage": "Tệp đã tải lên thành công",
-                    "removedSuccessMessage": "Tệp đã xóa thành công",
-                    "removedFailedMessage": "Không thể xóa tệp",
-                    "inProgress": "Đang diễn ra",
-                    "readyToUploadMessage": "Sẵn sàng tải lên",
-                    "remove": "Thu hồi",
-                    "cancel": "Hủy",
-                    "delete": "Xóa tập tin"
-                }
-            }
-        });
         function onUploadSuccess(args) {
             if (args.operation === 'upload') {
                 location.reload();
             }
         }
+
         function onUploadFailure(args) {
             alert('Cập nhật ảnh đại diện thất bại!');
         }

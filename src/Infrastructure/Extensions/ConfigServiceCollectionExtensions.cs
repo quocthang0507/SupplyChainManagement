@@ -34,7 +34,8 @@ namespace Infrastructure.Extensions
                     ConnectionString = dbSettings.ConnectionString
                 },
                 IdentityOptionsAction = options =>
-                {              // Password settings
+                {              
+                    // Password settings
                     options.Password.RequireDigit = identityDefaultOptions.PasswordRequireDigit;
                     options.Password.RequiredLength = identityDefaultOptions.PasswordRequiredLength;
                     options.Password.RequireNonAlphanumeric = identityDefaultOptions.PasswordRequireNonAlphanumeric;
