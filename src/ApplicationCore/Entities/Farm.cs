@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDbGenericRepository.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
@@ -7,6 +8,7 @@ namespace ApplicationCore.Entities
     ///<summary>
     /// Nông trại
     ///</summary>
+    [CollectionName("Farms")]
     public class Farm
     {
         [BsonId]
@@ -19,12 +21,18 @@ namespace ApplicationCore.Entities
         public string Description { get; set; }
 
         [Display(Name = "Địa chỉ")]
-        public Address Address { get; set; }
+        public Address? Address { get; set; } = new();
+
+        /// <summary>
+        /// Chủ sở hữu
+        /// </summary>
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string OwnerProfileId { get; set; }
 
         ///<summary>
         /// Danh sách các thửa đất trong nông trại
         ///</summary>
-        public List<LandParcel> LandParcels { get; set; }
+        public List<string> LandParcelIds { get; set; } = new();
 
         [Display(Name = "Diện tích")]
         public decimal Area { get; set; }
@@ -33,8 +41,11 @@ namespace ApplicationCore.Entities
         public string AreaUnit { get; set; }
 
         [Display(Name = "Metadata")]
-        public Dictionary<string, string> Metadata { get; set; }
+        public Metadata? Metadata { get; set; } = new();
 
-        public CrudMetadata CrudMetadata { get; set; }
+        public CrudMetadata? CrudMetadata { get; set; } = new();
+
+        [Display(Name = "Kích hoạt")]
+        public bool IsActivated { get; set; } = true;
     }
 }

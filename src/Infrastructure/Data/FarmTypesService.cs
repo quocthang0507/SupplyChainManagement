@@ -4,30 +4,30 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Data
 {
-    public class FarmTypeService : IService<FarmType>
+    public class FarmTypesService : IService<FarmType>
     {
         private readonly IMongoCollection<FarmType> _farmTypeCollection;
 
-        public FarmTypeService(IOptions<DbSettings> dbSettings)
+        public FarmTypesService(IOptions<DbSettings> dbSettings)
         {
             var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
             var mongoDb = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
-            _farmTypeCollection = mongoDb.GetCollection<FarmType>(dbSettings.Value.FarmTypeCollectionName);
+            _farmTypeCollection = mongoDb.GetCollection<FarmType>(dbSettings.Value.FarmTypesCollectionName);
         }
 
         public async Task CreateAsync(FarmType farmType) =>
             await _farmTypeCollection.InsertOneAsync(farmType);
 
         public async Task DeleteAsync(string id) =>
-            await _farmTypeCollection.DeleteOneAsync(x => x.FarmTypeId == id);
+            await _farmTypeCollection.DeleteOneAsync(x => x.Id == id);
 
         public async Task<List<FarmType>> GetAsync() =>
             await _farmTypeCollection.Find(_ => true).ToListAsync();
 
         public async Task<FarmType?> GetAsync(string id) =>
-            await _farmTypeCollection.Find(x => x.FarmTypeId == id).FirstOrDefaultAsync();
+            await _farmTypeCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
         public async Task UpdateAsync(string id, FarmType farmType) =>
-            await _farmTypeCollection.ReplaceOneAsync(x => x.FarmTypeId == id, farmType);
+            await _farmTypeCollection.ReplaceOneAsync(x => x.Id == id, farmType);
     }
 }
