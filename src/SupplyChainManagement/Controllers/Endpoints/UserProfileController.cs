@@ -11,9 +11,9 @@ using System.Net;
 
 namespace SupplyChainManagement.Controllers.Endpoints
 {
-    [Authorize(Roles = RoleNames.Admin)]
     [Produces("application/json")]
     [Route("api/UserProfile")]
+    [Authorize]
     public class UserProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -36,6 +36,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<IActionResult> GetUsers()
         {
             List<UserProfile> profiles = await _userProfilesService.GetAsync();
@@ -49,6 +50,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpGet("GetPagedUsers")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<IActionResult> GetUsers([AsParameters] PagingViewModel pagingModel)
         {
             var profiles = await _userProfilesService.GetPagedAsync(pagingModel);
@@ -63,6 +65,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpGet("[action]/{id}")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<IActionResult> GetByApplicationUserId([FromRoute] string id)
         {
             UserProfile? userProfile = await _userProfilesService.GetByApplicationUserIdAsync(id);
@@ -82,6 +85,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<IActionResult> Insert([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile register = payload.value;
@@ -108,7 +112,8 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update([FromBody] CrudViewModel<UserProfile> payload)
+        [Authorize(Roles = RoleNames.Admin)]
+        public async Task<IActionResult> UpdateByAdmin([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
             await _userProfilesService.UpdateAsync(profile.Id, profile);
@@ -118,13 +123,12 @@ namespace SupplyChainManagement.Controllers.Endpoints
         /// <summary>
         /// Cập nhật thông tin người dùng
         /// </summary>
-        /// <param name="payload"></param>
+        /// <param name="profile"></param>
         /// <returns></returns>
-        [HttpPost("[action]")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
         public async Task<IActionResult> Update([FromBody] UserProfile profile)
         {
             if (!ModelState.IsValid)
@@ -141,6 +145,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<IActionResult> ChangePasswordByAdmin([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
@@ -167,7 +172,6 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Authorize]
         public async Task<IActionResult> ChangePassword([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
@@ -194,6 +198,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public IActionResult ChangeRole([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
@@ -208,6 +213,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<IActionResult> Remove([FromBody] CrudViewModel<UserProfile> payload)
         {
             var userProfile = await _userProfilesService.GetAsync(payload.key.ToString());

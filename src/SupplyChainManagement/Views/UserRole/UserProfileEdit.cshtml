@@ -8,6 +8,8 @@
     ViewData["Title"] = "Cập nhật hồ sơ";
     ApplicationUser appUser = await UserManager.GetUserAsync(User);
     UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
+    IDictionary<string, object> submit = new Dictionary<string, object>();
+    submit.Add("type", "submit");
 }
 
 <section>
@@ -24,12 +26,8 @@
                 </nav>
             </div>
         </div>
-        <div class="row">
-            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
-        </div>
         <div class="row mt-2">
-            <form asp-controller="UserProfile" asp-action="Update" asp-route-returnurl="@ViewData["ReturnUrl"]"
-                  method="post" role="form">
+            <form asp-controller="UserProfile" asp-action="Update" method="post" role="form">
                 <div class="control-section">
                     <div class="control_wrapper accordion-control-section">
                         <div class="row mt-1">
@@ -51,6 +49,15 @@
                                 <h6>@Html.DisplayNameFor(model => model.Email)</h6>
                                 <ejs-textbox id="email" showClearButton="true" floatLabelType="Never" value="@profile.Email"></ejs-textbox>
                             </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-6">
+                                <h6>@Html.DisplayNameFor(model => model.Birthday)</h6>
+                                <ejs-datepicker id="birthday" value="@profile.Birthday" format="dd/MM/yyyy"></ejs-datepicker>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <ejs-button id="submit" cssClass="e-info" content="Lưu thay đổi" htmlAttributes="submit"></ejs-button>
                         </div>
                     </div>
                 </div>
