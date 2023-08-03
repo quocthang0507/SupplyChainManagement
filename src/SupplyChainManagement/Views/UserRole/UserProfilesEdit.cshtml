@@ -1,0 +1,43 @@
+﻿@using ApplicationCore.Entities;
+@using Infrastructure.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager
+@inject UserProfilesService userProfilesService
+@{
+    ViewData["Title"] = "Quản lý hồ sơ";
+    var profiles = await userProfilesService.GetAsync();
+}
+
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
+                        <li class="breadcrumb-item"><a asp-controller="UserRole" class="text-decoration-none">Quản lý Người dùng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Quản lý hồ sơ</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
+        </div>
+        <div class="row mt-2">
+            <ejs-grid id="Grid" actionComplete="completeGrid"
+                      toolbar="@(new List<string>() { "Cancel", "Update" })" locale="vi-VN">
+                <e-data-manager json="@profiles.ToArray()" updateUrl="/api/UserProfile/Update"
+                                adaptor="RemoteSaveAdaptor"></e-data-manager>
+                <e-grid-editSettings allowEditing="true"></e-grid-editSettings>
+                <e-grid-columns>
+                    <e-grid-column field="FirstName" headerText="Họ và tên đệm"></e-grid-column>
+                    <e-grid-column field="LastName" headerText="Tên"></e-grid-column>
+                    <e-grid-column field="Phone" headerText="Số điện thoại"></e-grid-column>
+                    <e-grid-column field="Email" headerText="Địa chỉ email"></e-grid-column>
+                    <e-grid-column field="Birthday" headerText="Ngày sinh" customFormat="@(new { type ="date", format="dd/MM/yyyy" })"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+</section>

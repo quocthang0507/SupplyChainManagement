@@ -19,21 +19,26 @@ namespace ApplicationCore.Entities
         public string ApplicationUserId { get; set; } = null!;
 
         [Display(Name = "Họ và tên đệm")]
+        [Required]
         public string FirstName { get; set; }
 
         [Display(Name = "Tên")]
+        [Required]
         public string LastName { get; set; }
 
         [Display(Name = "Địa chỉ")]
         public Address Address { get; set; } = new();
 
         [Display(Name = "Số điện thoại")]
+        [Required]
         public string Phone { get; set; }
 
         [Display(Name = "Địa chỉ email")]
+        [Required]
         public string Email { get; set; }
 
         [Display(Name = "Ngày sinh")]
+        [Required]
         public DateTime Birthday { get; set; }
 
         [Display(Name = "Kích hoạt")]

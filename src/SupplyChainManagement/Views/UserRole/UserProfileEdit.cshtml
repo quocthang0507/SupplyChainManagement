@@ -1,4 +1,5 @@
-﻿@using ApplicationCore.Entities;
+﻿@model ApplicationCore.Entities.UserProfile
+@using ApplicationCore.Entities;
 @using Infrastructure.Data;
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<ApplicationUser> UserManager
@@ -7,7 +8,6 @@
     ViewData["Title"] = "Cập nhật hồ sơ";
     ApplicationUser appUser = await UserManager.GetUserAsync(User);
     UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
-    List<UserProfile> data = new() { profile };
 }
 
 <section>
@@ -17,8 +17,8 @@
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
-                        <li class="breadcrumb-item"><a asp-controller="UserRole" class="text-decoration-none">Quản lý Người dùng</a></li>
-                        <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfileEdit" class="text-decoration-none">Hồ sơ người dùng</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfilesEdit" class="text-decoration-none">Quản lý Người dùng</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfile" class="text-decoration-none">Hồ sơ người dùng</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Cập nhật hồ sơ</li>
                     </ol>
                 </nav>
@@ -28,20 +28,33 @@
             <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
         </div>
         <div class="row mt-2">
-            <ejs-grid id="Grid" actionComplete="completeGrid"
-                      toolbar="@(new List<string>() { "Cancel", "Update" })" locale="vi-VN">
-                <e-data-manager json="@data.ToArray()" updateUrl="/api/UserProfile/Update"
-                                adaptor="RemoteSaveAdaptor"></e-data-manager>
-                <e-grid-editSettings allowEditing="true"></e-grid-editSettings>
-                <e-grid-columns>
-                    <e-grid-column field="OldPassword" headerText="Mật khẩu cũ"
-                                   textAlign="Right"></e-grid-column>
-                    <e-grid-column field="Password" headerText="Mật khẩu mới"
-                                   textAlign="Right"></e-grid-column>
-                    <e-grid-column field="ConfirmPassword" headerText="Mật khẩu xác nhận"
-                                   textAlign="Right"></e-grid-column>
-                </e-grid-columns>
-            </ejs-grid>
+            <form asp-controller="UserProfile" asp-action="Update" asp-route-returnurl="@ViewData["ReturnUrl"]"
+                  method="post" role="form">
+                <div class="control-section">
+                    <div class="control_wrapper accordion-control-section">
+                        <div class="row mt-1">
+                            <div class="col-6">
+                                <h6>@Html.DisplayNameFor(model => model.FirstName)</h6>
+                                <ejs-textbox id="firstname" showClearButton="true" floatLabelType="Never" value="@profile.FirstName"></ejs-textbox>
+                            </div>
+                            <div class="col-6">
+                                <h6>@Html.DisplayNameFor(model => model.LastName)</h6>
+                                <ejs-textbox id="lastname" showClearButton="true" floatLabelType="Never" value="@profile.LastName"></ejs-textbox>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-6">
+                                <h6>@Html.DisplayNameFor(model => model.Phone)</h6>
+                                <ejs-maskedtextbox id="phone" mask="000 000 0000" floatLabelType="Never" value="@profile.Phone"></ejs-maskedtextbox>
+                            </div>
+                            <div class="col-sm-6">
+                                <h6>@Html.DisplayNameFor(model => model.Email)</h6>
+                                <ejs-textbox id="email" showClearButton="true" floatLabelType="Never" value="@profile.Email"></ejs-textbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>

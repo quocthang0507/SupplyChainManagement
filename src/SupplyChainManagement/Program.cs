@@ -62,7 +62,7 @@ using (var scope = app.Services.CreateScope())
         var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
         var functional = services.GetRequiredService<IFunctional>();
 
-        await DbInitializer.Initialize(usersService, functional);
+        DbInitializer.Initialize(usersService, functional).Wait();
     }
     catch (Exception ex)
     {

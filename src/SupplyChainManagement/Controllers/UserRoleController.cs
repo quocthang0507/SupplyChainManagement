@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Constants;
 using ApplicationCore.Entities;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,13 @@ namespace SupplyChainManagement.Controllers
         [Authorize]
         [Route("/UserRole/UserProfile/ChangePassword")]
         public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = RoleNames.Admin)]
+        [Route("/UserRole/UserProfiles/Edit")]
+        public IActionResult UserProfilesEdit()
         {
             return View();
         }

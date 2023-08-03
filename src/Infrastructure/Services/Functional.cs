@@ -6,6 +6,7 @@ using Infrastructure.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Net;
@@ -22,10 +23,15 @@ namespace Infrastructure.Services
         private readonly IRoles _roles;
         private readonly PhotoperiodismService _photoperiodismService;
 
-        public Functional(UserManager<ApplicationUser> userManager, SuperAdminDefaultOptions superAdminDefaultOptions, UserProfilesService userProfilesService, FarmTypesService farmTypesService, IRoles roles, PhotoperiodismService photoperiodismService)
+        public Functional(UserManager<ApplicationUser> userManager,
+            IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions, 
+            UserProfilesService userProfilesService, 
+            FarmTypesService farmTypesService, 
+            IRoles roles, 
+            PhotoperiodismService photoperiodismService)
         {
             _userManager = userManager;
-            _superAdminDefaultOptions = superAdminDefaultOptions;
+            _superAdminDefaultOptions = superAdminDefaultOptions.Value;
             _userProfilesService = userProfilesService;
             _farmTypesService = farmTypesService;
             _roles = roles;
@@ -58,6 +64,7 @@ namespace Infrastructure.Services
                         ApplicationUserId = superAdmin.Id.ToString(),
                         Phone = _superAdminDefaultOptions.Phone,
                         Address = _superAdminDefaultOptions.Address,
+                        Birthday = DateTime.Now
                     };
                     await _userProfilesService.CreateAsync(profile);
                     await _roles.AssignAllRolesToUserAsync(superAdmin.Id.ToString());
