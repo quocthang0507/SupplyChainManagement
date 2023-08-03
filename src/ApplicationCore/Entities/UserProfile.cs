@@ -16,7 +16,7 @@ namespace ApplicationCore.Entities
         public string Id { get; set; } = null!;
 
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ApplicationUserId { get; set; } = null!;
+        public string? ApplicationUserId { get; set; }
 
         [Display(Name = "Họ và tên đệm")]
         [Required]
@@ -45,13 +45,13 @@ namespace ApplicationCore.Entities
         public bool Activated { get; set; } = true;
 
         [Display(Name = "Mật khẩu")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Display(Name = "Nhập lại mật khẩu")]
-        public string ConfirmPassword { get; set; }
+        public string? ConfirmPassword { get; set; }
 
         [Display(Name = "Mật khẩu cũ")]
-        public string OldPassword { get; set; }
+        public string? OldPassword { get; set; }
 
         [Display(Name = "Ảnh đại diện")]
         public string ProfilePicture { get; set; } = "/upload/blank-person.png";

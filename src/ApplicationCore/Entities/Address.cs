@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ApplicationCore.Entities
 {
@@ -32,5 +33,63 @@ namespace ApplicationCore.Entities
             string[] arr = { AddressNumber, Street, Commune, District, Province };
             return string.Join(", ", arr.Where(x => !string.IsNullOrEmpty(x)));
         }
+    }
+
+    public class Ward
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("code")]
+        public int Code { get; set; }
+
+        [JsonPropertyName("codename")]
+        public string Codename { get; set; }
+
+        [JsonPropertyName("short_codename")]
+        public string ShortCodename { get; set; }
+
+        [JsonPropertyName("division_type")]
+        public string DivisionType { get; set; }
+    }
+
+    public class District
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("code")]
+        public int Code { get; set; }
+
+        [JsonPropertyName("codename")]
+        public string Codename { get; set; }
+
+        [JsonPropertyName("short_codename")]
+        public string ShortCodename { get; set; }
+
+        [JsonPropertyName("division_type")]
+        public string DivisionType { get; set; }
+
+        public List<Ward> Wards { get; set; } = new List<Ward> { };
+    }
+
+    public class Province
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("code")]
+        public int Code { get; set; }
+
+        [JsonPropertyName("phone_code")]
+        public int PhoneCode { get; set; }
+
+        [JsonPropertyName("codename")]
+        public string Codename { get; set; }
+
+        [JsonPropertyName("division_type")]
+        public string DivisionType { get; set; }
+
+        public List<District> Districts { get; set; } = new List<District> { };
     }
 }

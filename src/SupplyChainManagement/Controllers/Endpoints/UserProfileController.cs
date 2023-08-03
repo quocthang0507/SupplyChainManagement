@@ -105,7 +105,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         }
 
         /// <summary>
-        /// Cập nhật thông tin người dùng
+        /// Cập nhật thông tin người dùng bởi quản trị viên
         /// </summary>
         /// <param name="payload"></param>
         /// <returns></returns>
@@ -119,17 +119,17 @@ namespace SupplyChainManagement.Controllers.Endpoints
             await _userProfilesService.UpdateAsync(profile.Id, profile);
             return Ok(ApiResponse.Success(profile));
         }
-        
+
         /// <summary>
         /// Cập nhật thông tin người dùng
         /// </summary>
         /// <param name="profile"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("Update")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update([FromBody] UserProfile profile)
+        public async Task<IActionResult> Update([FromForm] UserProfile profile)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

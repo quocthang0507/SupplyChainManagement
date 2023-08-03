@@ -22,13 +22,17 @@ namespace Infrastructure.Services
         private readonly FarmTypesService _farmTypesService;
         private readonly IRoles _roles;
         private readonly PhotoperiodismService _photoperiodismService;
+        private readonly VietnamUnitsService _vietnamUnitsService;
+        private readonly IWebHostEnvironment _env;
 
         public Functional(UserManager<ApplicationUser> userManager,
-            IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions, 
-            UserProfilesService userProfilesService, 
-            FarmTypesService farmTypesService, 
-            IRoles roles, 
-            PhotoperiodismService photoperiodismService)
+            IOptions<SuperAdminDefaultOptions> superAdminDefaultOptions,
+            UserProfilesService userProfilesService,
+            FarmTypesService farmTypesService,
+            IRoles roles,
+            PhotoperiodismService photoperiodismService,
+            VietnamUnitsService vietnamUnitsService,
+            IWebHostEnvironment env)
         {
             _userManager = userManager;
             _superAdminDefaultOptions = superAdminDefaultOptions.Value;
@@ -36,6 +40,8 @@ namespace Infrastructure.Services
             _farmTypesService = farmTypesService;
             _roles = roles;
             _photoperiodismService = photoperiodismService;
+            _vietnamUnitsService = vietnamUnitsService;
+            _env = env;
         }
 
         public async Task InitDefaultSuperAdmin()
@@ -78,6 +84,8 @@ namespace Infrastructure.Services
 
         public async Task InitAppUserData()
         {
+            var provinces = new VietnameUnits(_env).GetAllProvincesAsync();
+            await _vietnamUnitsService.CreateManyAsync(provinces);
             await new UserProfileSeeder().InitData();
             await new FarmSeeder(_farmTypesService).InitData();
             await new PhotoperiodismSeeder(_photoperiodismService).InitData();

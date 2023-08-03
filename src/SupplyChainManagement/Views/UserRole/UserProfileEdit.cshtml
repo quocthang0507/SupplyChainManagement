@@ -8,8 +8,19 @@
     ViewData["Title"] = "Cập nhật hồ sơ";
     ApplicationUser appUser = await UserManager.GetUserAsync(User);
     UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
+    // For textboxs
     IDictionary<string, object> submit = new Dictionary<string, object>();
+    IDictionary<string, object> firstname = new Dictionary<string, object>();
+    IDictionary<string, object> lastname = new Dictionary<string, object>();
+    IDictionary<string, object> phone = new Dictionary<string, object>();
+    IDictionary<string, object> email = new Dictionary<string, object>();
+    IDictionary<string, object> birthday = new Dictionary<string, object>();
     submit.Add("type", "submit");
+    firstname.Add("name", nameof(UserProfile.FirstName));
+    lastname.Add("name", nameof(UserProfile.LastName));
+    phone.Add("name", nameof(UserProfile.Phone));
+    email.Add("name", nameof(UserProfile.Email));
+    birthday.Add("name", nameof(UserProfile.Birthday));
 }
 
 <section>
@@ -28,32 +39,38 @@
         </div>
         <div class="row mt-2">
             <form asp-controller="UserProfile" asp-action="Update" method="post" role="form">
+                <input type="hidden" name="@nameof(UserProfile.Id)" value="@profile.Id">
                 <div class="control-section">
                     <div class="control_wrapper accordion-control-section">
                         <div class="row mt-1">
                             <div class="col-6">
                                 <h6>@Html.DisplayNameFor(model => model.FirstName)</h6>
-                                <ejs-textbox id="firstname" showClearButton="true" floatLabelType="Never" value="@profile.FirstName"></ejs-textbox>
+                                <ejs-textbox id="firstname" showClearButton="true" htmlAttributes="firstname"
+                                             floatLabelType="Never" value="@profile.FirstName"></ejs-textbox>
                             </div>
                             <div class="col-6">
                                 <h6>@Html.DisplayNameFor(model => model.LastName)</h6>
-                                <ejs-textbox id="lastname" showClearButton="true" floatLabelType="Never" value="@profile.LastName"></ejs-textbox>
+                                <ejs-textbox id="lastname" showClearButton="true" htmlAttributes="lastname"
+                                             floatLabelType="Never" value="@profile.LastName"></ejs-textbox>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-sm-6">
                                 <h6>@Html.DisplayNameFor(model => model.Phone)</h6>
-                                <ejs-maskedtextbox id="phone" mask="000 000 0000" floatLabelType="Never" value="@profile.Phone"></ejs-maskedtextbox>
+                                <ejs-maskedtextbox id="phone" mask="000 000 0000" htmlAttributes="phone"
+                                                   floatLabelType="Never" value="@profile.Phone"></ejs-maskedtextbox>
                             </div>
                             <div class="col-sm-6">
                                 <h6>@Html.DisplayNameFor(model => model.Email)</h6>
-                                <ejs-textbox id="email" showClearButton="true" floatLabelType="Never" value="@profile.Email"></ejs-textbox>
+                                <ejs-textbox id="email" showClearButton="true" htmlAttributes="email"
+                                             floatLabelType="Never" value="@profile.Email"></ejs-textbox>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-sm-6">
                                 <h6>@Html.DisplayNameFor(model => model.Birthday)</h6>
-                                <ejs-datepicker id="birthday" value="@profile.Birthday" format="dd/MM/yyyy"></ejs-datepicker>
+                                <ejs-datepicker id="birthday" value="@profile.Birthday" htmlAttributes="birthday"
+                                                format="dd/MM/yyyy"></ejs-datepicker>
                             </div>
                         </div>
                         <div class="row mt-2">

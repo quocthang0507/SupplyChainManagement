@@ -21,9 +21,9 @@ namespace Infrastructure.Services
             Type roleType = typeof(RoleNames);
             foreach (var itm in roleType.GetFields())
             {
-                    string roleName = itm.GetValue(roleType).ToString();
-                    if (!await _roleManager.RoleExistsAsync(roleName))
-                        await _roleManager.CreateAsync(new ApplicationRole() { Name = roleName });
+                string roleName = itm.GetValue(roleType).ToString();
+                if (!await _roleManager.RoleExistsAsync(roleName))
+                    await _roleManager.CreateAsync(new ApplicationRole() { Name = roleName });
             }
         }
 

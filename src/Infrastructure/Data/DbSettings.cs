@@ -21,6 +21,9 @@
         public string FarmsCollectionName { get; set; } = null!;
 
         public string PhotoperiodismCollectionName { get; set; } = null!;
+
+        public string VietnamUnitsCollectionName { get; set; } = null!;
+        
         #endregion
     }
 }

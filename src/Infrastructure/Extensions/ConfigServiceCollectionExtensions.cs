@@ -34,7 +34,7 @@ namespace Infrastructure.Extensions
                     ConnectionString = dbSettings.ConnectionString
                 },
                 IdentityOptionsAction = options =>
-                {              
+                {
                     // Password settings
                     options.Password.RequireDigit = identityDefaultOptions.PasswordRequireDigit;
                     options.Password.RequiredLength = identityDefaultOptions.PasswordRequiredLength;
@@ -105,6 +105,8 @@ namespace Infrastructure.Extensions
             services.AddSingleton<FarmsService>();
 
             services.AddSingleton<PhotoperiodismService>();
+
+            services.AddSingleton<VietnamUnitsService>();
 
             return services;
         }
