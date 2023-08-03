@@ -13,7 +13,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
 {
     [Authorize(Roles = RoleNames.Admin)]
     [Produces("application/json")]
-    [Route("api/Role")]
+    [Route("api/[controller]")]
     public class RoleController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

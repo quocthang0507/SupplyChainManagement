@@ -12,7 +12,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/UploadProfilePicture")]
+    [Route("api/[controller]")]
     public class UploadProfilePictureController : Controller
     {
         private readonly IFunctional _functionalService;

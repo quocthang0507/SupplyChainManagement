@@ -10,7 +10,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
 {
     [Authorize(Roles = RoleNames.Admin)]
     [Produces("application/json")]
-    [Route("api/UnitOfMeasure")]
+    [Route("api/[controller]")]
     public class UnitOfMeasureController : Controller
     {
         private readonly UnitOfMeasuresService _unitOfMeasureService;

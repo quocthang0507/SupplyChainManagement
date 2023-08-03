@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ApplicationCore.Entities
@@ -37,6 +39,10 @@ namespace ApplicationCore.Entities
 
     public class Ward
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
@@ -55,6 +61,10 @@ namespace ApplicationCore.Entities
 
     public class District
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
@@ -75,6 +85,10 @@ namespace ApplicationCore.Entities
 
     public class Province
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
         [JsonPropertyName("name")]
         public string Name { get; set; }
 

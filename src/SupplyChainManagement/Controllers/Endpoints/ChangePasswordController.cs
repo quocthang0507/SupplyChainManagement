@@ -11,7 +11,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/ChangePassword")]
+    [Route("api/[controller]")]
     public class ChangePasswordController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

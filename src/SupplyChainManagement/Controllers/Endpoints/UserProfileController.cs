@@ -12,7 +12,7 @@ using System.Net;
 namespace SupplyChainManagement.Controllers.Endpoints
 {
     [Produces("application/json")]
-    [Route("api/UserProfile")]
+    [Route("api/[controller]")]
     [Authorize]
     public class UserProfileController : Controller
     {
