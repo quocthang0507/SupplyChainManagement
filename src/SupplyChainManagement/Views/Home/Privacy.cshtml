@@ -3,12 +3,92 @@
     Layout = "_PartialLayout";
 }
 
-<div class="d-flex justify-content-center h-100">
-    <section class="vh-100">
-        <div class="container-fluid h-custom">
-            <h1>@ViewData["Title"]</h1>
+<section class="vh-100">
+    <div class="container-2">
+        <h1>@ViewData["Title"]</h1>
 
-            <p>Use this page to detail your site's privacy policy.</p>
-        </div>
-    </section>
-</div>
+        <p>Chào mừng bạn đến với chính sách bảo mật của chúng tôi. Tài liệu này sẽ giúp bạn hiểu rõ hơn về cách chúng tôi thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn.</p>
+
+        <h2>Thông tin chúng tôi thu thập</h2>
+        <p>Chúng tôi có thể thu thập thông tin cá nhân sau:</p>
+        <ul>
+            <li>Tên và thông tin liên hệ của bạn, bao gồm địa chỉ email và số điện thoại.</li>
+            <li>Thông tin đăng nhập, bao gồm tên người dùng và mật khẩu.</li>
+            <li>Thông tin về hoạt động trên trang web của chúng tôi, bao gồm lịch sử truy cập và tương tác.</li>
+        </ul>
+
+        <h2>Cách chúng tôi sử dụng thông tin của bạn</h2>
+        <p>Chúng tôi sử dụng thông tin cá nhân của bạn cho các mục đích sau:</p>
+        <ul>
+            <li>Để cung cấp dịch vụ và sản phẩm của chúng tôi.</li>
+            <li>Để cá nhân hóa trải nghiệm của bạn và cung cấp nội dung tùy chỉnh.</li>
+            <li>Để thông báo và liên hệ với bạn về tài khoản của bạn.</li>
+        </ul>
+
+        <h2>Bảo mật thông tin cá nhân</h2>
+        <p>Chúng tôi coi trọng việc bảo mật thông tin cá nhân của bạn và đã triển khai biện pháp an ninh để bảo vệ nó.</p>
+
+        <h2>Liên hệ với chúng tôi</h2>
+        <p>Nếu bạn có bất kỳ câu hỏi hoặc lo ngại nào về chính sách bảo mật của chúng tôi, vui lòng liên hệ với chúng tôi tại <a href="mailto:info@example.com">info@example.com</a>.</p>        <p>If you have any questions or concerns about our privacy policy, please contact us at <a href="mailto:info@example.com">info@example.com</a>.</p>
+    </div>
+</section>
+
+@section Styles{
+    <style>
+        .container-2 {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+    </style>
+}

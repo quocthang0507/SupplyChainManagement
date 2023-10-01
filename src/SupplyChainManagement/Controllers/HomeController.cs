@@ -34,6 +34,7 @@ namespace SupplyChainManagement.Controllers
 
         [Route("404")]
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult PageNotFound()
         {
             return View();
@@ -41,11 +42,10 @@ namespace SupplyChainManagement.Controllers
         
         [Route("400")]
         [AllowAnonymous]
-        public IActionResult BadRequest()
+        [HttpGet]
+        public new IActionResult BadRequest()
         {
             return View();
         }
-
-
     }
 }
