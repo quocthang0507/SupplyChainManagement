@@ -1,5 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ApplicationCore.Entities;
+@using Infrastructure.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject RoleManager<ApplicationRole> RoleManager
 @{
+    ViewData["Title"] = "Vai trò";
+    var roles = RoleManager.Roles.ToList();
+}
+
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
+                        <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfilesEdit" class="text-decoration-none">Quản lý Người dùng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Quản lý vai trò</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <ejs-grid id="Grid" allowPaging="true" allowSorting="true" allowFiltering="true"
+                      toolbar="@(new List<string>() {"Search", "Print"})" printMode="CurrentPage"
+                      actionComplete="actionComplete" locale="vi-VN">
+                <e-grid-groupSettings showGroupedColumn="true" showDropArea="true"></e-grid-groupSettings>
+                <e-data-manager json="@roles.ToArray()" adaptor="RemoteSaveAdaptor"></e-data-manager>
+                <e-grid-editSettings allowAdding="false" allowDeleting="false" allowEditing="false" mode="Dialog"></e-grid-editSettings>
+                <e-grid-filterSettings type="Excel"></e-grid-filterSettings>
+                <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+                <e-grid-columns>
+                    <e-grid-column field="Name" headerText="Tên vai trò"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        function actionComplete(args) {
+            if (args.requestType === 'paging') {
+                updateTemplate();
+            }
+        }
+    </script>
 }

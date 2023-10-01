@@ -6,6 +6,8 @@
 @{
     ViewData["Title"] = "Quản lý hồ sơ";
     var profiles = await userProfilesService.GetAsync();
+    List<object> commands = new List<object>();
+    commands.Add(new { type = "userstatus", buttonOption = new { content = "Details", cssClass = "e-flat e-details" } });
 }
 
 <section>
@@ -25,7 +27,8 @@
             <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
         </div>
         <div class="row mt-2">
-            <ejs-grid id="Grid" actionComplete="completeGrid"
+            <ejs-grid id="Grid" actionComplete="completeGrid" allowPaging="true"
+                      dataBound="dataBound" actionComplete="actionComplete" commandClick="commandClick"
                       toolbar="@(new List<string>() { "Cancel", "Update" })" locale="vi-VN">
                 <e-data-manager json="@profiles.ToArray()" updateUrl="/api/UserProfile/Update"
                                 adaptor="RemoteSaveAdaptor"></e-data-manager>
@@ -36,8 +39,61 @@
                     <e-grid-column field="Phone" headerText="Số điện thoại"></e-grid-column>
                     <e-grid-column field="Email" headerText="Địa chỉ email"></e-grid-column>
                     <e-grid-column field="Birthday" headerText="Ngày sinh" customFormat="@(new { type ="date", format="dd/MM/yyyy" })"></e-grid-column>
+                    <e-grid-column headerText="Hành động" commands="commands"> </e-grid-column>
                 </e-grid-columns>
             </ejs-grid>
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script>
+        function updateTemplate() {
+            var numeric;
+            var grid = document.getElementById("Grid").ej2_instances[0];
+            numeric = new ej.inputs.NumericTextBox({
+                min: 1,
+                max: 3,
+                step: 1,
+                format: '###.##',
+                change: function (args) {
+                    let value = args.value;
+                    grid.goToPage(value);
+                }
+            });
+            numeric.appendTo('#currentPage');
+        };
+
+        var flag = true;
+        function dataBound() {
+            if (flag) {
+                flag = false;
+                updateTemplate();
+            }
+        }
+
+        function actionComplete(args) {
+            if (args.requestType === 'paging') {
+                updateTemplate();
+            }
+        }
+
+        function commandClick(args) {
+            alert(JSON.stringify(args.rowData));  // display row data
+        }
+    </script>
+
+    <script id="template" type="text/x-template">
+        <div class="e-pagertemplate">
+            <div class="col-lg-12 control-section">
+                <div class="content-wrapper">
+                    <input id="currentPage" type="text" value=${currentPage}>
+                </div>
+            </div>
+
+            <div id="totalPages" class="e-pagertemplatemessage" style="margin-top:5px;margin-left:30px;border: none; display: inline-block ">
+                <span class="e-pagenomsg">${currentPage} of ${totalPages} pages (${totalRecordsCount} items)</span>
+            </div>
+        </div>
+    </script>
+}

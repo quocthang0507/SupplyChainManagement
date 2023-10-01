@@ -9,7 +9,10 @@ L10n.load({
             'EmptyRecord': 'Không có bản ghi nào được hiển thị',
             'EmptyDataSourceError': 'Nguồn dữ liệu không được để trống khi tải lần đầu vì các cột từ nguồn dữ liệu nằm trong Lưới cột tự động tạo',
             'Item': 'Bài',
-            'Items': 'Các bài'
+            'Items': 'Các bài',
+            'SaveButton': 'Lưu',
+            'CancelButton': 'Hủy',
+            'Print': 'In'
         },
         "uploader": {
             "invalidMinFileSize": "Kích thước tệp quá nhỏ! Vui lòng tải lên các tệp có kích thước tối thiểu là 10KB",
