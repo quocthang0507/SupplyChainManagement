@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Identity;
 @inject RoleManager<ApplicationRole> RoleManager
 @{
-    ViewData["Title"] = "Vai trò";
+    ViewData["Title"] = "Danh sách vai trò";
     var roles = RoleManager.Roles.ToList();
 }
 
@@ -15,7 +15,7 @@
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
                         <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfilesEdit" class="text-decoration-none">Quản lý Người dùng</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Quản lý vai trò</li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh sách vai trò</li>
                     </ol>
                 </nav>
             </div>
@@ -40,8 +40,11 @@
 @section Scripts{
     <script>
         function actionComplete(args) {
-            if (args.requestType === 'paging') {
-                updateTemplate();
+            if (args.requestType === 'beginedit') {
+                var dialog = args.dialog;
+                dialog.showCloseIcon = false;
+                // change the header of the dialog
+                dialog.header = 'Chỉnh sửa bản ghi của  ' + args.rowData['Name'];
             }
         }
     </script>

@@ -7,7 +7,7 @@
     ViewData["Title"] = "Quản lý hồ sơ";
     var profiles = await userProfilesService.GetAsync();
     List<object> commands = new List<object>();
-    commands.Add(new { type = "userstatus", buttonOption = new { content = "Details", cssClass = "e-flat e-details" } });
+    commands.Add(new { type = "userstatus", buttonOption = new { content = "Gán vai trò", cssClass = "e-flat e-details" } });
 }
 
 <section>
@@ -27,18 +27,23 @@
             <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
         </div>
         <div class="row mt-2">
-            <ejs-grid id="Grid" actionComplete="completeGrid" allowPaging="true"
+            <ejs-grid id="Grid" actionComplete="completeGrid" allowPaging="true" allowSorting="true" allowFiltering="true"
                       dataBound="dataBound" actionComplete="actionComplete" commandClick="commandClick"
-                      toolbar="@(new List<string>() { "Cancel", "Update" })" locale="vi-VN">
-                <e-data-manager json="@profiles.ToArray()" updateUrl="/api/UserProfile/Update"
-                                adaptor="RemoteSaveAdaptor"></e-data-manager>
+                      toolbar="@(new List<string>() { "Cancel", "Update", "Search", "Print" })" locale="vi-VN"
+                      printMode="CurrentPage">
+                <e-grid-groupSettings showGroupedColumn="true" showDropArea="true"></e-grid-groupSettings>
+                <e-data-manager json="@profiles.ToArray()" updateUrl="/api/UserProfile/UpdateByAdmin"
+                                offline="true" adaptor="RemoteSaveAdaptor"></e-data-manager>
                 <e-grid-editSettings allowEditing="true"></e-grid-editSettings>
+                <e-grid-filterSettings type="Excel"></e-grid-filterSettings>
+                <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
                 <e-grid-columns>
                     <e-grid-column field="FirstName" headerText="Họ và tên đệm"></e-grid-column>
                     <e-grid-column field="LastName" headerText="Tên"></e-grid-column>
                     <e-grid-column field="Phone" headerText="Số điện thoại"></e-grid-column>
                     <e-grid-column field="Email" headerText="Địa chỉ email"></e-grid-column>
-                    <e-grid-column field="Birthday" headerText="Ngày sinh" customFormat="@(new { type ="date", format="dd/MM/yyyy" })"></e-grid-column>
+                    <e-grid-column field="Birthday" headerText="Ngày sinh" customFormat="@(new { type ="date", format="dd/MM/yyyy" })"
+                                   editType="datepickeredit"></e-grid-column>
                     <e-grid-column headerText="Hành động" commands="commands"> </e-grid-column>
                 </e-grid-columns>
             </ejs-grid>
@@ -79,7 +84,9 @@
         }
 
         function commandClick(args) {
-            alert(JSON.stringify(args.rowData));  // display row data
+            var appUserId = args.rowData['ApplicationUserId'];
+            var profileId = args.rowData['Id'];
+            window.location.href = '@Url.Action("ChangeRole", "UserRole")?applciationUserId=' + appUserId + '&userProfileId=' + profileId;
         }
     </script>
 

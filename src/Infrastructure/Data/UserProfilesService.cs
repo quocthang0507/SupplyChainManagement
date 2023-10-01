@@ -3,6 +3,7 @@ using ApplicationCore.Extensions;
 using ApplicationCore.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Infrastructure.Data
 {
@@ -47,5 +48,13 @@ namespace Infrastructure.Data
 
         public async Task DeleteAsync(string id) =>
             await _usersCollection.DeleteOneAsync(x => x.Id == id);
+
+        public async Task<bool> ExistsAsync(string userProfileId, string applicationUserId)
+        {
+            UserProfile? profile = await GetAsync(userProfileId);
+            if (profile != null)
+                return profile.ApplicationUserId == applicationUserId;
+            return false;
+        }
     }
 }

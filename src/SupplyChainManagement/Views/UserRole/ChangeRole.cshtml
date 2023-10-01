@@ -1,5 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Quản lý vai trò";
+﻿@using ApplicationCore.Entities;
+@using Infrastructure.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject UserProfilesService userProfilesService
+@{
+    ViewData["Title"] = "Thay đổi vai trò người dùng";
+    var appUserId = ViewBag.ApplciationUserId;
+    var profileId = ViewBag.UserProfileId;
+    if(userProfilesService.ExistsAsync(profileId, appUserId))
+    {
+        
+    }
 }
 
 <section>
@@ -10,10 +20,33 @@
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
                         <li class="breadcrumb-item"><a asp-controller="UserRole" asp-action="UserProfilesEdit" class="text-decoration-none">Quản lý Người dùng</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Quản lý vai trò</li>
+                        <li class="breadcrumb-item active" aria-current="page">Thay đổi vai trò</li>
                     </ol>
                 </nav>
             </div>
         </div>
+        <div class="row">
+            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
+        </div>
+        <div class="row mt-2">
+
+        </div>
     </div>
 </section>
+
+@section Scripts{
+    <script>
+        function actionBegin(args) {
+
+        }
+
+        function actionComplete(args) {
+            if (args.requestType === 'beginEdit') {
+                var dialog = args.dialog;
+                dialog.showCloseIcon = false;
+                // change the header of the dialog
+                dialog.header = 'Chỉnh sửa ' + args.rowData['Email'];
+            }
+        }
+    </script>
+}

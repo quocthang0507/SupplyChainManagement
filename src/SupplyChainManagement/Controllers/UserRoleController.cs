@@ -29,8 +29,10 @@ namespace SupplyChainManagement.Controllers
         }
 
         [Authorize(Roles = RoleNames.Admin)]
-        public IActionResult ChangeRole()
+        public IActionResult ChangeRole(string applciationUserId, string userProfileId)
         {
+            ViewBag.ApplciationUserId = applciationUserId;
+            ViewBag.UserProfileId = userProfileId;
             return View();
         }
 
