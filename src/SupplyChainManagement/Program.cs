@@ -84,6 +84,21 @@ else
     app.UseSwaggerUI();
 }
 
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = "/404";
+        await next();
+    }
+    else if (context.Response.StatusCode == 400)
+    {
+        context.Request.Path = "/400";
+        await next();
+    }
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

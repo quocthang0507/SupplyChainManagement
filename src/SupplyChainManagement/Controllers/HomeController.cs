@@ -31,5 +31,21 @@ namespace SupplyChainManagement.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Route("404")]
+        [AllowAnonymous]
+        public IActionResult PageNotFound()
+        {
+            return View();
+        }
+        
+        [Route("400")]
+        [AllowAnonymous]
+        public IActionResult BadRequest()
+        {
+            return View();
+        }
+
+
     }
 }

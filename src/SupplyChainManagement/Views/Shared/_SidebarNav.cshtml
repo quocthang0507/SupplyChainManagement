@@ -5,6 +5,12 @@
 @inject UserProfilesService userProfilesService
 @{
     ApplicationUser appUser = await UserManager.GetUserAsync(User);
+    if (appUser == null)
+    {
+        <script>
+            window.location.href = '/';
+        </script>
+    }
     UserProfile profile = await userProfilesService.GetByApplicationUserIdAsync(appUser.Id.ToString());
 }
 

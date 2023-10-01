@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "404 - Không tìm thấy";
+    Layout = "_PartialLayout";
+}
+
+<section class="vh-100">
+    <div class="container py-5">
+        <div class="error-container">
+            <h1>404</h1>
+            <h2>Trang không tìm thấy</h2>
+            <p>Trang mà bạn đang tìm có thể đã bị xóa, hoặc đổi tên, hoặc tạm thời không truy cập được :)))</p>
+            <a class="btn btn-primary" href="/">Quay về trang chủ</a>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 100px;
+        }
+
+        h1 {
+            font-size: 150px;
+            margin-bottom: 10px;
+            color: #dc3545;
+            transition: opacity 1s ease-in-out;
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    </style>
+}
