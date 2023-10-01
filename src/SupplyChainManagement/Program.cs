@@ -1,9 +1,7 @@
-using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Extensions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Syncfusion.Licensing;
 using System.Reflection;
@@ -58,8 +56,8 @@ using (var scope = app.Services.CreateScope())
         string? key = builder.Configuration.GetSection("LicenseSyncfusion").Value;
         SyncfusionLicenseProvider.RegisterLicense(key);
         var usersService = services.GetRequiredService<UserProfilesService>();
-        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-        var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
+        //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        //var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
         var functional = services.GetRequiredService<IFunctional>();
 
         DbInitializer.Initialize(usersService, functional).Wait();

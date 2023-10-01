@@ -50,7 +50,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         [HttpGet("[action]/{id}")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRoleByApplicationUserId([FromRoute] string id)
+        public async Task<IActionResult> GetRolesByApplicationUserId([FromRoute] string id)
         {
             await _roles.GenerateAllExistingRolesAsync();
             ApplicationUser? user = await _userManager.FindByIdAsync(id);

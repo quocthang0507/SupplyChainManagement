@@ -3,7 +3,6 @@ using ApplicationCore.Extensions;
 using ApplicationCore.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Infrastructure.Data
 {

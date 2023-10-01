@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -42,7 +42,7 @@ namespace ApplicationCore.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        
+
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
@@ -64,7 +64,7 @@ namespace ApplicationCore.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        
+
         [JsonPropertyName("name")]
         public string Name { get; set; }
 

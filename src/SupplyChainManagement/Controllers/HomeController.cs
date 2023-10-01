@@ -39,7 +39,7 @@ namespace SupplyChainManagement.Controllers
         {
             return View();
         }
-        
+
         [Route("400")]
         [AllowAnonymous]
         [HttpGet]

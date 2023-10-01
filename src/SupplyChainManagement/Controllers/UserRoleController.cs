@@ -1,8 +1,12 @@
 ﻿using ApplicationCore.Constants;
 using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using ApplicationCore.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SupplyChainManagement.Controllers.Endpoints;
+using SupplyChainManagement.Models.AccountViewModels;
 
 namespace SupplyChainManagement.Controllers
 {
@@ -10,10 +14,13 @@ namespace SupplyChainManagement.Controllers
     public class UserRoleController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleController _roleController;
 
-        public UserRoleController(UserManager<ApplicationUser> userManager)
+
+        public UserRoleController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IRoles roles)
         {
             _userManager = userManager;
+            _roleController = new RoleController(_userManager, roleManager, roles);
         }
 
         [Authorize(Roles = RoleNames.Admin)]
@@ -29,10 +36,12 @@ namespace SupplyChainManagement.Controllers
         }
 
         [Authorize(Roles = RoleNames.Admin)]
-        public IActionResult ChangeRole(string applciationUserId, string userProfileId)
+        public async Task<IActionResult> ChangeRole(string applicationUserId)
         {
-            ViewBag.ApplciationUserId = applciationUserId;
-            ViewBag.UserProfileId = userProfileId;
+            var roles = (await _roleController.GetRolesByApplicationUserId(applicationUserId) as OkObjectResult).Value;
+            roles = (roles as ApiResponse<RetrievalResponse<UserRoleViewModel>>).Result;
+            roles = (roles as RetrievalResponse<UserRoleViewModel>).Items;
+            ViewBag.Roles = roles;
             return View();
         }
 

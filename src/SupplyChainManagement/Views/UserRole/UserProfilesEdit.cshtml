@@ -7,7 +7,7 @@
     ViewData["Title"] = "Quản lý hồ sơ";
     var profiles = await userProfilesService.GetAsync();
     List<object> commands = new List<object>();
-    commands.Add(new { type = "userstatus", buttonOption = new { content = "Gán vai trò", cssClass = "e-flat e-details" } });
+    commands.Add(new { type = "userstatus", buttonOption = new { content = "Gán vai trò", cssClass = "e-flat", iconCss = "e-icons e-field-settings" } });
 }
 
 <section>
@@ -27,8 +27,7 @@
             <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
         </div>
         <div class="row mt-2">
-            <ejs-grid id="Grid" actionComplete="completeGrid" allowPaging="true" allowSorting="true" allowFiltering="true"
-                      dataBound="dataBound" actionComplete="actionComplete" commandClick="commandClick"
+            <ejs-grid id="Grid" allowPaging="true" allowSorting="true" allowFiltering="true" commandClick="commandClick"
                       toolbar="@(new List<string>() { "Cancel", "Update", "Search", "Print" })" locale="vi-VN"
                       printMode="CurrentPage">
                 <e-grid-groupSettings showGroupedColumn="true" showDropArea="true"></e-grid-groupSettings>
@@ -53,40 +52,9 @@
 
 @section Scripts{
     <script>
-        function updateTemplate() {
-            var numeric;
-            var grid = document.getElementById("Grid").ej2_instances[0];
-            numeric = new ej.inputs.NumericTextBox({
-                min: 1,
-                max: 3,
-                step: 1,
-                format: '###.##',
-                change: function (args) {
-                    let value = args.value;
-                    grid.goToPage(value);
-                }
-            });
-            numeric.appendTo('#currentPage');
-        };
-
-        var flag = true;
-        function dataBound() {
-            if (flag) {
-                flag = false;
-                updateTemplate();
-            }
-        }
-
-        function actionComplete(args) {
-            if (args.requestType === 'paging') {
-                updateTemplate();
-            }
-        }
-
         function commandClick(args) {
             var appUserId = args.rowData['ApplicationUserId'];
-            var profileId = args.rowData['Id'];
-            window.location.href = '@Url.Action("ChangeRole", "UserRole")?applciationUserId=' + appUserId + '&userProfileId=' + profileId;
+            window.location.href = '@Url.Action("ChangeRole", "UserRole")?applicationUserId=' + appUserId;
         }
     </script>
 

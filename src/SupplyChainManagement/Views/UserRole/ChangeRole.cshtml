@@ -4,12 +4,7 @@
 @inject UserProfilesService userProfilesService
 @{
     ViewData["Title"] = "Thay đổi vai trò người dùng";
-    var appUserId = ViewBag.ApplciationUserId;
-    var profileId = ViewBag.UserProfileId;
-    if(userProfilesService.ExistsAsync(profileId, appUserId))
-    {
-        
-    }
+    var roles = ViewBag.Roles;
 }
 
 <section>
@@ -26,10 +21,25 @@
             </div>
         </div>
         <div class="row">
-            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật hồ sơ"></ejs-message>
+            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật quyền"></ejs-message>
         </div>
         <div class="row mt-2">
-
+            <ejs-grid id="Grid" actionComplete="completeGrid" allowPaging="true" allowSorting="true" allowFiltering="true"
+                      actionComplete="actionComplete" toolbar="@(new List<string>() { "Cancel", "Update", "Search"})" locale="vi-VN"
+                      printMode="CurrentPage">
+                <e-grid-groupSettings showGroupedColumn="true" showDropArea="true"></e-grid-groupSettings>
+                <e-data-manager json="@roles.ToArray()" updateUrl="/api/Role/UpdateUserRole"
+                                offline="true" adaptor="RemoteSaveAdaptor"></e-data-manager>
+                <e-grid-editSettings allowEditing="true" allowAdding="false" allowDeleting="false"></e-grid-editSettings>
+                <e-grid-filterSettings type="Excel"></e-grid-filterSettings>
+                <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+                <e-grid-columns>
+                    <e-grid-column field="CounterId" headerText="Id" isPrimaryKey="true" visible="false"></e-grid-column>
+                    <e-grid-column field="ApplicationUserId" headerText="Id người dùng" visible="false"></e-grid-column>
+                    <e-grid-column field="RoleName" headerText="Tên vai trò" allowEditing="false"></e-grid-column>
+                    <e-grid-column field="IsHaveAccess" headerText="Quyền truy cập" displayAsCheckBox="true" type="boolean" editType="booleanedit"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
         </div>
     </div>
 </section>
@@ -42,10 +52,6 @@
 
         function actionComplete(args) {
             if (args.requestType === 'beginEdit') {
-                var dialog = args.dialog;
-                dialog.showCloseIcon = false;
-                // change the header of the dialog
-                dialog.header = 'Chỉnh sửa ' + args.rowData['Email'];
             }
         }
     </script>
