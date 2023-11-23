@@ -24,8 +24,8 @@
             <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật quyền"></ejs-message>
         </div>
         <div class="row mt-2">
-            <ejs-grid id="Grid" actionComplete="completeGrid" allowPaging="true" allowSorting="true" allowFiltering="true"
-                      actionComplete="actionComplete" toolbar="@(new List<string>() { "Cancel", "Update", "Search"})" locale="vi-VN"
+            <ejs-grid id="Grid" allowPaging="true" allowSorting="true" allowFiltering="true"
+                      toolbar="@(new List<string>() { "Cancel", "Update", "Search"})" locale="vi-VN"
                       printMode="CurrentPage">
                 <e-grid-groupSettings showGroupedColumn="true" showDropArea="true"></e-grid-groupSettings>
                 <e-data-manager json="@roles.ToArray()" updateUrl="/api/Role/UpdateUserRole"
@@ -46,13 +46,6 @@
 
 @section Scripts{
     <script>
-        function actionBegin(args) {
 
-        }
-
-        function actionComplete(args) {
-            if (args.requestType === 'beginEdit') {
-            }
-        }
     </script>
 }

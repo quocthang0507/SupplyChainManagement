@@ -10,7 +10,7 @@
         /// <summary>
         /// Nông dân
         /// </summary>
-        public const string Farmer = "Famer";
+        public const string Farmer = "Farmer";
 
         /// <summary>
         /// Người dùng
