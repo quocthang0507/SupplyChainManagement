@@ -11,9 +11,9 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />
-		<PackageReference Include="MongoDB.Bson" Version="2.22.0" />
-		<PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />
+		<PackageReference Include="MongoDB.Bson" Version="2.23.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.23.1" />
 		<PackageReference Include="Realm" Version="11.6.1" />
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
