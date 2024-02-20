@@ -7,6 +7,5 @@ namespace ApplicationCore.Entities
     [CollectionName("Roles")]
     public class ApplicationRole : MongoIdentityRole<ObjectId>
     {
-
     }
 }

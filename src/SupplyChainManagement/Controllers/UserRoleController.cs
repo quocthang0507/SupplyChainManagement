@@ -16,7 +16,6 @@ namespace SupplyChainManagement.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleController _roleController;
 
-
         public UserRoleController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IRoles roles)
         {
             _userManager = userManager;
