@@ -1,0 +1,45 @@
+﻿@model ApplicationCore.Entities.QRCodeModel
+
+@{
+    ViewData["Title"] = "QR Code";
+    Layout = "_PartialLayout";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="QRCodeText" class="form-label"></label>
+                <input asp-for="QRCodeText" class="form-control" />
+                <span asp-validation-for="QRCodeText" class="text-danger"></span>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label asp-for="DarkColor" class="form-label"></label>
+                    <input asp-for="DarkColor" type="color" class="form-control form-control-color" value="@ViewBag.DarkColor" />
+                </div>
+                <div class="col">
+                    <label asp-for="LightColor" class="form-label"></label>
+                    <input asp-for="LightColor" type="color" class="form-control form-control-color" value="@ViewBag.LightColor" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Tạo mã QR" class="btn btn-primary" />
+            </div>
+            @if (ViewBag.QRCodeUri != null)
+            {
+                <div class="mb-3">
+                    <img title="QR code" alt="QR code" src="@ViewBag.QRCodeUri" class="img-thumbnail" />
+                </div>
+            }
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
