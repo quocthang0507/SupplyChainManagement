@@ -8,19 +8,19 @@
 <div class="alert alert-warning" role="alert">
     <p>
         <span class="glyphicon glyphicon-warning-sign"></span>
-        <strong>This action generates new recovery codes.</strong>
+        <strong>Hành động này tạo các mã khôi phục mới.</strong>
     </p>
     <p>
-        If you lose your device and don't have the recovery codes you will lose access to your account.
+        Nếu bạn thất lạc thiết bị và không có các mã khôi phục, bạn sẽ mất quyền truy cập vào tài khoản của bạn.
     </p>
     <p>
-        Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a asp-action="ResetAuthenticatorWarning">reset your authenticator keys.</a>
+        Tạo các mã khôi phục mới không làm thay đổi các khóa dùng trong các ứng dụng chứng thực hai bước. 
+        Nếu bạn muốn thay đổi khóa được dùng trong một ứng dụng chứng thực, bạn nên vào <a asp-action="ResetAuthenticatorWarning">đây</a> để khôi phục khóa chứng thực.
     </p>
 </div>
 
 <div>
     <form asp-action="GenerateRecoveryCodes" method="post" class="form-group">
-        <button class="btn btn-danger" type="submit">Generate Recovery Codes</button>
+        <button class="btn btn-danger" type="submit">Tạo các mã khôi phục</button>
     </form>
 </div>

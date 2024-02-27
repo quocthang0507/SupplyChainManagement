@@ -1,15 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace ApplicationCore.Entities
+﻿namespace ApplicationCore.Entities
 {
     /// <summary>
     /// Nông hộ
     /// </summary>
-    public class FarmingHousehold
+    public class FarmingHousehold : UserProfile
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string FarmingHouseholdId { get; set; }
+
     }
 }

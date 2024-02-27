@@ -24,6 +24,8 @@
 
         public string VietnamUnitsCollectionName { get; set; } = null!;
 
+        public string FarmingHouseholdCollectionName { get; set; } = null!;
+
         #endregion
     }
 }

@@ -17,6 +17,7 @@ namespace SupplyChainManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(QRCodeModel model)
         {
             ViewBag.DarkColor = model.DarkColor;
