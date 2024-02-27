@@ -2,14 +2,9 @@
 
 namespace Infrastructure.Data.Seeders
 {
-    public class PhotoperiodismSeeder : ISeeder
+    public class PhotoperiodismSeeder(PhotoperiodismService photoperiodismService) : ISeeder
     {
-        private readonly PhotoperiodismService photoperiodismService;
-
-        public PhotoperiodismSeeder(PhotoperiodismService photoperiodismService)
-        {
-            this.photoperiodismService = photoperiodismService;
-        }
+        private readonly PhotoperiodismService photoperiodismService = photoperiodismService;
 
         public async Task InitData()
         {

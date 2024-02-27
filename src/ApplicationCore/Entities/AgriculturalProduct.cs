@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDbGenericRepository.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
@@ -7,6 +8,7 @@ namespace ApplicationCore.Entities
     /// <summary>
     /// Nông sản
     /// </summary>
+    [CollectionName("AgriculturalProducts")]
     public class AgriculturalProduct
     {
         [BsonId]

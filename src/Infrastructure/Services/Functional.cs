@@ -23,7 +23,8 @@ namespace Infrastructure.Services
         private readonly IRoles _roles;
         private readonly PhotoperiodismService _photoperiodismService;
         private readonly VietnamUnitsService _vietnamUnitsService;
-        private readonly ProductTypesService _productTypesService
+        private readonly ProductTypesService _productTypesService;
+        private readonly FarmingHouseholdsService _householdsService;
         private readonly IWebHostEnvironment _env;
 
         public Functional(UserManager<ApplicationUser> userManager,
@@ -34,6 +35,7 @@ namespace Infrastructure.Services
             PhotoperiodismService photoperiodismService,
             VietnamUnitsService vietnamUnitsService,
             ProductTypesService productTypesService,
+            FarmingHouseholdsService householdsService
             IWebHostEnvironment env)
         {
             _userManager = userManager;
@@ -44,6 +46,7 @@ namespace Infrastructure.Services
             _photoperiodismService = photoperiodismService;
             _vietnamUnitsService = vietnamUnitsService;
             _productTypesService = productTypesService;
+            _householdsService = householdsService;
             _env = env;
         }
 
@@ -93,6 +96,7 @@ namespace Infrastructure.Services
             await new FarmSeeder(_farmTypesService).InitData();
             await new PhotoperiodismSeeder(_photoperiodismService).InitData();
             await new ProductTypeSeeder(_productTypesService).InitData();
+            await new FarmingHouseholdSeederTest(_householdsService).InitData();
         }
 
         public async Task SendEmailByGmailAsync(string fromEmail, string fromFullName, string subject, string messageBody, string toEmail, string toFullName, string smtpUser, string smtpPassword, string smtpHost, int smtpPort, bool smtpSSL)

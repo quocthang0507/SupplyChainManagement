@@ -29,6 +29,12 @@
         public string ProductTypesCollectionName { get; set; } = null!;
 
         public string ProductsCollectionName { get; set; } = null!;
+
+        public string TransportersCollectionName { get; set; } = null!;
+
+        public string RetailersCollectionName { get; set; } = null!;
+
+        public string FarmingHouseholdsCollectionName { get; set; } = null!;
         #endregion
     }
 }

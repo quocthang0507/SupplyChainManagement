@@ -34,11 +34,9 @@ namespace ApplicationCore.Entities
         public string Phone { get; set; }
 
         [Display(Name = "Địa chỉ email")]
-        [Required]
         public string Email { get; set; }
 
         [Display(Name = "Ngày sinh")]
-        [Required]
         public DateTime Birthday { get; set; }
 
         [Display(Name = "Kích hoạt")]
