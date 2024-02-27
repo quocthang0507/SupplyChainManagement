@@ -27,6 +27,8 @@
         public string FarmingHouseholdCollectionName { get; set; } = null!;
 
         public string ProductTypesCollectionName { get; set; } = null!;
+
+        public string ProductsCollectionName { get; set; } = null!;
         #endregion
     }
 }

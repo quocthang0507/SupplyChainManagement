@@ -1,7 +1,60 @@
-﻿
+﻿@using ApplicationCore.Entities;
+@using Infrastructure.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> UserManager
+@inject ProductsService productsService
 @{
-    ViewData["Title"] = "AgriculturalProduct";
+    ViewData["Title"] = "Quản lý nông sản";
+    var profiles = await productsService.GetAsync();
+    List<object> commands = new List<object>();
+    commands.Add(new { type = "userstatus", buttonOption = new { content = "Xem danh sách nông sản", cssClass = "e-flat", iconCss = "e-icons e-list-unordered" } });
 }
 
-<h1>AgriculturalProduct</h1>
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house-user"></i></a></li>
+                        <li class="breadcrumb-item">Thành phần chuỗi cung ứng</li>
+                        <li class="breadcrumb-item active" aria-current="page">Quản lý nông sản</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <ejs-message id="msg_info_filled" severity="Info" variant="Filled" content="Nhấp đúp chuột vào ô bên dưới để cập nhật thông tin"></ejs-message>
+        </div>
+        <div class="row mt-2">
+            <ejs-grid id="Grid" allowPaging="true" allowSorting="true" allowFiltering="true" cssClass="border-0"
+                      toolbar="@(new List<string>() { "Cancel", "Edit", "Update", "Search", "Print" })" locale="vi-VN"
+                      printMode="CurrentPage" commandClick="commandClick">
+                <e-grid-groupSettings showGroupedColumn="true" showDropArea="true"></e-grid-groupSettings>
+                <e-data-manager json="@profiles.ToArray()" updateUrl="/api/UserProfile/UpdateByAdmin"
+                                adaptor="RemoteSaveAdaptor"></e-data-manager>
+                <e-grid-editSettings allowEditing="true" mode="Dialog"></e-grid-editSettings>
+                <e-grid-filterSettings type="Excel"></e-grid-filterSettings>
+                <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+                <e-grid-columns>
+                    <e-grid-column field="ProductName" headerText="Tên nông sản" validationRules="@(new { required=true})"></e-grid-column>
+                    <e-grid-column field="ProductCode" headerText="Mã nông sản" validationRules="@(new { required=true})"></e-grid-column>
+                    <e-grid-column field="Barcode" headerText="Mã vạch" validationRules="@(new { required=true})"></e-grid-column>
+                    <e-grid-column field="Description" headerText="Mô tả" validationRules="@(new { required=true})"></e-grid-column>
+                    <e-grid-column field="ProductImageUrl" headerText="Hình ảnh" validationRules="@(new { required=true})"></e-grid-column>
+                    <e-grid-column field="UnitOfMeasureId" headerText="Đơn vị" validationRules="@(new { required=true})"></e-grid-column>
+                    <e-grid-column headerText="Hành động" commands="commands"> </e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+</section>
 
+@section Scripts {
+    <script>
+        function commandClick(args) {
+            var appUserId = args.rowData['ApplicationUserId'];
+            window.location.href = '@Url.Action("ChangeRole", "UserRole")?applicationUserId=' + appUserId;
+        }
+    </script>
+}
