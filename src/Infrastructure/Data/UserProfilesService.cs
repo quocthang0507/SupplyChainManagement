@@ -24,7 +24,7 @@ namespace Infrastructure.Data
             await _usersCollection.Find(_ => true).ToPagedListAsync(pagingParams);
 
         public async Task<UserProfile?> GetAsync(string id) =>
-            await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            await _usersCollection.Find(x => x.UserProfileId == id).FirstOrDefaultAsync();
 
         public async Task<UserProfile?> GetByApplicationUserIdAsync(string id) =>
             await _usersCollection.Find(x => x.ApplicationUserId == id).FirstOrDefaultAsync();
@@ -33,20 +33,20 @@ namespace Infrastructure.Data
             await _usersCollection.InsertOneAsync(user);
 
         public async Task UpdateAsync(string id, UserProfile user) =>
-            await _usersCollection.ReplaceOneAsync(x => x.Id == id, user);
+            await _usersCollection.ReplaceOneAsync(x => x.UserProfileId == id, user);
 
         public async Task SetInactivatedAsync(string id) =>
             await _usersCollection.FindOneAndUpdateAsync(
-                x => x.Id == id,
+                x => x.UserProfileId == id,
                 Builders<UserProfile>.Update.Set(x => x.Activated, false));
 
         public async Task SetActivatedAsync(string id) =>
             await _usersCollection.FindOneAndUpdateAsync(
-                x => x.Id == id,
+                x => x.UserProfileId == id,
                 Builders<UserProfile>.Update.Set(x => x.Activated, true));
 
         public async Task DeleteAsync(string id) =>
-            await _usersCollection.DeleteOneAsync(x => x.Id == id);
+            await _usersCollection.DeleteOneAsync(x => x.UserProfileId == id);
 
         public async Task<bool> ExistsAsync(string userProfileId, string applicationUserId)
         {

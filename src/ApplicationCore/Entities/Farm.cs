@@ -13,7 +13,7 @@ namespace ApplicationCore.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string? FarmId { get; set; }
 
         public string TypeId { get; set; }
 

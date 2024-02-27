@@ -19,15 +19,15 @@ namespace Infrastructure.Data
             await _farmTypeCollection.InsertOneAsync(farmType);
 
         public async Task DeleteAsync(string id) =>
-            await _farmTypeCollection.DeleteOneAsync(x => x.Id == id);
+            await _farmTypeCollection.DeleteOneAsync(x => x.FarmTypeId == id);
 
         public async Task<List<FarmType>> GetAsync() =>
             await _farmTypeCollection.Find(_ => true).ToListAsync();
 
         public async Task<FarmType?> GetAsync(string id) =>
-            await _farmTypeCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            await _farmTypeCollection.Find(x => x.FarmTypeId == id).FirstOrDefaultAsync();
 
         public async Task UpdateAsync(string id, FarmType farmType) =>
-            await _farmTypeCollection.ReplaceOneAsync(x => x.Id == id, farmType);
+            await _farmTypeCollection.ReplaceOneAsync(x => x.FarmTypeId == id, farmType);
     }
 }

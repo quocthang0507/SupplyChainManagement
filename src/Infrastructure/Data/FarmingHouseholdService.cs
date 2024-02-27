@@ -24,7 +24,7 @@ namespace Infrastructure.Data
             await _farmingHouseholdsCollection.Find(_ => true).ToPagedListAsync(pagingParams);
 
         public async Task<FarmingHousehold?> GetAsync(string id) =>
-            await _farmingHouseholdsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            await _farmingHouseholdsCollection.Find(x => x.UserProfileId == id).FirstOrDefaultAsync();
 
         public async Task<FarmingHousehold?> GetByApplicationUserIdAsync(string id) =>
             await _farmingHouseholdsCollection.Find(x => x.ApplicationUserId == id).FirstOrDefaultAsync();
@@ -33,19 +33,19 @@ namespace Infrastructure.Data
             await _farmingHouseholdsCollection.InsertOneAsync(farmingHousehold);
 
         public async Task UpdateAsync(string id, FarmingHousehold farmingHousehold) =>
-            await _farmingHouseholdsCollection.ReplaceOneAsync(x => x.Id == id, farmingHousehold);
+            await _farmingHouseholdsCollection.ReplaceOneAsync(x => x.UserProfileId == id, farmingHousehold);
 
         public async Task SetInactivatedAsync(string id) =>
             await _farmingHouseholdsCollection.FindOneAndUpdateAsync(
-                x => x.Id == id,
+                x => x.UserProfileId == id,
                 Builders<FarmingHousehold>.Update.Set(x => x.Activated, false));
 
         public async Task SetActivatedAsync(string id) =>
             await _farmingHouseholdsCollection.FindOneAndUpdateAsync(
-                x => x.Id == id,
+                x => x.UserProfileId == id,
                 Builders<FarmingHousehold>.Update.Set(x => x.Activated, true));
 
         public async Task DeleteAsync(string id) =>
-            await _farmingHouseholdsCollection.DeleteOneAsync(x => x.Id == id);
+            await _farmingHouseholdsCollection.DeleteOneAsync(x => x.UserProfileId == id);
     }
 }

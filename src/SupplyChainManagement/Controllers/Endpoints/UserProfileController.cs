@@ -116,7 +116,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         public async Task<IActionResult> UpdateByAdmin([FromBody] CrudViewModel<UserProfile> payload)
         {
             UserProfile profile = payload.value;
-            await _userProfilesService.UpdateAsync(profile.Id, profile);
+            await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
             return Ok(ApiResponse.Success(profile));
         }
 
@@ -133,7 +133,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            await _userProfilesService.UpdateAsync(profile.Id, profile);
+            await _userProfilesService.UpdateAsync(profile.UserProfileId, profile);
             return Ok(ApiResponse.Success(profile));
         }
 
@@ -225,7 +225,7 @@ namespace SupplyChainManagement.Controllers.Endpoints
                     var result = await _userManager.DeleteAsync(user);
                     if (result.Succeeded)
                     {
-                        await _userProfilesService.DeleteAsync(userProfile.Id);
+                        await _userProfilesService.DeleteAsync(userProfile.UserProfileId);
                     }
                     return Ok();
                 }
