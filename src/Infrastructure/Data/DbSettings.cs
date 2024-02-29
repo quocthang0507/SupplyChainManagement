@@ -35,6 +35,8 @@
         public string RetailersCollectionName { get; set; } = null!;
 
         public string FarmingHouseholdsCollectionName { get; set; } = null!;
+
+        public string AgriculturalProductsCollectionName { get; set; } = null!;
         #endregion
     }
 }
