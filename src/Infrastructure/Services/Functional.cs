@@ -35,7 +35,7 @@ namespace Infrastructure.Services
             PhotoperiodismService photoperiodismService,
             VietnamUnitsService vietnamUnitsService,
             ProductTypesService productTypesService,
-            FarmingHouseholdsService householdsService
+            FarmingHouseholdsService householdsService,
             IWebHostEnvironment env)
         {
             _userManager = userManager;

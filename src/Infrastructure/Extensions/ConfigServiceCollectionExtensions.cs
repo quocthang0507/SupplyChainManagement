@@ -108,6 +108,18 @@ namespace Infrastructure.Extensions
 
             services.AddSingleton<VietnamUnitsService>();
 
+            services.AddSingleton<FarmingHouseholdsService>();
+
+            services.AddSingleton<ProductTypesService>();
+
+            services.AddSingleton<ProductsService>();
+
+            services.AddSingleton<TransportersService>();
+
+            services.AddSingleton<RetailersService>();
+
+            services.AddSingleton<AgriculturalProductsService>();
+
             return services;
         }
     }
