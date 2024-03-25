@@ -19,7 +19,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Hệ thống</div>
-                <a class="nav-link" href="/">
+                <a class="nav-link @Html.IsSelected("Home", "Index")" href="/">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
                     Trang chủ
                 </a>
@@ -30,10 +30,10 @@
                     Quản lý người dùng
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="group1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <div class="accordion-collapse collapse show" id="group1" aria-labelledby="headingOne">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" asp-controller="UserRole" asp-action="UserProfilesEdit">Quản lý hồ sơ</a>
-                        <a class="nav-link" asp-controller="UserRole" asp-action="Role">Danh sách vai trò</a>
+                        <a class="nav-link @Html.IsSelected("UserRole", "UserProfilesEdit")" asp-controller="UserRole" asp-action="UserProfilesEdit">Quản lý hồ sơ</a>
+                        <a class="nav-link @Html.IsSelected("UserRole", "Role")" asp-controller="UserRole" asp-action="Role">Danh sách vai trò</a>
                     </nav>
                 </div>
                 @* Nhóm menu 2 *@
@@ -42,13 +42,13 @@
                     Thành phần chuỗi cung ứng
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="group2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <div class=" accordion-collapse collapse show" id="group2" aria-labelledby="headingOne">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" asp-controller="SupplyChain" asp-action="FarmingHousehold">Nông hộ</a>
-                        <a class="nav-link" asp-controller="SupplyChain" asp-action="Farm">Nông trại</a>
-                        <a class="nav-link" asp-controller="SupplyChain" asp-action="AgriculturalProduct">Nông sản</a>
-                        <a class="nav-link" asp-controller="SupplyChain" asp-action="Transporter">Nhà vận chuyển</a>
-                        <a class="nav-link" asp-controller="SupplyChain" asp-action="Retailer">Nhà bán lẻ</a>
+                        <a class="nav-link @Html.IsSelected("SupplyChain", "FarmingHousehold")" asp-controller="SupplyChain" asp-action="FarmingHousehold">Nông hộ</a>
+                        <a class="nav-link @Html.IsSelected("SupplyChain", "Farm")" asp-controller="SupplyChain" asp-action="Farm">Nông trại</a>
+                        <a class="nav-link @Html.IsSelected("SupplyChain", "AgriculturalProduct")" asp-controller="SupplyChain" asp-action="AgriculturalProduct">Nông sản</a>
+                        <a class="nav-link @Html.IsSelected("SupplyChain", "Transporter")" asp-controller="SupplyChain" asp-action="Transporter">Nhà vận chuyển</a>
+                        <a class="nav-link @Html.IsSelected("SupplyChain", "Retailer")" asp-controller="SupplyChain" asp-action="Retailer">Nhà bán lẻ</a>
                     </nav>
                 </div>
                 <a class="nav-link" asp-controller="QRCode" asp-action="Index" aria-expanded="false" aria-controls="collapseLayouts">
